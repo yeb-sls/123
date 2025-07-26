@@ -1,0 +1,11 @@
+
+.profile-container.data-v-14bc1b43 {
+  padding: 40rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+button.data-v-14bc1b43 {
+  width: 100%;
+}
+

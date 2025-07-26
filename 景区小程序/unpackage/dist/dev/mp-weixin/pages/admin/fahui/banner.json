@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "板块头图管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "开发人员专用",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

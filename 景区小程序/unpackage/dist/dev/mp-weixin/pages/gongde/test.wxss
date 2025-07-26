@@ -1,0 +1,113 @@
+
+.test-page.data-v-6d0c0236 {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+  padding-bottom: 40rpx;
+}
+.test-header.data-v-6d0c0236 {
+  text-align: center;
+  padding: 48rpx 32rpx 32rpx 32rpx;
+}
+.title.data-v-6d0c0236 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  display: block;
+  margin-bottom: 8rpx;
+}
+.subtitle.data-v-6d0c0236 {
+  font-size: 26rpx;
+  color: #666;
+  display: block;
+}
+.test-section.data-v-6d0c0236 {
+  background: #fff;
+  border-radius: 18rpx;
+  margin: 24rpx 16rpx 0 16rpx;
+  padding: 32rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.section-title.data-v-6d0c0236 {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 24rpx;
+}
+.btn-group.data-v-6d0c0236 {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+.test-btn.data-v-6d0c0236 {
+  width: 100%;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+.result-section.data-v-6d0c0236 {
+  background: #fff;
+  border-radius: 18rpx;
+  margin: 24rpx 16rpx 0 16rpx;
+  padding: 32rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.result-list.data-v-6d0c0236 {
+  max-height: 400rpx;
+  overflow-y: auto;
+}
+.result-item.data-v-6d0c0236 {
+  display: flex;
+  align-items: center;
+  padding: 16rpx;
+  margin-bottom: 12rpx;
+  border-radius: 8rpx;
+  background: #f8f9fa;
+  border-left: 4rpx solid #ccc;
+}
+.result-item.success.data-v-6d0c0236 {
+  background: linear-gradient(135deg, #f6ffed 0%, #fff 100%);
+  border-left-color: #52c41a;
+}
+.result-item.error.data-v-6d0c0236 {
+  background: linear-gradient(135deg, #fff2f0 0%, #fff 100%);
+  border-left-color: #ff4d4f;
+}
+.result-icon.data-v-6d0c0236 {
+  font-size: 24rpx;
+  margin-right: 12rpx;
+}
+.result-text.data-v-6d0c0236 {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+}
+.result-time.data-v-6d0c0236 {
+  font-size: 22rpx;
+  color: #999;
+}
+.action-section.data-v-6d0c0236 {
+  margin: 48rpx 16rpx 0 16rpx;
+}
+.action-btn.data-v-6d0c0236 {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  background: linear-gradient(90deg, #ff6b35 0%, #ff8c42 100%);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+

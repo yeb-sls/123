@@ -1,0 +1,1 @@
+<view class="test-container data-v-37251ce9"><text class="test-title data-v-37251ce9">活动管理测试页面</text><text class="test-desc data-v-37251ce9">这是一个测试页面，用于验证编译是否正常</text><button data-event-opts="{{[['tap',[['goBack',['$event']]]]]}}" class="test-btn data-v-37251ce9" bindtap="__e">返回</button></view>

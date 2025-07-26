@@ -1,0 +1,149 @@
+
+.confirm-page.data-v-263189cc {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+  padding-bottom: 40rpx;
+}
+.step-bar.data-v-263189cc {
+  display: flex;
+  justify-content: space-between;
+  margin: 32rpx 16rpx 24rpx 16rpx;
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.step.data-v-263189cc {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: #bbb;
+  position: relative;
+}
+.step.active.data-v-263189cc {
+  color: #2d8cf0;
+  font-weight: bold;
+}
+.card.data-v-263189cc {
+  background: #fff;
+  border-radius: 18rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+  margin: 24rpx 16rpx 0 16rpx;
+  padding: 32rpx 24rpx 12rpx 24rpx;
+}
+.card-title.data-v-263189cc {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 18rpx;
+  display: flex;
+  align-items: center;
+}
+.icon.data-v-263189cc {
+  font-size: 30rpx;
+  margin-right: 8rpx;
+}
+.info-item.data-v-263189cc {
+  display: flex;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+.label.data-v-263189cc {
+  width: 140rpx;
+  color: #666;
+  flex-shrink: 0;
+}
+.value.data-v-263189cc {
+  flex: 1;
+  color: #333;
+  word-break: break-all;
+}
+.value.price.data-v-263189cc {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+.wish-content.data-v-263189cc {
+  background: #f8f9fa;
+  padding: 16rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.5;
+}
+.price-card.data-v-263189cc {
+  background: linear-gradient(135deg, #fff7ec 0%, #fff 100%);
+  border: 2rpx solid #ffd591;
+}
+.price-item.data-v-263189cc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+.price.data-v-263189cc {
+  color: #ff6b35;
+  font-weight: bold;
+}
+.price-total.data-v-263189cc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1px solid #ffd591;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.total-price.data-v-263189cc {
+  color: #ff4d4f;
+  font-size: 32rpx;
+}
+.merit-card.data-v-263189cc {
+  background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+  border: 2rpx solid #b3c6e0;
+}
+.merit-content.data-v-263189cc {
+  background: linear-gradient(135deg, #fff7ec 0%, #fff 100%);
+  padding: 20rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #ffd591;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  text-align: center;
+}
+.btn-group.data-v-263189cc {
+  display: flex;
+  gap: 24rpx;
+  margin: 48rpx 16rpx 0 16rpx;
+}
+.confirm-btn.data-v-263189cc {
+  flex: 1;
+  font-size: 32rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit-btn.data-v-263189cc {
+  flex: 1;
+  font-size: 32rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: #f8f9fa;
+  color: #2d8cf0;
+  border: 2rpx solid #e0eaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

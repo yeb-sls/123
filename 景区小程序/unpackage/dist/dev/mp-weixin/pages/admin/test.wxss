@@ -1,0 +1,113 @@
+
+.test-container.data-v-c9a4e8ea {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+.test-header.data-v-c9a4e8ea {
+  background: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+.test-title.data-v-c9a4e8ea {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+.test-desc.data-v-c9a4e8ea {
+  font-size: 28rpx;
+  color: #666;
+}
+.test-section.data-v-c9a4e8ea {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+.section-title.data-v-c9a4e8ea {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+.test-items.data-v-c9a4e8ea {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200rpx, 1fr));
+  gap: 20rpx;
+}
+.test-item.data-v-c9a4e8ea {
+  border: 1rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.test-item.data-v-c9a4e8ea:active {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+.test-icon.data-v-c9a4e8ea {
+  font-size: 48rpx;
+  margin-bottom: 10rpx;
+  display: block;
+}
+.test-name.data-v-c9a4e8ea {
+  font-size: 28rpx;
+  color: #333;
+  display: block;
+}
+.info-items.data-v-c9a4e8ea {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+.info-item.data-v-c9a4e8ea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx;
+  background: #f8f9fa;
+  border-radius: 8rpx;
+}
+.info-label.data-v-c9a4e8ea {
+  font-size: 28rpx;
+  color: #333;
+}
+.info-value.data-v-c9a4e8ea {
+  font-size: 28rpx;
+  color: #007aff;
+  font-weight: bold;
+}
+.result-list.data-v-c9a4e8ea {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+.result-item.data-v-c9a4e8ea {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 15rpx;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+}
+.result-item.success.data-v-c9a4e8ea {
+  background: #e8f5e8;
+  color: #34c759;
+}
+.result-item.error.data-v-c9a4e8ea {
+  background: #ffebee;
+  color: #ff3b30;
+}
+.result-icon.data-v-c9a4e8ea {
+  font-size: 24rpx;
+}
+.result-text.data-v-c9a4e8ea {
+  flex: 1;
+}
+

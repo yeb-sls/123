@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收件信息管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

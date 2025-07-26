@@ -1,0 +1,103 @@
+
+.confirm-bg.data-v-dbf1ff2e {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+}
+.confirm-container.data-v-dbf1ff2e {
+  padding-bottom: 40rpx;
+  padding-top: 1rpx;
+}
+.confirm-title.data-v-dbf1ff2e {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  text-align: center;
+  margin: 32rpx 0 24rpx 0;
+  letter-spacing: 2rpx;
+}
+.section-title.data-v-dbf1ff2e {
+  font-weight: bold;
+  margin: 28rpx 0 10rpx 0;
+  font-size: 30rpx;
+  color: #2d8cf0;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.info-card.data-v-dbf1ff2e {
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(224, 234, 255, 0.3);
+  padding: 24rpx 20rpx 16rpx 20rpx;
+  margin: 0 16rpx 12rpx 16rpx;
+  border: 2rpx solid #f0f8ff;
+  transition: all 0.3s ease;
+}
+.info-header.data-v-dbf1ff2e {
+  margin-bottom: 12rpx;
+}
+.info-label.data-v-dbf1ff2e {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+}
+.info-row.data-v-dbf1ff2e {
+  display: flex;
+  gap: 18rpx;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+  line-height: 1.4;
+}
+.info-key.data-v-dbf1ff2e {
+  color: #666;
+  min-width: 120rpx;
+}
+.info-value.data-v-dbf1ff2e {
+  color: #333;
+  font-weight: 500;
+  flex: 1;
+}
+.total-row.data-v-dbf1ff2e {
+  border-top: 1px solid #e0eaff;
+  padding-top: 12rpx;
+  margin-top: 12rpx;
+  font-weight: bold;
+}
+.total-card.data-v-dbf1ff2e {
+  background: linear-gradient(135deg, #f0f8ff 0%, #e0eaff 100%);
+  border: 2rpx solid #2d8cf0;
+}
+.total-price.data-v-dbf1ff2e {
+  color: #ff4d4f;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.btn-group.data-v-dbf1ff2e {
+  margin: 48rpx 16rpx 0 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.confirm-btn.data-v-dbf1ff2e {
+  width: 100%;
+  font-size: 32rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+.back-btn.data-v-dbf1ff2e {
+  width: 100%;
+  font-size: 28rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: #f8f9fa;
+  color: #666;
+  border: 2rpx solid #e0eaff;
+  font-weight: bold;
+}
+

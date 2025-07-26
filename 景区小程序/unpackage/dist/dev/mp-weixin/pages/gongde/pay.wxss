@@ -1,0 +1,194 @@
+
+.pay-page.data-v-31850c98 {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+  padding-bottom: 40rpx;
+}
+.step-bar.data-v-31850c98 {
+  display: flex;
+  justify-content: space-between;
+  margin: 32rpx 16rpx 24rpx 16rpx;
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.step.data-v-31850c98 {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: #bbb;
+  position: relative;
+}
+.step.active.data-v-31850c98 {
+  color: #2d8cf0;
+  font-weight: bold;
+}
+.card.data-v-31850c98 {
+  background: #fff;
+  border-radius: 18rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+  margin: 24rpx 16rpx 0 16rpx;
+  padding: 32rpx 24rpx 12rpx 24rpx;
+}
+.card-title.data-v-31850c98 {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 18rpx;
+  display: flex;
+  align-items: center;
+}
+.icon.data-v-31850c98 {
+  font-size: 30rpx;
+  margin-right: 8rpx;
+}
+.order-info.data-v-31850c98 {
+  margin-top: 16rpx;
+}
+.info-item.data-v-31850c98 {
+  display: flex;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+.label.data-v-31850c98 {
+  width: 140rpx;
+  color: #666;
+  flex-shrink: 0;
+}
+.value.data-v-31850c98 {
+  flex: 1;
+  color: #333;
+  word-break: break-all;
+}
+.value.price.data-v-31850c98 {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+.payment-methods.data-v-31850c98 {
+  margin-top: 16rpx;
+}
+.method-item.data-v-31850c98 {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  border: 2rpx solid #e0eaff;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+.method-item.active.data-v-31850c98 {
+  border-color: #2d8cf0;
+  background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+}
+.method-icon.data-v-31850c98 {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+.method-info.data-v-31850c98 {
+  flex: 1;
+}
+.method-name.data-v-31850c98 {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+.method-desc.data-v-31850c98 {
+  font-size: 24rpx;
+  color: #999;
+}
+.method-check.data-v-31850c98 {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: #2d8cf0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+.price-card.data-v-31850c98 {
+  background: linear-gradient(135deg, #fff7ec 0%, #fff 100%);
+  border: 2rpx solid #ffd591;
+}
+.price-item.data-v-31850c98 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+.price.data-v-31850c98 {
+  color: #ff6b35;
+  font-weight: bold;
+}
+.price-total.data-v-31850c98 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1px solid #ffd591;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.total-price.data-v-31850c98 {
+  color: #ff4d4f;
+  font-size: 32rpx;
+}
+.merit-card.data-v-31850c98 {
+  background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+  border: 2rpx solid #b3c6e0;
+}
+.merit-content.data-v-31850c98 {
+  background: linear-gradient(135deg, #fff7ec 0%, #fff 100%);
+  padding: 20rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #ffd591;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  text-align: center;
+}
+.btn-group.data-v-31850c98 {
+  display: flex;
+  gap: 24rpx;
+  margin: 48rpx 16rpx 0 16rpx;
+}
+.pay-btn.data-v-31850c98 {
+  flex: 1;
+  font-size: 32rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pay-btn[disabled].data-v-31850c98 {
+  background: #ccc;
+  box-shadow: none;
+}
+.cancel-btn.data-v-31850c98 {
+  flex: 1;
+  font-size: 32rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: #f8f9fa;
+  color: #666;
+  border: 2rpx solid #e0eaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
