@@ -1,0 +1,316 @@
+
+.stats-container.data-v-5ab13503 {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20rpx;
+}
+
+/* 页面头部 */
+.page-header.data-v-5ab13503 {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.page-title.data-v-5ab13503 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+.page-desc.data-v-5ab13503 {
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 统计卡片 */
+.stats-grid.data-v-5ab13503 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+}
+.stats-card.data-v-5ab13503 {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.card-icon.data-v-5ab13503 {
+  font-size: 48rpx;
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-content.data-v-5ab13503 {
+  flex: 1;
+}
+.card-number.data-v-5ab13503 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+.card-label.data-v-5ab13503 {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 内容区域 */
+.section.data-v-5ab13503 {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+.section-header.data-v-5ab13503 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+.section-title.data-v-5ab13503 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.refresh-btn.data-v-5ab13503 {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15rpx 25rpx;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+}
+
+/* 项目统计 */
+.project-stats.data-v-5ab13503 {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.project-stat-item.data-v-5ab13503 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 15rpx;
+  border-left: 6rpx solid #667eea;
+}
+.project-info.data-v-5ab13503 {
+  flex: 1;
+}
+.project-name.data-v-5ab13503 {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5rpx;
+}
+.project-category.data-v-5ab13503 {
+  font-size: 24rpx;
+  color: #666;
+}
+.project-numbers.data-v-5ab13503 {
+  display: flex;
+  gap: 30rpx;
+}
+.number-item.data-v-5ab13503 {
+  text-align: center;
+}
+.number-label.data-v-5ab13503 {
+  font-size: 22rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 5rpx;
+}
+.number-value.data-v-5ab13503 {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333;
+}
+.number-value.active.data-v-5ab13503 {
+  color: #52c41a;
+}
+.number-value.expired.data-v-5ab13503 {
+  color: #ff4d4f;
+}
+.number-value.full.data-v-5ab13503 {
+  color: #fa8c16;
+}
+.number-value.unknown.data-v-5ab13503 {
+  color: #999;
+}
+
+/* 分类统计 */
+.category-stats.data-v-5ab13503 {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+.category-stat-item.data-v-5ab13503 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 15rpx;
+}
+.category-info.data-v-5ab13503 {
+  flex: 1;
+}
+.category-name.data-v-5ab13503 {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5rpx;
+}
+.category-count.data-v-5ab13503 {
+  font-size: 24rpx;
+  color: #666;
+}
+.category-progress.data-v-5ab13503 {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  min-width: 150rpx;
+}
+.progress-bar.data-v-5ab13503 {
+  flex: 1;
+  height: 20rpx;
+  background: #e0e0e0;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+.progress-fill.data-v-5ab13503 {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10rpx;
+  transition: width 0.3s ease;
+}
+.progress-text.data-v-5ab13503 {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: bold;
+  min-width: 60rpx;
+  text-align: right;
+}
+
+/* 时间统计 */
+.time-stats.data-v-5ab13503 {
+  padding: 20rpx 0;
+}
+.time-chart.data-v-5ab13503 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 200rpx;
+  padding: 20rpx 0;
+}
+.month-bar.data-v-5ab13503 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 10rpx;
+}
+.bar-container.data-v-5ab13503 {
+  width: 40rpx;
+  height: 120rpx;
+  background: #e0e0e0;
+  border-radius: 20rpx;
+  overflow: hidden;
+  position: relative;
+}
+.bar-fill.data-v-5ab13503 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 20rpx;
+  transition: height 0.3s ease;
+}
+.month-label.data-v-5ab13503 {
+  font-size: 22rpx;
+  color: #666;
+}
+.month-value.data-v-5ab13503 {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 导出功能 */
+.export-section.data-v-5ab13503 {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+.export-buttons.data-v-5ab13503 {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+.export-btn.data-v-5ab13503 {
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  padding: 25rpx;
+  background: #f8f9fa;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 15rpx;
+  font-size: 28rpx;
+  color: #333;
+  transition: all 0.3s ease;
+}
+.export-btn.data-v-5ab13503:hover {
+  background: #e0e0e0;
+  border-color: #667eea;
+}
+.export-icon.data-v-5ab13503 {
+  font-size: 32rpx;
+}
+.export-text.data-v-5ab13503 {
+  font-weight: bold;
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+.stats-grid.data-v-5ab13503 {
+    grid-template-columns: 1fr;
+}
+.project-stat-item.data-v-5ab13503 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15rpx;
+}
+.project-numbers.data-v-5ab13503 {
+    width: 100%;
+    justify-content: space-between;
+}
+.time-chart.data-v-5ab13503 {
+    height: 150rpx;
+}
+.bar-container.data-v-5ab13503 {
+    width: 30rpx;
+    height: 80rpx;
+}
+}
+

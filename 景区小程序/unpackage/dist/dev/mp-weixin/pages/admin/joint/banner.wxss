@@ -1,0 +1,208 @@
+
+.admin-container.data-v-7dc426ca {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+.page-header.data-v-7dc426ca {
+  background: #fff;
+  padding: 30rpx;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-title.data-v-7dc426ca {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+.page-desc.data-v-7dc426ca {
+  font-size: 28rpx;
+  color: #666;
+}
+.add-btn.data-v-7dc426ca {
+  background: #667eea;
+  color: #fff;
+  border: none;
+  padding: 20rpx 40rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+.banners-list.data-v-7dc426ca {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300rpx, 1fr));
+  gap: 20rpx;
+}
+.banner-card.data-v-7dc426ca {
+  background: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.banner-preview.data-v-7dc426ca {
+  position: relative;
+  height: 200rpx;
+  overflow: hidden;
+}
+.banner-img.data-v-7dc426ca {
+  width: 100%;
+  height: 100%;
+}
+.banner-overlay.data-v-7dc426ca {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.banner-card:hover .banner-overlay.data-v-7dc426ca {
+  opacity: 1;
+}
+.banner-actions.data-v-7dc426ca {
+  display: flex;
+  gap: 20rpx;
+}
+.action-btn.data-v-7dc426ca {
+  padding: 15rpx 30rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  border: none;
+}
+.action-btn.edit.data-v-7dc426ca {
+  background: #667eea;
+  color: #fff;
+}
+.action-btn.delete.data-v-7dc426ca {
+  background: #ff4757;
+  color: #fff;
+}
+.banner-info.data-v-7dc426ca {
+  padding: 20rpx;
+}
+.info-row.data-v-7dc426ca {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+.info-label.data-v-7dc426ca {
+  font-size: 26rpx;
+  color: #999;
+}
+.info-value.data-v-7dc426ca {
+  font-size: 26rpx;
+  color: #333;
+}
+.info-value.enabled.data-v-7dc426ca {
+  color: #28a745;
+}
+.info-value.disabled.data-v-7dc426ca {
+  color: #dc3545;
+}
+.popup-content.data-v-7dc426ca {
+  background: #fff;
+  border-radius: 12rpx;
+  width: 600rpx;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.popup-header.data-v-7dc426ca {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.popup-title.data-v-7dc426ca {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.popup-close.data-v-7dc426ca {
+  font-size: 40rpx;
+  color: #999;
+  cursor: pointer;
+}
+.form-content.data-v-7dc426ca {
+  padding: 30rpx;
+}
+.form-item.data-v-7dc426ca {
+  margin-bottom: 30rpx;
+}
+.form-label.data-v-7dc426ca {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+.form-input.data-v-7dc426ca {
+  width: 100%;
+  padding: 20rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+.image-upload.data-v-7dc426ca {
+  width: 100%;
+  height: 200rpx;
+  border: 2rpx dashed #ddd;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.upload-preview.data-v-7dc426ca {
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+}
+.upload-placeholder.data-v-7dc426ca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #999;
+}
+.upload-icon.data-v-7dc426ca {
+  font-size: 48rpx;
+  margin-bottom: 10rpx;
+}
+.upload-text.data-v-7dc426ca {
+  font-size: 28rpx;
+}
+.switch-label.data-v-7dc426ca {
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 20rpx;
+}
+.form-actions.data-v-7dc426ca {
+  display: flex;
+  gap: 20rpx;
+  padding: 30rpx;
+  border-top: 1rpx solid #eee;
+}
+.cancel-btn.data-v-7dc426ca, .save-btn.data-v-7dc426ca {
+  flex: 1;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  border: none;
+}
+.cancel-btn.data-v-7dc426ca {
+  background: #f5f5f5;
+  color: #666;
+}
+.save-btn.data-v-7dc426ca {
+  background: #667eea;
+  color: #fff;
+}
+

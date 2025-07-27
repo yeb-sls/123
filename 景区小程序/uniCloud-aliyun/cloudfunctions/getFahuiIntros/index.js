@@ -2,8 +2,15 @@
 const db = uniCloud.database()
 exports.main = async (event, context) => {
   try {
-    // 查询法会介绍集合（如集合名为 fahui_intros）
-    const res = await db.collection('fahui_intros').get()
+    // 查询法会介绍集合，支持按类型筛选
+    let query = db.collection('fahui_intros');
+    
+    // 如果传入了类型参数，则按类型筛选
+    if (event.type) {
+      query = query.where({ type: event.type });
+    }
+    
+    const res = await query.get()
     return {
       code: 0,
       data: res.data

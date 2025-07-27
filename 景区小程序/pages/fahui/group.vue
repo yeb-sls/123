@@ -351,29 +351,7 @@
 export default {
   data() {
     return {
-      fahuiProjects: [
-        { 
-          id: 'he_pingan', 
-          name: '平安合坛', 
-          price: 200, 
-          description: '祈求平安吉祥，消灾免难',
-          dates: ['2025-08-01', '2025-08-15', '2025-09-01'] 
-        },
-        { 
-          id: 'he_yinyuan', 
-          name: '姻缘合坛', 
-          price: 300, 
-          description: '祈求姻缘美满，感情和睦',
-          dates: ['2025-08-10', '2025-09-10'] 
-        },
-        { 
-          id: 'he_chaodu', 
-          name: '超度合坛', 
-          price: 400, 
-          description: '超度亡灵，祈求往生净土',
-          dates: ['2025-08-18', '2025-08-30', '2025-09-18'] 
-        }
-      ],
+      fahuiProjects: [],
       selectedProjectIndex: -1,
       selectedDateIndex: -1,
       availableDates: [],
@@ -403,7 +381,81 @@ export default {
       return this.fahuiCost + this.goodsCost;
     }
   },
+  onLoad() {
+    this.loadProjects()
+  },
+  onShow() {
+    // 每次页面显示时重新加载数据
+    this.loadProjects()
+  },
   methods: {
+    async loadProjects() {
+      try {
+        console.log('开始加载合坛法会项目数据...')
+        const result = await uniCloud.callFunction({ 
+          name: 'getFahuiProjects',
+          data: { type: 'joint' }
+        })
+        console.log('合坛法会项目数据加载结果:', result)
+        
+        if (result.result && result.result.data) {
+          this.fahuiProjects = result.result.data
+          console.log('合坛法会项目数据加载成功，共', this.fahuiProjects.length, '个')
+        } else {
+          console.log('合坛法会项目数据为空，使用默认数据')
+          // 如果数据库为空，使用默认数据
+          this.fahuiProjects = [
+            { 
+              _id: 'he_pingan', 
+              name: '平安合坛', 
+              price: 200, 
+              description: '祈求平安吉祥，消灾免难',
+              dates: ['2025-08-01', '2025-08-15', '2025-09-01'] 
+            },
+            { 
+              _id: 'he_yinyuan', 
+              name: '姻缘合坛', 
+              price: 300, 
+              description: '祈求姻缘美满，感情和睦',
+              dates: ['2025-08-10', '2025-09-10'] 
+            },
+            { 
+              _id: 'he_chaodu', 
+              name: '超度合坛', 
+              price: 400, 
+              description: '超度亡灵，祈求往生净土',
+              dates: ['2025-08-18', '2025-08-30', '2025-09-18'] 
+            }
+          ]
+        }
+      } catch (error) {
+        console.error('加载合坛法会项目失败:', error)
+        // 出错时使用默认数据
+        this.fahuiProjects = [
+          { 
+            _id: 'he_pingan', 
+            name: '平安合坛', 
+            price: 200, 
+            description: '祈求平安吉祥，消灾免难',
+            dates: ['2025-08-01', '2025-08-15', '2025-09-01'] 
+          },
+          { 
+            _id: 'he_yinyuan', 
+            name: '姻缘合坛', 
+            price: 300, 
+            description: '祈求姻缘美满，感情和睦',
+            dates: ['2025-08-10', '2025-09-10'] 
+          },
+          { 
+            _id: 'he_chaodu', 
+            name: '超度合坛', 
+            price: 400, 
+            description: '超度亡灵，祈求往生净土',
+            dates: ['2025-08-18', '2025-08-30', '2025-09-18'] 
+          }
+        ]
+      }
+    },
     getEmptyApplicant() {
       return {
         name: '',
@@ -601,7 +653,7 @@ export default {
       
       // 构建表单数据
       const formData = {
-        projectId: this.fahuiProjects[this.selectedProjectIndex].id,
+        projectId: this.fahuiProjects[this.selectedProjectIndex]._id,
         projectName: this.fahuiProjects[this.selectedProjectIndex].name,
         fahuiDate: this.availableDates[this.selectedDateIndex],
         applicants: this.applicants,

@@ -1,8 +1,8 @@
 <template>
   <view class="admin-container">
     <view class="page-header">
-      <text class="page-title">代办物品管理</text>
-      <text class="page-desc">管理法会代办物品及价格设置</text>
+      <text class="page-title">{{ fahuiType === 'joint' ? '合坛法会' : '专场法会' }}代办物品管理</text>
+      <text class="page-desc">管理{{ fahuiType === 'joint' ? '合坛法会' : '专场法会' }}代办物品及价格设置</text>
     </view>
 
     <!-- 模块开关 -->
@@ -93,6 +93,7 @@ export default {
   },
   data() {
     return {
+      fahuiType: 'special', // 默认专场法会
       moduleEnabled: false,
       goodsList: [],
       isEdit: false,
@@ -103,12 +104,18 @@ export default {
         price: '',
         description: '',
         enabled: true,
-        image: ''
+        image: '',
+        type: 'special'
       }
     }
   },
   
-  onLoad() {
+  onLoad(options) {
+    // 获取法会类型参数
+    if (options.type) {
+      this.fahuiType = options.type;
+      this.currentGoods.type = options.type;
+    }
     this.loadGoodsConfig()
   },
   
@@ -117,7 +124,8 @@ export default {
     async loadGoodsConfig() {
       try {
         const result = await uniCloud.callFunction({
-          name: 'getFahuiGoodsConfig'
+          name: 'getFahuiGoodsConfig',
+          data: { type: this.fahuiType }
         })
         
         if (result.result && result.result.data) {
@@ -141,6 +149,7 @@ export default {
         await uniCloud.callFunction({
           name: 'updateFahuiGoodsConfig',
           data: {
+            type: this.fahuiType,
             enabled: this.moduleEnabled,
             goods: this.goodsList
           }
@@ -196,6 +205,7 @@ export default {
               await uniCloud.callFunction({
                 name: 'updateFahuiGoodsConfig',
                 data: {
+                  type: this.fahuiType,
                   enabled,
                   goods: newGoodsList
                 }

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "合坛法会代办物品管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

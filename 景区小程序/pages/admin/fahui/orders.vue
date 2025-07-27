@@ -5,7 +5,7 @@
         <text class="back-icon">←</text>
         <text class="back-text">返回</text>
       </view>
-      <view class="title">法会订单管理</view>
+      <view class="title">{{ fahuiType === 'joint' ? '合坛法会' : '专场法会' }}订单管理</view>
       <view class="refresh-btn" @click="loadOrders">
         <text class="refresh-icon">🔄</text>
         <text class="refresh-text">刷新</text>
@@ -278,6 +278,7 @@ export default {
   components: { uniPopup },
   data() {
     return {
+      fahuiType: 'special', // 默认专场法会
       orders: [],
       filteredOrders: [],
       statusOptions: ['全部', '待确认', '已确认', '已取消'],
@@ -298,7 +299,11 @@ export default {
     }
   },
   
-  onLoad() {
+  onLoad(options) {
+    // 获取法会类型参数
+    if (options.type) {
+      this.fahuiType = options.type;
+    }
     this.loadOrders()
     this.getReceiverConfig()
   },
@@ -314,7 +319,8 @@ export default {
         uni.showLoading({ title: '加载中...' })
         
         const result = await uniCloud.callFunction({
-          name: 'getFahuiOrders'
+          name: 'getFahuiOrders',
+          data: { type: this.fahuiType }
         })
         
         if (result.result && result.result.data) {

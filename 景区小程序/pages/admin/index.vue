@@ -102,14 +102,14 @@
           </view>
         </view>
 
-        <!-- 法会管理 -->
+        <!-- 专场法会管理 -->
         <view class="module-group">
           <view class="group-header">
             <text class="group-icon">🕉️</text>
-            <text class="group-title">法会管理</text>
+            <text class="group-title">专场法会管理</text>
           </view>
           <view class="group-items">
-            <view class="module-item" @click="goToPage('/pages/admin/fahui/index')">
+            <view class="module-item" @click="goToPage('/pages/admin/fahui/special/index')">
               <view class="item-icon">🏠</view>
               <text class="item-name">管理首页</text>
             </view>
@@ -118,6 +118,28 @@
               <text class="item-name">项目管理</text>
             </view>
             <view class="module-item" @click="goToPage('/pages/admin/fahui/orders')">
+              <view class="item-icon">📋</view>
+              <text class="item-name">订单管理</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 合坛法会管理 -->
+        <view class="module-group">
+          <view class="group-header">
+            <text class="group-icon">🙏</text>
+            <text class="group-title">合坛法会管理</text>
+          </view>
+          <view class="group-items">
+            <view class="module-item" @click="goToPage('/pages/admin/joint/index')">
+              <view class="item-icon">🏠</view>
+              <text class="item-name">管理首页</text>
+            </view>
+            <view class="module-item" @click="goToPage('/pages/admin/joint/projects')">
+              <view class="item-icon">📅</view>
+              <text class="item-name">项目管理</text>
+            </view>
+            <view class="module-item" @click="goToPage('/pages/admin/joint/orders')">
               <view class="item-icon">📋</view>
               <text class="item-name">订单管理</text>
             </view>

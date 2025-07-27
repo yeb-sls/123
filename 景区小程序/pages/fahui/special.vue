@@ -382,7 +382,10 @@ export default {
     },
     async loadFahuiProjects() {
       try {
-        const res = await uniCloud.callFunction({ name: 'getFahuiProjects' })
+        const res = await uniCloud.callFunction({ 
+          name: 'getFahuiProjects',
+          data: { type: 'special' }
+        })
         this.fahuiProjects = res.result && res.result.data ? res.result.data.map(p => ({
           ...p,
           price: Number(p.price) || 0

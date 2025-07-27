@@ -115,7 +115,8 @@ export default {
         dates: [],
         maxApplicants: '',
         goods: [],
-        needReceiver: false
+        needReceiver: false,
+        type: 'special' // 标识为专场法会
       }
     }
   },
@@ -124,13 +125,16 @@ export default {
   },
   methods: {
     async loadProjects() {
-      const res = await uniCloud.callFunction({ name: 'getFahuiProjects' })
+      const res = await uniCloud.callFunction({ 
+        name: 'getFahuiProjects',
+        data: { type: 'special' }
+      })
       this.projects = res.result && res.result.data ? res.result.data : []
     },
     showAddModal() {
       this.isEdit = false
       this.editIndex = -1
-      this.current = { _id: '', name: '', description: '', category: '', deadline: '', dates: [], maxApplicants: '', goods: [], needReceiver: false }
+      this.current = { _id: '', name: '', description: '', category: '', deadline: '', dates: [], maxApplicants: '', goods: [], needReceiver: false, type: 'special' }
       this.showPopup = true
     },
     editProject(idx) {
@@ -141,6 +145,7 @@ export default {
       if (!this.current.goods) this.current.goods = []
       if (!this.current.category) this.current.category = ''
       if (!this.current.deadline) this.current.deadline = ''
+      this.current.type = 'special'
       this.showPopup = true
     },
     closePopup() {
@@ -186,7 +191,13 @@ export default {
         return
       }
       // 确保 category、deadline、price 字段始终存在
-      const data = { ...this.current, category: this.current.category || '', deadline: this.current.deadline || '', price: Number(this.current.price) || 0 }
+      const data = { 
+        ...this.current, 
+        category: this.current.category || '', 
+        deadline: this.current.deadline || '', 
+        price: Number(this.current.price) || 0,
+        type: 'special'
+      }
       console.log('[调试] 保存项目数据:', data)
       if ('_id' in data && !data._id) delete data._id
       if (this.isEdit && data._id) {

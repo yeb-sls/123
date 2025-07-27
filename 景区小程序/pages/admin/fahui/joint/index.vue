@@ -53,6 +53,14 @@
         </view>
         <view class="module-arrow">→</view>
       </view>
+      <view class="module-card" @click="goToTest">
+        <view class="module-icon">🧪</view>
+        <view class="module-info">
+          <text class="module-title">功能测试</text>
+          <text class="module-desc">测试合坛法会管理功能</text>
+        </view>
+        <view class="module-arrow">→</view>
+      </view>
     </view>
   </view>
 </template>
@@ -66,7 +74,7 @@ export default {
       uni.navigateTo({ url: '/pages/admin/fahui/intro?type=joint' })
     },
     goToProjects() {
-      uni.navigateTo({ url: '/pages/admin/fahui/projects?type=joint' })
+      uni.navigateTo({ url: '/pages/admin/fahui/joint/projects' })
     },
     goToGoods() {
       uni.navigateTo({ url: '/pages/admin/fahui/goods?type=joint' })
@@ -76,6 +84,9 @@ export default {
     },
     goToOrders() {
       uni.navigateTo({ url: '/pages/admin/fahui/orders?type=joint' })
+    },
+    goToTest() {
+      uni.navigateTo({ url: '/pages/admin/fahui/joint/test' })
     }
   }
 }

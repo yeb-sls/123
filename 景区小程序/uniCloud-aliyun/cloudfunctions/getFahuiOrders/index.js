@@ -5,10 +5,15 @@ const fahuiOrdersCollection = db.collection('fahui_orders')
 
 exports.main = async (event, context) => {
   try {
-    // 获取所有法会订单，按创建时间倒序排列
-    const result = await fahuiOrdersCollection
-      .orderBy('createTime', 'desc')
-      .get()
+    // 获取法会订单，支持按类型筛选
+    let query = fahuiOrdersCollection.orderBy('createTime', 'desc')
+    
+    // 如果传入了类型参数，则按类型筛选
+    if (event.type) {
+      query = query.where({ fahuiType: event.type })
+    }
+    
+    const result = await query.get()
     // 确保返回 logs、confirmBy、confirmTime、adminRemarks 字段
     const data = result.data.map(order => ({
       ...order,

@@ -1,7 +1,7 @@
 <template>
   <view class="receiver-admin-page">
     <view class="header">
-      <text class="title">收件人信息管理</text>
+      <text class="title">{{ fahuiType === 'joint' ? '合坛法会' : '专场法会' }}收件人信息管理</text>
     </view>
     <view class="switch-row">
       <text class="switch-label">启用收件信息模块</text>
@@ -31,19 +31,27 @@ export default {
   components: { uniPopup },
   data() {
     return {
+      fahuiType: 'special', // 默认专场法会
       receivers: [],
       loading: true,
       enabled: false,
     }
   },
-  onLoad() {
+  onLoad(options) {
+    // 获取法会类型参数
+    if (options.type) {
+      this.fahuiType = options.type;
+    }
     this.getConfig()
     this.getList()
   },
   methods: {
     async getConfig() {
       try {
-        const res = await uniCloud.callFunction({ name: 'getFahuiReceiverConfig' })
+        const res = await uniCloud.callFunction({ 
+          name: 'getFahuiReceiverConfig',
+          data: { type: this.fahuiType }
+        })
         this.enabled = !!(res.result && res.result.enabled)
       } catch (e) {
         this.enabled = false
@@ -52,7 +60,13 @@ export default {
     async onSwitchChange(e) {
       const value = e.detail.value
       try {
-        await uniCloud.callFunction({ name: 'updateFahuiReceiverConfig', data: { enabled: value } })
+        await uniCloud.callFunction({ 
+          name: 'updateFahuiReceiverConfig', 
+          data: { 
+            type: this.fahuiType,
+            enabled: value 
+          } 
+        })
         this.enabled = value
         uni.showToast({ title: value ? '已启用' : '已关闭', icon: 'success' })
       } catch (e) {
@@ -64,6 +78,7 @@ export default {
       try {
         const res = await uniCloud.callFunction({
           name: 'getFahuiReceivers',
+          data: { type: this.fahuiType }
         })
         this.receivers = res.result.data || []
       } catch (e) {
@@ -80,7 +95,11 @@ export default {
             try {
               await uniCloud.callFunction({
                 name: 'updateFahuiReceiver',
-                data: { _id: id, action: 'delete' },
+                data: { 
+                  _id: id, 
+                  action: 'delete',
+                  type: this.fahuiType
+                },
               })
               uni.showToast({ title: '删除成功', icon: 'success' })
               this.getList()

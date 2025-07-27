@@ -139,7 +139,7 @@ export default {
           // 如果数据库为空，使用默认数据
           this.navs = [
             { text: '专场法会', icon: '🕉️', url: '/pages/fahui/special', color: '#FF6B35', bgColor: '#FFF7EC' },
-            { text: '合坛法会', icon: '🙏', url: '/pages/fahui/group', color: '#2D8CF0', bgColor: '#E0EAFF' },
+            { text: '合坛法会', icon: '🙏', url: '/pages/fahui/joint/index', color: '#2D8CF0', bgColor: '#E0EAFF' },
             { text: '供灯祈福', icon: '💡', url: '/pages/light/index', color: '#FFD700', bgColor: '#FFFBF0' },
             { text: '殿堂供品', icon: '🏛️', url: '/pages/hall/index', color: '#8B4513', bgColor: '#F5F5DC' },
             { text: '功德布施', icon: '💰', url: '/pages/gongde/index', color: '#32CD32', bgColor: '#F0FFF0' },

@@ -1,8 +1,8 @@
 <template>
   <view class="admin-container">
     <view class="page-header">
-      <text class="page-title">板块头图管理</text>
-      <text class="page-desc">管理法会页面头图配置</text>
+      <text class="page-title">{{ fahuiType === 'joint' ? '合坛法会' : '专场法会' }}头图管理</text>
+      <text class="page-desc">管理{{ fahuiType === 'joint' ? '合坛法会' : '专场法会' }}页面头图配置</text>
     </view>
 
     <!-- 头图列表 -->
@@ -77,14 +77,21 @@ export default {
       showPopup: false,
       isEdit: false,
       editIndex: -1,
+      fahuiType: 'special', // 默认专场法会
       currentBanner: {
         image: '',
-        enabled: true
+        enabled: true,
+        type: 'special'
       }
     }
   },
   
-  onLoad() {
+  onLoad(options) {
+    // 获取法会类型参数
+    if (options.type) {
+      this.fahuiType = options.type;
+      this.currentBanner.type = options.type;
+    }
     this.loadBanners()
   },
   
@@ -95,7 +102,10 @@ export default {
       try {
         const result = await uniCloud.callFunction({
           name: 'getFahuiBanners',
-          data: { t: Date.now() } // 防止云函数缓存
+          data: { 
+            type: this.fahuiType,
+            t: Date.now() // 防止云函数缓存
+          }
         })
         let banners = result.result && result.result.data ? result.result.data : []
         // 批量转换 fileID 为临时链接
@@ -125,7 +135,8 @@ export default {
       this.editIndex = -1
       this.currentBanner = {
         image: '',
-        enabled: true
+        enabled: true,
+        type: this.fahuiType
       }
       this.showPopup = true
     },
@@ -134,7 +145,7 @@ export default {
     editBanner(banner) {
       this.isEdit = true
       this.editIndex = this.banners.findIndex(b => b._id === banner._id)
-      this.currentBanner = { ...banner }
+      this.currentBanner = { ...banner, type: this.fahuiType }
       this.showPopup = true
     },
     
