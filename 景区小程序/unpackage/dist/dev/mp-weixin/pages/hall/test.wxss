@@ -1,0 +1,116 @@
+
+.test-bg.data-v-3ca8d07f {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+  padding-bottom: 40rpx;
+}
+.test-container.data-v-3ca8d07f {
+  padding: 32rpx 16rpx 0 16rpx;
+}
+.test-header.data-v-3ca8d07f {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 32rpx 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+  text-align: center;
+}
+.test-title.data-v-3ca8d07f {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 8rpx;
+}
+.test-desc.data-v-3ca8d07f {
+  font-size: 26rpx;
+  color: #666;
+}
+.test-buttons.data-v-3ca8d07f {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+.test-btn.data-v-3ca8d07f {
+  width: 100%;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.test-results.data-v-3ca8d07f {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.results-title.data-v-3ca8d07f {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 16rpx;
+}
+.result-item.data-v-3ca8d07f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.result-item.data-v-3ca8d07f:last-child {
+  border-bottom: none;
+}
+.result-time.data-v-3ca8d07f {
+  font-size: 22rpx;
+  color: #999;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+.result-message.data-v-3ca8d07f {
+  flex: 1;
+  font-size: 24rpx;
+  word-break: break-all;
+}
+.result-message.success.data-v-3ca8d07f {
+  color: #52c41a;
+}
+.result-message.error.data-v-3ca8d07f {
+  color: #ff4d4f;
+}
+.result-message.info.data-v-3ca8d07f {
+  color: #2d8cf0;
+}
+.data-display.data-v-3ca8d07f {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.data-title.data-v-3ca8d07f {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 16rpx;
+}
+.data-content.data-v-3ca8d07f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 0;
+  font-size: 26rpx;
+}
+.data-label.data-v-3ca8d07f {
+  color: #666;
+}
+.data-value.data-v-3ca8d07f {
+  color: #333;
+  font-weight: bold;
+}
+

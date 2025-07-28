@@ -1,0 +1,21 @@
+{
+    "id": "daoke-tools",
+    "displayName": "工具箱类首页前端模板",
+    "version": "1.0.0",
+    "description": "一个简单的uniapp工具箱类前端模板，可以发布到微信、qq、抖音等小程序，纯手搓的一个首页前端模板",
+    "keywords": [
+        "工具箱",
+        "uniapp前端模板",
+        "工具箱首页"
+    ],
+    "dcloudext": {
+        "category": [
+            "uni-app前端模板",
+            "前端页面模板"
+        ]
+    },
+    "dependencies": {
+        "@dcloudio/uni-ui": "^1.5.8",
+        "uview-ui": "^2.0.38"
+    }
+}

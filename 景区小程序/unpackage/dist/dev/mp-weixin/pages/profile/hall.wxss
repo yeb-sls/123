@@ -1,0 +1,8 @@
+
+.page-container.data-v-625cb658 { padding: 40rpx 20rpx;
+}
+.page-title.data-v-625cb658 { font-size: 36rpx; font-weight: bold; margin-bottom: 30rpx;
+}
+.placeholder.data-v-625cb658 { color: #aaa; text-align: center; margin-top: 100rpx;
+}
+

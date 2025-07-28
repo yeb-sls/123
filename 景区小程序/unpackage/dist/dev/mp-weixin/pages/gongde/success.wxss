@@ -1,0 +1,152 @@
+
+.success-page.data-v-73dcece2 {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+  padding-bottom: 40rpx;
+}
+.success-icon.data-v-73dcece2 {
+  text-align: center;
+  margin: 80rpx 0 32rpx 0;
+}
+.icon.data-v-73dcece2 {
+  font-size: 120rpx;
+}
+.success-title.data-v-73dcece2 {
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
+}
+.success-desc.data-v-73dcece2 {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 48rpx;
+  padding: 0 32rpx;
+  line-height: 1.6;
+}
+.card.data-v-73dcece2 {
+  background: #fff;
+  border-radius: 18rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+  margin: 24rpx 16rpx 0 16rpx;
+  padding: 32rpx 24rpx 12rpx 24rpx;
+}
+.card-title.data-v-73dcece2 {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 18rpx;
+  display: flex;
+  align-items: center;
+}
+.order-info.data-v-73dcece2 {
+  margin-top: 16rpx;
+}
+.info-item.data-v-73dcece2 {
+  display: flex;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+.label.data-v-73dcece2 {
+  width: 140rpx;
+  color: #666;
+  flex-shrink: 0;
+}
+.value.data-v-73dcece2 {
+  flex: 1;
+  color: #333;
+  word-break: break-all;
+}
+.value.price.data-v-73dcece2 {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+.merit-card.data-v-73dcece2 {
+  background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+  border: 2rpx solid #b3c6e0;
+}
+.merit-content.data-v-73dcece2 {
+  background: linear-gradient(135deg, #fff7ec 0%, #fff 100%);
+  padding: 20rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #ffd591;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  text-align: center;
+}
+.merit-benefits.data-v-73dcece2 {
+  background: linear-gradient(135deg, #fff7ec 0%, #fff 100%);
+  border: 2rpx solid #ffd591;
+}
+.benefits-list.data-v-73dcece2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+.benefit-item.data-v-73dcece2 {
+  display: flex;
+  align-items: center;
+  padding: 16rpx;
+  background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+  border-radius: 12rpx;
+  border: 2rpx solid #ffd591;
+}
+.benefit-icon.data-v-73dcece2 {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+.benefit-text.data-v-73dcece2 {
+  font-size: 26rpx;
+  color: #666;
+  flex: 1;
+}
+.btn-group.data-v-73dcece2 {
+  display: flex;
+  gap: 24rpx;
+  margin: 48rpx 16rpx 0 16rpx;
+}
+.primary-btn.data-v-73dcece2,
+.secondary-btn.data-v-73dcece2 {
+  flex: 1;
+  font-size: 32rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.primary-btn.data-v-73dcece2 {
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+}
+.secondary-btn.data-v-73dcece2 {
+  background: #f8f9fa;
+  color: #2d8cf0;
+  border: 2rpx solid #e0eaff;
+}
+.share-section.data-v-73dcece2 {
+  margin: 24rpx 16rpx 0 16rpx;
+}
+.share-btn.data-v-73dcece2 {
+  width: 100%;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+

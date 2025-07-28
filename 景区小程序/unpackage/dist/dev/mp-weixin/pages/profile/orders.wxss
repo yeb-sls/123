@@ -1,0 +1,13 @@
+
+.orders-container.data-v-f1ff8578 { padding: 20rpx;
+}
+.order-item.data-v-f1ff8578 {
+  border: 1px solid #eee; border-radius: 8rpx; margin-bottom: 20rpx; padding: 20rpx;
+}
+.order-title.data-v-f1ff8578 { font-weight: bold; margin-bottom: 10rpx;
+}
+.order-time.data-v-f1ff8578 { color: #888; font-size: 24rpx; margin-top: 10rpx;
+}
+.empty.data-v-f1ff8578 { text-align: center; color: #aaa; margin-top: 100rpx;
+}
+

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "轮播图管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

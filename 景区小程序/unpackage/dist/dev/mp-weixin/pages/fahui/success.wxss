@@ -1,0 +1,204 @@
+
+.success-bg.data-v-31e7002c {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+}
+.success-container.data-v-31e7002c {
+  padding-bottom: 40rpx;
+  padding-top: 1rpx;
+}
+.success-icon.data-v-31e7002c {
+  text-align: center;
+  margin: 48rpx 0 24rpx 0;
+}
+.icon.data-v-31e7002c {
+  font-size: 120rpx;
+  color: #4caf50;
+}
+.success-title.data-v-31e7002c {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  text-align: center;
+  margin-bottom: 8rpx;
+}
+.success-subtitle.data-v-31e7002c {
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+.success-msg.data-v-31e7002c {
+  font-size: 26rpx;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0 32rpx 32rpx 32rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.order-section.data-v-31e7002c, .applicants-section.data-v-31e7002c, .goods-section.data-v-31e7002c, .receiver-section.data-v-31e7002c {
+  background: #fff;
+  margin: 24rpx 16rpx;
+  border-radius: 18rpx;
+  padding: 32rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.section-title.data-v-31e7002c {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 24rpx;
+}
+.order-card.data-v-31e7002c, .applicants-card.data-v-31e7002c, .goods-card.data-v-31e7002c, .receiver-card.data-v-31e7002c {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 24rpx;
+}
+.order-item.data-v-31e7002c {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.order-item.data-v-31e7002c:last-child {
+  margin-bottom: 0;
+}
+.order-label.data-v-31e7002c {
+  font-size: 28rpx;
+  color: #333;
+}
+.order-value.data-v-31e7002c {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}
+.total-price.data-v-31e7002c {
+  color: #ff4d4f;
+  font-weight: bold;
+}
+.applicant-item.data-v-31e7002c {
+  margin-bottom: 16rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 1px solid #e0eaff;
+}
+.applicant-item.data-v-31e7002c:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.applicant-header.data-v-31e7002c {
+  margin-bottom: 8rpx;
+}
+.applicant-title.data-v-31e7002c {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+}
+.applicant-info.data-v-31e7002c {
+  margin-bottom: 8rpx;
+}
+.info-text.data-v-31e7002c {
+  font-size: 26rpx;
+  color: #666;
+}
+.goods-item.data-v-31e7002c {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.goods-item.data-v-31e7002c:last-child {
+  margin-bottom: 0;
+}
+.goods-name.data-v-31e7002c {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+.goods-qty.data-v-31e7002c {
+  font-size: 26rpx;
+  color: #666;
+  margin: 0 16rpx;
+}
+.goods-price.data-v-31e7002c {
+  font-size: 26rpx;
+  color: #ff4d4f;
+  font-weight: bold;
+}
+.receiver-item.data-v-31e7002c {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+.receiver-item.data-v-31e7002c:last-child {
+  margin-bottom: 0;
+}
+.receiver-label.data-v-31e7002c {
+  font-size: 28rpx;
+  color: #333;
+}
+.receiver-value.data-v-31e7002c {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+  flex: 1;
+  text-align: right;
+}
+.btn-group.data-v-31e7002c {
+  margin: 48rpx 16rpx 24rpx 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+.primary-btn.data-v-31e7002c {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(135deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+}
+.secondary-btn.data-v-31e7002c {
+  width: 100%;
+  height: 80rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  background: #f8f9fa;
+  color: #666;
+  border: 2rpx solid #e0eaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-section.data-v-31e7002c {
+  margin: 32rpx 16rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 18rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.contact-title.data-v-31e7002c {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+.contact-info.data-v-31e7002c {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.contact-item.data-v-31e7002c {
+  font-size: 24rpx;
+  color: #666;
+  text-align: center;
+}
+

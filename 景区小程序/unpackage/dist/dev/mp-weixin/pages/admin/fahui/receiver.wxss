@@ -1,0 +1,30 @@
+
+.receiver-admin-page.data-v-6a678216 { padding: 24rpx;
+}
+.header.data-v-6a678216 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24rpx;
+}
+.title.data-v-6a678216 { font-size: 36rpx; font-weight: bold;
+}
+.loading.data-v-6a678216 { text-align: center; margin: 48rpx 0; color: #888;
+}
+.empty.data-v-6a678216 { text-align: center; color: #aaa; margin: 48rpx 0;
+}
+.receiver-list.data-v-6a678216 { margin-top: 12rpx;
+}
+.receiver-item.data-v-6a678216 { background: #fff; border-radius: 12rpx; box-shadow: 0 2rpx 8rpx #e0eaff; margin-bottom: 18rpx; padding: 24rpx;
+}
+.info.data-v-6a678216 {
+}
+.info-row.data-v-6a678216 { display: flex; align-items: flex-start; margin-bottom: 8rpx;
+}
+.label.data-v-6a678216 { font-weight: bold; color: #333; min-width: 100rpx;
+}
+.value.data-v-6a678216 { color: #444; word-break: break-all;
+}
+.switch-row.data-v-6a678216 { display: flex; align-items: center; margin-bottom: 18rpx;
+}
+.switch-label.data-v-6a678216 { font-size: 28rpx; margin-right: 18rpx; color: #333;
+}
+.delete-btn.data-v-6a678216 { background: #ffebee; color: #e53935; border-radius: 8rpx; padding: 8rpx 20rpx; font-size: 26rpx; margin-top: 12rpx; border: none; cursor: pointer;
+}
+

@@ -1,0 +1,27 @@
+
+.test-container.data-v-37251ce9 {
+  padding: 40rpx;
+  text-align: center;
+}
+.test-title.data-v-37251ce9 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 20rpx;
+}
+.test-desc.data-v-37251ce9 {
+  font-size: 28rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 40rpx;
+}
+.test-btn.data-v-37251ce9 {
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+}
+

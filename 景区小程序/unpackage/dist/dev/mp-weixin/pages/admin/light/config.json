@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "供灯配置管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "介绍管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

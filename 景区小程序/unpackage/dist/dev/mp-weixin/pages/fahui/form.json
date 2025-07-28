@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "专场法会报名",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

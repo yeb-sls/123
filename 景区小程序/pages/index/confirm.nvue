@@ -1,0 +1,141 @@
+<template>
+  <view class="confirm-page">
+    <view class="section">
+      <view class="section-title">报名信息</view>
+      <view v-for="(p, index) in formData.participants" :key="index" class="participant-box">
+        <view>{{ p.name }}（{{ p.gender }}）</view>
+        <view>电话：{{ p.phone }}</view>
+        <view>生日：{{ p.birth }} {{ p.shichen }}</view>
+        <view>地址：{{ p.address }}</view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">法会项目</view>
+      <view>{{ selectedProject?.name || '未选择' }}</view>
+    </view>
+
+    <view class="section" v-if="selectedGoods.length">
+      <view class="section-title">代办物品</view>
+      <view v-for="item in selectedGoods" :key="item.id" class="goods-box">
+        <view>{{ item.name }} × 1</view>
+        <view>￥{{ item.price }}</view>
+      </view>
+    </view>
+
+    <view class="section" v-if="formData.receiver?.name">
+      <view class="section-title">收件信息</view>
+      <view>{{ formData.receiver.name }}，{{ formData.receiver.phone }}</view>
+      <view>{{ formData.receiver.address }}</view>
+    </view>
+
+    <view class="section total-box">
+      <view class="section-title">应支付金额</view>
+      <view class="total-amount">￥{{ totalAmount }}</view>
+    </view>
+
+    <view class="footer">
+      <u-button type="primary" @click="submitOrder">确认报名</u-button>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      formData: {
+        participants: [],
+        selectedProjectId: '',
+        selectedGoodsIds: [],
+        receiver: {}
+      },
+      projects: [
+        { id: '1', name: '姻缘和合法会', price: 199 },
+        { id: '2', name: '超度法会', price: 299 },
+        { id: '3', name: '平安祈福法会', price: 188 }
+      ],
+      goodsList: [
+        { id: 'g1', name: '香火', price: 88 },
+        { id: 'g2', name: '贡果', price: 66 }
+      ]
+    }
+  },
+  computed: {
+    selectedProject() {
+      return this.projects.find(p => p.id === this.formData.selectedProjectId)
+    },
+    selectedGoods() {
+      return this.goodsList.filter(g => this.formData.selectedGoodsIds.includes(g.id))
+    },
+    totalAmount() {
+      let total = this.selectedProject?.price || 0
+      this.selectedGoods.forEach(item => {
+        total += item.price // 每样默认1件
+      })
+      return total
+    }
+  },
+  onLoad() {
+    const data = uni.getStorageSync('fahuiForm')
+    if (data) this.formData = data
+  },
+  methods: {
+    submitOrder() {
+      // 模拟：生成订单并跳转支付（后端接入后再联调）
+      const order = {
+        type: 'special_fahui',
+        participants: this.formData.participants,
+        project: this.selectedProject,
+        goods: this.selectedGoods,
+        receiver: this.formData.receiver,
+        totalAmount: this.totalAmount
+      }
+      console.log('订单已生成：', order)
+
+      uni.showToast({ title: '生成订单成功', icon: 'success' })
+      // 模拟支付跳转
+      setTimeout(() => {
+        uni.redirectTo({
+          url: '/pages/order/paySuccess'
+        })
+      }, 800)
+    }
+  }
+}
+</script>
+
+<style scoped>
+.confirm-page {
+  padding: 30rpx;
+}
+.section {
+  margin-bottom: 30rpx;
+}
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+.participant-box,
+.goods-box {
+  padding: 20rpx;
+  border: 1px solid #eee;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+}
+.total-box {
+  background-color: #fef6e8;
+  padding: 30rpx;
+  border-radius: 16rpx;
+}
+.total-amount {
+  font-size: 36rpx;
+  color: #e43;
+  font-weight: 600;
+  margin-top: 10rpx;
+}
+.footer {
+  margin-top: 40rpx;
+}
+</style>

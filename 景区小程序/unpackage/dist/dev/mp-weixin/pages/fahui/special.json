@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "专场法会",
+  "usingComponents": {
+    "participant-form": "/components/ParticipantForm"
+  }
+}

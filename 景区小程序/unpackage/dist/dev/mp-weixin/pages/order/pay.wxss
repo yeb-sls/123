@@ -1,0 +1,82 @@
+
+.pay-bg.data-v-34e3f284 {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+}
+.pay-container.data-v-34e3f284 {
+  padding: 32rpx 16rpx 40rpx 16rpx;
+}
+.pay-title.data-v-34e3f284 {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  text-align: center;
+  margin-bottom: 32rpx;
+  letter-spacing: 2rpx;
+}
+.fee-section.data-v-34e3f284 {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 40rpx 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+  text-align: center;
+}
+.fee-title.data-v-34e3f284 {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+.fee-amount.data-v-34e3f284 {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #ff6b35;
+  margin-bottom: 8rpx;
+}
+.fee-desc.data-v-34e3f284 {
+  font-size: 24rpx;
+  color: #999;
+}
+.info-section.data-v-34e3f284 {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 32rpx 24rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff;
+}
+.section-title.data-v-34e3f284 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #2d8cf0;
+  margin-bottom: 24rpx;
+  letter-spacing: 2rpx;
+}
+.info-item.data-v-34e3f284 {
+  display: flex;
+  margin-bottom: 16rpx;
+  align-items: flex-start;
+}
+.label.data-v-34e3f284 {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+  flex-shrink: 0;
+}
+.value.data-v-34e3f284 {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+.pay-btn.data-v-34e3f284 {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  background: linear-gradient(90deg, #2d8cf0 0%, #5cadff 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 16rpx #b3c6e0;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  margin-top: 32rpx;
+}
+

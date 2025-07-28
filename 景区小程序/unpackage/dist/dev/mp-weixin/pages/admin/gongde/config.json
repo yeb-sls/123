@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "功德布施配置管理",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

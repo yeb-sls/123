@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "合坛法会数据备份",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}
