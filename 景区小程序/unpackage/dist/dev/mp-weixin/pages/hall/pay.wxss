@@ -1,0 +1,188 @@
+
+.pay-bg.data-v-d9cd836a {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8f8f8 0%, #fff 100%);
+}
+.pay-container.data-v-d9cd836a {
+  padding: 32rpx 16rpx 40rpx 16rpx;
+}
+.step-bar.data-v-d9cd836a {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+.step.data-v-d9cd836a {
+  font-size: 28rpx;
+  color: #bbb;
+}
+.step.active.data-v-d9cd836a {
+  color: #ff9900;
+  font-weight: bold;
+}
+.section-title.data-v-d9cd836a {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+  color: #333;
+}
+.order-card.data-v-d9cd836a, .goods-list.data-v-d9cd836a, .fee-section.data-v-d9cd836a {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 24rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx #e0eaff33;
+}
+.order-item.data-v-d9cd836a, .goods-item.data-v-d9cd836a, .fee-row.data-v-d9cd836a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.order-label.data-v-d9cd836a, .goods-name.data-v-d9cd836a {
+  color: #666;
+}
+.order-value.data-v-d9cd836a, .goods-qty.data-v-d9cd836a, .goods-price.data-v-d9cd836a {
+  color: #222;
+}
+.goods-qty.data-v-d9cd836a {
+  margin: 0 12rpx;
+}
+.fee-row.total.data-v-d9cd836a {
+  font-weight: bold;
+  color: #ff9900;
+}
+.total-price.data-v-d9cd836a {
+  font-size: 32rpx;
+}
+.payment-section.data-v-d9cd836a {
+  margin-bottom: 32rpx;
+}
+.payment-options.data-v-d9cd836a {
+  display: flex;
+  gap: 24rpx;
+}
+.payment-option.data-v-d9cd836a {
+  flex: 1;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 2rpx solid transparent;
+  transition: border 0.2s;
+}
+.payment-option.active.data-v-d9cd836a {
+  border: 2rpx solid #ff9900;
+  background: #fffbe6;
+}
+.option-left.data-v-d9cd836a {
+  display: flex;
+  align-items: center;
+}
+.payment-icon.data-v-d9cd836a {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+.radio.data-v-d9cd836a {
+  width: 28rpx;
+  height: 28rpx;
+  border-radius: 50%;
+  border: 2rpx solid #bbb;
+  background: #fff;
+  display: inline-block;
+  position: relative;
+}
+.radio.checked.data-v-d9cd836a {
+  border-color: #ff9900;
+}
+.radio.checked.data-v-d9cd836a::after {
+  content: '';
+  position: absolute;
+  left: 6rpx;
+  top: 6rpx;
+  width: 12rpx;
+  height: 12rpx;
+  background: #ff9900;
+  border-radius: 50%;
+}
+.pay-btn-section.data-v-d9cd836a {
+  margin-top: 32rpx;
+  text-align: center;
+}
+.pay-btn.data-v-d9cd836a {
+  width: 80%;
+  height: 88rpx;
+  background: linear-gradient(90deg, #ffb347 0%, #ff9900 100%);
+  color: #fff;
+  font-size: 32rpx;
+  border: none;
+  border-radius: 44rpx;
+  font-weight: bold;
+}
+.popup-content.data-v-d9cd836a {
+  background: #fff;
+  border-radius: 18rpx;
+  padding: 48rpx 32rpx;
+  text-align: center;
+}
+.popup-title.data-v-d9cd836a {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 24rpx;
+  color: #ff9900;
+}
+.popup-msg.data-v-d9cd836a {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 32rpx;
+}
+.popup-btn.data-v-d9cd836a {
+  width: 60%;
+  height: 72rpx;
+  background: #ff9900;
+  color: #fff;
+  font-size: 28rpx;
+  border: none;
+  border-radius: 36rpx;
+  font-weight: bold;
+}
+.popup-actions.data-v-d9cd836a {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+.popup-btn.outline.data-v-d9cd836a {
+  background: #fff;
+  color: #ff9900;
+  border: 2rpx solid #ff9900;
+}
+.pay-safe-tip.data-v-d9cd836a {
+  display: flex;
+  align-items: center;
+  background: #e6f7ff;
+  color: #1890ff;
+  border-radius: 12rpx;
+  padding: 12rpx 20rpx;
+  margin-bottom: 16rpx;
+  font-size: 24rpx;
+}
+.safe-icon.data-v-d9cd836a {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+.pay-help-bar.data-v-d9cd836a {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24rpx;
+  margin-bottom: 16rpx;
+}
+.help-link.data-v-d9cd836a {
+  color: #1890ff;
+  text-decoration: underline;
+  font-size: 24rpx;
+  cursor: pointer;
+}
+

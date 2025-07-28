@@ -11,7 +11,15 @@
         <view class="order-header">
           <view class="order-info">
             <text class="order-id">订单号：{{ order._id }}</text>
-            <text class="order-status" :class="getStatusClass(order.status)">{{ order.status }}</text>
+            <text class="order-status" :class="{
+              'pending': order.status === '待支付',
+              'paid': order.status === '已支付',
+              'waiting': order.status === '待确认',
+              'confirmed': order.status === '已确认',
+              'completed': order.status === '已完成',
+              'cancelled': order.status === '已取消',
+              'default': !['待支付','已支付','待确认','已确认','已完成','已取消'].includes(order.status)
+            }">{{ order.status }}</text>
           </view>
           <text class="order-time">{{ formatTime(order.createTime) }}</text>
         </view>
@@ -149,18 +157,6 @@ export default {
         console.error('加载合坛法会订单失败:', error)
         uni.showToast({ title: '加载失败', icon: 'none' })
       }
-    },
-    
-    getStatusClass(status) {
-      const statusMap = {
-        '待支付': 'pending',
-        '已支付': 'paid',
-        '待确认': 'waiting',
-        '已确认': 'confirmed',
-        '已完成': 'completed',
-        '已取消': 'cancelled'
-      }
-      return statusMap[status] || 'default'
     },
     
     formatTime(time) {

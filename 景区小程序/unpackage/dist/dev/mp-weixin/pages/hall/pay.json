@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "殿堂供品支付",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
 }
