@@ -98,6 +98,9 @@
 </template>
 
 <script>
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
+
 export default {
   data() {
     return {
@@ -119,15 +122,13 @@ export default {
   methods: {
     async getConfig() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getJointReceiverConfig'
-        })
-        if (res.result && res.result.data) {
-          this.moduleEnabled = res.result.data.enabled || false
+        const result = await jointManagement.getReceiverConfig()
+        if (result.success && result.data) {
+          this.moduleEnabled = result.data.enabled || false
           this.config = {
-            nameRequired: res.result.data.nameRequired !== false,
-            phoneRequired: res.result.data.phoneRequired !== false,
-            addressRequired: res.result.data.addressRequired !== false
+            nameRequired: result.data.nameRequired !== false,
+            phoneRequired: result.data.phoneRequired !== false,
+            addressRequired: result.data.addressRequired !== false
           }
         }
       } catch (error) {
@@ -138,17 +139,18 @@ export default {
     
     async onModuleToggle(e) {
       try {
-        await uniCloud.callFunction({
-          name: 'updateJointReceiverConfig',
-          data: { 
-            enabled: e.detail.value,
-            nameRequired: this.config.nameRequired,
-            phoneRequired: this.config.phoneRequired,
-            addressRequired: this.config.addressRequired
-          }
+        const result = await jointManagement.updateReceiverConfig({ 
+          enabled: e.detail.value,
+          nameRequired: this.config.nameRequired,
+          phoneRequired: this.config.phoneRequired,
+          addressRequired: this.config.addressRequired
         })
-        this.moduleEnabled = e.detail.value
-        uni.showToast({ title: e.detail.value ? '模块已启用' : '模块已禁用' })
+        if (result.success) {
+          this.moduleEnabled = e.detail.value
+          uni.showToast({ title: e.detail.value ? '模块已启用' : '模块已禁用', icon: 'success' })
+        } else {
+          uni.showToast({ title: result.message, icon: 'none' })
+        }
       } catch (error) {
         console.error('更新模块状态失败:', error)
         uni.showToast({ title: '操作失败', icon: 'none' })
@@ -172,16 +174,17 @@ export default {
     
     async saveConfig() {
       try {
-        await uniCloud.callFunction({
-          name: 'updateJointReceiverConfig',
-          data: { 
-            enabled: this.moduleEnabled,
-            nameRequired: this.config.nameRequired,
-            phoneRequired: this.config.phoneRequired,
-            addressRequired: this.config.addressRequired
-          }
+        const result = await jointManagement.updateReceiverConfig({ 
+          enabled: this.moduleEnabled,
+          nameRequired: this.config.nameRequired,
+          phoneRequired: this.config.phoneRequired,
+          addressRequired: this.config.addressRequired
         })
-        uni.showToast({ title: '配置已保存' })
+        if (result.success) {
+          uni.showToast({ title: '配置已保存', icon: 'success' })
+        } else {
+          uni.showToast({ title: result.message, icon: 'none' })
+        }
       } catch (error) {
         console.error('保存配置失败:', error)
         uni.showToast({ title: '保存失败', icon: 'none' })
@@ -190,10 +193,12 @@ export default {
     
     async getList() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getJointReceivers'
-        })
-        this.receivers = res.result && res.result.data ? res.result.data : []
+        const result = await jointManagement.getReceivers()
+        if (result.success) {
+          this.receivers = result.data || []
+        } else {
+          uni.showToast({ title: result.message, icon: 'none' })
+        }
       } catch (error) {
         console.error('获取合坛法会收件信息列表失败:', error)
         uni.showToast({ title: '加载失败', icon: 'none' })
@@ -217,10 +222,7 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'deleteJointReceiver',
-                data: { id }
-              })
+              await jointManagement.deleteReceiver({ _id: id })
               await this.getList()
               uni.showToast({ title: '删除成功' })
             } catch (error) {

@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "合坛法会订单管理",
-  "usingComponents": {
-    "uni-popup": "/components/uni-popup/uni-popup"
-  }
+  "usingComponents": {}
 }

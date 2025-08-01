@@ -4,6 +4,63 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 0;
 }
+.loading-container.data-v-57280228 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+}
+.loading-spinner.data-v-57280228 {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  border-top: 4rpx solid white;
+  border-radius: 50%;
+  -webkit-animation: spin-data-v-57280228 1s linear infinite;
+          animation: spin-data-v-57280228 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+@-webkit-keyframes spin-data-v-57280228 {
+0% { -webkit-transform: rotate(0deg); transform: rotate(0deg);
+}
+100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);
+}
+}
+@keyframes spin-data-v-57280228 {
+0% { -webkit-transform: rotate(0deg); transform: rotate(0deg);
+}
+100% { -webkit-transform: rotate(360deg); transform: rotate(360deg);
+}
+}
+.loading-text.data-v-57280228 {
+  font-size: 28rpx;
+  color: white;
+}
+.error-container.data-v-57280228 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  padding: 40rpx;
+}
+.error-text.data-v-57280228 {
+  font-size: 28rpx;
+  color: white;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+.retry-btn.data-v-57280228 {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2rpx solid white;
+  border-radius: 8rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+}
 .home-container.data-v-57280228 {
   padding: 0;
   margin: 0;
@@ -204,6 +261,15 @@
   font-size: 22rpx;
   color: #999;
 }
-
+.debug-info.data-v-57280228 {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #999;
+  text-align: center;
+}
+.debug-text.data-v-57280228 {
+  display: block;
+  margin-bottom: 4rpx;
+}
 
 

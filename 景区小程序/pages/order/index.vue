@@ -19,7 +19,7 @@
       <view class="types-section">
         <view class="section-title">活动类型</view>
         <view class="types-grid">
-          <view class="type-item" v-for="(type, index) in activityTypes" :key="index">
+          <view class="type-item" v-for="(type, index) in activityTypes" :key="'type-' + index">
             <view class="type-icon">{{ type.icon }}</view>
             <view class="type-name">{{ type.name }}</view>
             <view class="type-desc">{{ type.desc }}</view>
@@ -35,7 +35,7 @@
       <view class="features-section">
         <view class="section-title">活动特色</view>
         <view class="features-list">
-          <view class="feature-item" v-for="(feature, index) in features" :key="index">
+          <view class="feature-item" v-for="(feature, index) in features" :key="'feature-' + index">
             <text class="feature-icon">{{ feature.icon }}</text>
             <text class="feature-text">{{ feature.text }}</text>
           </view>

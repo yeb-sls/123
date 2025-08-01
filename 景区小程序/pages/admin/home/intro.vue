@@ -129,6 +129,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+
 export default {
   components: {
     uniPopup
@@ -175,13 +178,33 @@ export default {
     async loadIntros() {
       try {
         this.loading = true
-        const result = await uniCloud.callFunction({
-          name: 'getHomeIntros'
-        })
+        const result = await commonManagement.getHomeIntros()
         // 确保数据是数组且过滤掉无效项
-        const data = result.result.data || []
-        this.intros = Array.isArray(data) ? data.filter(item => item && typeof item === 'object') : []
+        const data = result.success ? (result.data || []) : []
+        this.intros = Array.isArray(data) ? data.filter(item => {
+          // 严格验证每个项目
+          if (!item || typeof item !== 'object') {
+            console.warn('过滤掉无效的介绍项:', item);
+            return false;
+          }
+          
+          // 确保 _id 字段存在且有效
+          if (!item._id) {
+            console.warn('过滤掉没有_id的介绍项:', item);
+            return false;
+          }
+          
+          // 确保 _id 是字符串或数字
+          if (typeof item._id !== 'string' && typeof item._id !== 'number') {
+            console.warn('过滤掉_id类型无效的介绍项:', item._id, typeof item._id);
+            return false;
+          }
+          
+          return true;
+        }) : []
+        
         console.log('加载的介绍数据:', this.intros)
+        console.log('每个介绍的_id:', this.intros.map((intro, idx) => `${idx}: ${intro._id} (${typeof intro._id})`))
       } catch (error) {
         console.error('加载介绍失败:', error)
         this.intros = []
@@ -268,10 +291,10 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'deleteHomeIntro',
-                data: { id: intro._id }
-              })
+              const result = await commonManagement.deleteHomeIntro({ _id: intro._id })
+              if (!result.success) {
+                throw new Error(result.message || '删除失败')
+              }
               this.intros.splice(index, 1)
               uni.showToast({
                 title: '删除成功',
@@ -294,17 +317,92 @@ export default {
       const newIndex = direction === 'up' ? index - 1 : index + 1
       if (newIndex < 0 || newIndex >= this.intros.length) return
       
+      console.log('开始移动介绍:', index, direction, '->', newIndex);
+      console.log('移动前的介绍数据:', this.intros);
+      
       // 交换位置
       const temp = this.intros[index]
       this.intros[index] = this.intros[newIndex]
       this.intros[newIndex] = temp
       
+      // 创建纯JavaScript对象，避免Vue响应式系统的影响
+      let introsToUpdate = this.intros.map((intro, idx) => {
+        console.log(`介绍${idx}的_id:`, intro._id, '类型:', typeof intro._id);
+        
+        // 确保 _id 是有效的字符串
+        if (!intro._id) {
+          throw new Error(`第${idx + 1}个介绍的_id为空`);
+        }
+        
+        // 验证 _id 类型
+        if (typeof intro._id !== 'string' && typeof intro._id !== 'number') {
+          throw new Error(`第${idx + 1}个介绍的_id类型无效: ${intro._id} (${typeof intro._id})`);
+        }
+        
+        const docId = String(intro._id); // 强制转换为字符串
+        console.log(`转换后的docId:`, docId, '类型:', typeof docId);
+        
+        return {
+          _id: docId,
+          content: intro.content,
+          bgImage: intro.bgImage,
+          enabled: intro.enabled,
+          showBorder: intro.showBorder,
+          textColor: intro.textColor,
+          bgColor: intro.bgColor,
+          order: idx + 1,
+          create_time: intro.create_time,
+          update_time: intro.update_time
+        }
+      });
+      
+      console.log('准备发送到云对象的数据:', introsToUpdate);
+      console.log('数据验证:');
+      introsToUpdate.forEach((intro, idx) => {
+        console.log(`介绍${idx}: _id=${intro._id}, 类型=${typeof intro._id}, 内容长度=${intro.content ? intro.content.length : 0}`);
+      });
+      
+      // 验证所有介绍项都有有效的_id
+      const invalidIntros = introsToUpdate.filter((intro, idx) => {
+        const isValid = intro && intro._id && (typeof intro._id === 'string' || typeof intro._id === 'number')
+        if (!isValid) {
+          console.error(`介绍${idx}的_id无效:`, intro._id, typeof intro._id);
+        }
+        return !isValid
+      });
+      
+      if (invalidIntros.length > 0) {
+        console.warn(`发现${invalidIntros.length}个介绍项缺少有效的ID，将跳过这些项目`);
+        // 过滤掉无效的项目，只保留有效的
+        const validIntrosToUpdate = introsToUpdate.filter((intro, idx) => {
+          const isValid = intro && intro._id && (typeof intro._id === 'string' || typeof intro._id === 'number')
+          return isValid
+        });
+        
+        if (validIntrosToUpdate.length === 0) {
+          throw new Error('没有有效的介绍项可以更新');
+        }
+        
+        console.log('过滤后的有效介绍项:', validIntrosToUpdate);
+        introsToUpdate = validIntrosToUpdate;
+      }
+      
       // 更新排序
       try {
-        await uniCloud.callFunction({
-          name: 'updateIntroOrder',
-          data: { intros: this.intros }
-        })
+        // 使用批量更新，更安全且高效
+        console.log('使用批量更新排序，数据:', introsToUpdate);
+        
+        const result = await commonManagement.updateIntroOrder({
+          intros: introsToUpdate
+        });
+        
+        if (!result.success) {
+          throw new Error(`批量更新失败: ${result.message}`);
+        }
+        
+        // 重新加载数据以确保UI同步
+        await this.loadIntros();
+        
         uni.showToast({
           title: '排序更新成功',
           icon: 'success'
@@ -390,18 +488,18 @@ export default {
         if (this.isEdit) {
           console.log('执行编辑操作')
           // 更新介绍
-          const updateResult = await uniCloud.callFunction({
-            name: 'updateHomeIntro',
-            data: {
-              id: this.intros[this.editIndex]._id,
-              intro: this.currentIntro
-            }
+          const updateResult = await commonManagement.updateHomeIntro({
+            _id: this.intros[this.editIndex]._id,
+            ...this.currentIntro
           })
           console.log('更新结果:', updateResult)
+          if (!updateResult.success) {
+            throw new Error(updateResult.message || '更新失败')
+          }
           this.intros[this.editIndex] = { ...this.currentIntro }
         } else {
           console.log('执行添加操作')
-          console.log('传递给云函数的数据:', { intro: this.currentIntro })
+          console.log('传递给云对象的数据:', { intro: this.currentIntro })
           console.log('currentIntro.content:', this.currentIntro.content)
           console.log('currentIntro.content类型:', typeof this.currentIntro.content)
           console.log('currentIntro.content长度:', this.currentIntro.content ? this.currentIntro.content.length : 0)
@@ -418,17 +516,14 @@ export default {
           console.log('准备发送的数据:', introData)
           
           // 尝试直接传递数据
-          const result = await uniCloud.callFunction({
-            name: 'addHomeIntro',
-            data: introData
-          })
+          const result = await commonManagement.addHomeIntro(introData)
           console.log('添加结果:', result)
           
-          if (result.result && result.result.code === 0) {
-            this.intros.push(result.result.data)
+          if (result.success && result.data) {
+            this.intros.push(result.data)
             console.log('添加成功，当前列表:', this.intros)
           } else {
-            throw new Error(result.result?.message || '添加失败')
+            throw new Error(result.message || '添加失败')
           }
         }
 

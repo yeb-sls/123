@@ -186,6 +186,7 @@
   align-items: center;
   gap: 15rpx;
   margin-bottom: 25rpx;
+  position: relative;
 }
 .group-icon.data-v-394cbdae {
   font-size: 32rpx;
@@ -202,6 +203,23 @@
   font-size: 28rpx;
   font-weight: bold;
   color: #333;
+}
+.notification-badge.data-v-394cbdae {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  background: #ff3b30;
+  color: white;
+  font-size: 20rpx;
+  font-weight: bold;
+  min-width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(255, 59, 48, 0.3);
 }
 .group-items.data-v-394cbdae {
   display: grid;

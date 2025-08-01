@@ -62,7 +62,7 @@
         <text class="icon">🌟</text>布施功德
       </view>
       <view class="benefits-list">
-        <view class="benefit-item" v-for="(benefit, index) in benefits" :key="index">
+        <view class="benefit-item" v-for="(benefit, index) in benefits" :key="'benefit-' + index">
           <text class="benefit-icon">{{ benefit.icon }}</text>
           <text class="benefit-text">{{ benefit.text }}</text>
         </view>

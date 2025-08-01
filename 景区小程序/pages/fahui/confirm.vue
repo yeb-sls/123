@@ -5,7 +5,7 @@
       
       <!-- 报名人信息 -->
       <view class="section-title">报名人信息</view>
-      <view class="info-card" v-for="(applicant, idx) in formData.applicants" :key="idx">
+      <view class="info-card" v-for="(applicant, idx) in formData.applicants" :key="'applicant-' + idx">
         <view class="info-header">
           <text class="info-label">报名人 {{ idx + 1 }}</text>
         </view>
@@ -100,7 +100,7 @@
 
       <!-- 已故亲人信息（如果有） -->
       <view v-if="formData.deceasedList && formData.deceasedList.length > 0" class="section-title">已故亲人信息</view>
-      <view v-if="formData.deceasedList && formData.deceasedList.length > 0" class="info-card" v-for="(deceased, idx) in formData.deceasedList" :key="idx">
+      <view v-if="formData.deceasedList && formData.deceasedList.length > 0" class="info-card" v-for="(deceased, idx) in formData.deceasedList" :key="'deceased-' + idx">
         <view class="info-header">
           <text class="info-label">已故亲人 {{ idx + 1 }}</text>
         </view>
@@ -125,7 +125,7 @@
       <!-- 代办物品（如果有） -->
       <view v-if="formData.goods && formData.goods.length > 0" class="section-title">代办物品</view>
       <view v-if="formData.goods && formData.goods.length > 0" class="info-card">
-        <view class="info-row" v-for="(item, idx) in formData.goods" :key="idx">
+        <view class="info-row" v-for="(item, idx) in formData.goods" :key="'goods-' + idx">
           <text class="info-key">{{ item.name }}：</text>
           <text class="info-value">{{ item.qty }} 个（￥{{ item.price * item.qty }}）</text>
         </view>

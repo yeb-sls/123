@@ -242,6 +242,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -281,11 +284,11 @@ export default {
         this.loading = true
         console.log('开始加载供灯订单数据...')
         
-        const result = await uniCloud.callFunction({ name: 'getLightOrders' })
+        const result = await commonManagement.getLightOrders()
         console.log('供灯订单数据加载结果:', result)
         
-        if (result.result && result.result.data) {
-          this.orders = result.result.data
+        if (result.success && result.data) {
+          this.orders = result.data
           console.log('供灯订单数据加载成功，共', this.orders.length, '条')
         } else {
           this.orders = []
@@ -329,14 +332,14 @@ export default {
           if (res.confirm) {
             try {
               uni.showLoading({ title: '处理中...' })
-              await uniCloud.callFunction({
-                name: 'updateLightOrderStatus',
-                data: { 
-                  id: order._id, 
-                  status: '已完成',
-                  completeTime: new Date().toISOString()
-                }
+              const result = await commonManagement.updateLightOrderStatus({
+                _id: order._id, 
+                status: '已完成',
+                completeTime: new Date().toISOString()
               })
+              if (!result.success) {
+                throw new Error(result.message || '状态更新失败')
+              }
               
               // 更新本地数据
               const index = this.orders.findIndex(o => o._id === order._id)
@@ -366,12 +369,9 @@ export default {
     },
     async updateOrderNote(order) {
       try {
-        await uniCloud.callFunction({
-          name: 'updateLightOrderNote',
-          data: { 
-            id: order._id, 
-            note: order.note 
-          }
+        await commonManagement.updateLightOrderStatus({
+          orderId: order._id,
+          note: order.note
         })
         uni.showToast({ 
           title: '备注已保存', 

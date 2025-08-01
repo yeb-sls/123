@@ -73,8 +73,17 @@ export default {
   },
   methods: {
     async loadGoods() {
-      const res = await uniCloud.callFunction({ name: 'getDelegateGoods' })
-      this.goods = res.result && res.result.data ? res.result.data : []
+      try {
+        const result = await commonManagement.getDelegateGoods()
+        if (result.success) {
+          this.goods = result.data || []
+        } else {
+          throw new Error(result.message || '获取失败')
+        }
+      } catch (error) {
+        console.error('加载代办物品失败:', error)
+        this.goods = []
+      }
     },
     showAddModal() {
       this.isEdit = false
@@ -100,18 +109,29 @@ export default {
         uni.showToast({ title: '请输入单价', icon: 'none' })
         return
       }
-      const data = { ...this.current }
-      if ('_id' in data && !data._id) delete data._id
-      if (this.isEdit && data._id) {
-        const updateData = { ...data }
-        delete updateData._id
-        await uniCloud.callFunction({ name: 'updateDelegateGood', data: { id: data._id, good: updateData } })
-      } else {
-        await uniCloud.callFunction({ name: 'addDelegateGood', data: { good: data } })
+      
+      try {
+        const data = { ...this.current }
+        
+        if (this.isEdit && data._id) {
+          // 更新物品
+          await commonManagement.updateDelegateGood({
+            _id: data._id,
+            ...data
+          })
+        } else {
+          // 添加物品
+          delete data._id
+          await commonManagement.addDelegateGood(data)
+        }
+        
+        this.showPopup = false
+        await this.loadGoods()
+        uni.showToast({ title: '保存成功', icon: 'success' })
+      } catch (error) {
+        console.error('保存失败:', error)
+        uni.showToast({ title: '保存失败', icon: 'none' })
       }
-      this.showPopup = false
-      await this.loadGoods()
-      uni.showToast({ title: '保存成功', icon: 'success' })
     },
     async deleteGood(id) {
       uni.showModal({
@@ -119,19 +139,30 @@ export default {
         content: '确定要删除该物品吗？',
         success: async (res) => {
           if (res.confirm) {
-            await uniCloud.callFunction({ name: 'deleteDelegateGood', data: { id } })
-            await this.loadGoods()
-            uni.showToast({ title: '删除成功', icon: 'success' })
+            try {
+              await commonManagement.deleteDelegateGood({ _id: id })
+              await this.loadGoods()
+              uni.showToast({ title: '删除成功', icon: 'success' })
+            } catch (error) {
+              console.error('删除失败:', error)
+              uni.showToast({ title: '删除失败', icon: 'none' })
+            }
           }
         }
       })
     },
     async toggleStatus(idx) {
-      const good = this.goods[idx]
-      const updateData = { ...good, enabled: !good.enabled }
-      delete updateData._id
-      await uniCloud.callFunction({ name: 'updateDelegateGood', data: { id: good._id, good: updateData } })
-      await this.loadGoods()
+      try {
+        const good = this.goods[idx]
+        await commonManagement.updateDelegateGood({
+          _id: good._id,
+          enabled: !good.enabled
+        })
+        await this.loadGoods()
+      } catch (error) {
+        console.error('状态切换失败:', error)
+        uni.showToast({ title: '状态切换失败', icon: 'none' })
+      }
     }
   }
 }

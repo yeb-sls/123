@@ -1,104 +1,117 @@
 <template>
   <view class="fahui-page">
-    <image class="fahui-banner" :src="bannerImage" mode="aspectFill" v-if="bannerImage" />
-    <view class="banner-desc" v-if="bannerDesc">{{ bannerDesc }}</view>
-
-    <!-- 图文介绍 -->
-    <view class="intro-section">
-      <view v-if="specialIntro.image" class="intro-image">
-        <image :src="specialIntro.image" mode="aspectFill" class="intro-img" />
-      </view>
-      <view class="intro-content">{{ specialIntro.content }}</view>
-    </view>
-
-    <!-- 报名人信息 -->
-    <view class="section">
-      <view class="section-title">
-        <text class="icon">👥</text>报名人信息
-        <text class="section-tip">（最多5人，每人信息需完整）</text>
-      </view>
+    <!-- 下拉刷新容器 -->
+    <scroll-view 
+      scroll-y="true" 
+      refresher-enabled="true"
+      :refresher-triggered="refreshing"
+      @refresherrefresh="onRefresh"
+      class="page-scroll"
+    >
       
-      <ParticipantForm 
-        :value="applicants"
-        @change="onParticipantsChange"
-      />
-    </view>
+      <image class="fahui-banner" :src="bannerImage" mode="aspectFill" v-if="bannerImage" />
+      <view class="banner-desc" v-if="bannerDesc">{{ bannerDesc }}</view>
 
-    <!-- 法会项目选择 -->
-    <view class="section">
-      <view class="section-title">
-        <text class="icon">🕯️</text>法会项目
-        <text class="section-tip">（必选）</text>
-      </view>
-      <view class="project-list">
-        <view v-for="(project, index) in fahuiProjects" :key="index" class="project-item" @click="selectProject(index)">
-          <view class="project-info">
-            <text class="project-name">{{ project.name }}</text>
-            <text class="info-icon" @click.stop="showProjectIntro(project)">ℹ️</text>
-            <text class="project-desc">{{ project.description }}</text>
-            <text class="project-price">¥{{ project.price }}</text>
-            <text class="project-remaining">剩余名额：{{ project.maxApplicants ? (project.maxApplicants - (project.currentApplicants || 0)) : '不限' }}</text>
-          </view>
-          <view class="project-status" :class="{ active: selectedProjectIndex === index }">
-            <text class="status-icon">{{ selectedProjectIndex === index ? '✓' : '○' }}</text>
-          </view>
+      <!-- 介绍部分 -->
+      <view class="intro-section" v-if="specialIntro.content || specialIntro.image">
+        <view class="intro-header">
+          <text class="intro-title">专场法会介绍</text>
+        </view>
+        
+        <view class="intro-content">
+          <text class="intro-text" v-if="specialIntro.content">{{ specialIntro.content }}</text>
+          <image class="intro-image" :src="specialIntro.image" mode="widthFix" v-if="specialIntro.image" />
         </view>
       </view>
-    </view>
 
-    <!-- 配偶信息（姻缘和合法会） -->
-    <view class="section" v-if="selectedProjectIndex === 0">
-      <view class="section-title">
-        <text class="icon">💕</text>配偶信息
-        <text class="section-tip">（选填）</text>
+      <!-- 报名人信息 -->
+      <view class="section">
+        <view class="section-title">
+          <text class="icon">👥</text>报名人信息
+          <text class="section-tip">（最多5人，每人信息需完整）</text>
+        </view>
+        
+        <ParticipantForm 
+          :value="applicants"
+          @change="onParticipantsChange"
+        />
       </view>
-      <view class="spouse-form">
-        <view class="form-group">
-          <text class="form-label">配偶姓名</text>
-          <input v-model="spouse.name" placeholder="请输入配偶姓名" class="form-input" maxlength="10" />
+
+      <!-- 法会项目选择 -->
+      <view class="section">
+        <view class="section-title">
+          <text class="icon">🕯️</text>法会项目
+          <text class="section-tip">（必选）</text>
         </view>
-        
-        <view class="form-group">
-          <text class="form-label">性别</text>
-          <picker :range="genderOptions" @change="onSpouseGenderChange" :value="genderOptions.indexOf(spouse.gender)">
-            <view class="picker">
-              <text class="picker-value">{{ spouse.gender || '请选择性别' }}</text>
-              <text class="picker-arrow">▼</text>
+        <view class="project-list">
+          <view v-for="(project, index) in fahuiProjects" :key="index" class="project-item" @click="selectProject(index)">
+            <view class="project-info">
+              <text class="project-name">{{ project.name }}</text>
+              <text class="info-icon" @click.stop="showProjectIntro(index)">ℹ️</text>
+              <text class="project-desc">{{ project.description }}</text>
+              <text class="project-price">{{ getPriceText(project) }}</text>
+              <text class="project-remaining">剩余名额：{{ getRemainingText(project) }}</text>
             </view>
-          </picker>
-        </view>
-        
-        <view class="form-group">
-          <text class="form-label">联系电话</text>
-          <input v-model="spouse.phone" placeholder="请输入联系电话" class="form-input" type="number" maxlength="11" />
-        </view>
-        
-        <view class="form-group">
-          <text class="form-label">农历生日</text>
-          <picker mode="date" @change="onSpouseBirthdayChange" :value="spouse.lunarBirthday">
-            <view class="picker">
-              <text class="picker-value">{{ spouse.lunarBirthday || '请选择农历生日' }}</text>
-              <text class="picker-arrow">▼</text>
+            <view class="project-status" :class="{ active: selectedProjectIndex === index }">
+              <text class="status-icon">{{ selectedProjectIndex === index ? '✓' : '○' }}</text>
             </view>
-          </picker>
-        </view>
-        
-        <view class="form-group">
-          <text class="form-label">出生时辰</text>
-          <picker :range="birthTimeOptions" @change="onSpouseBirthTimeChange" :value="birthTimeOptions.indexOf(spouse.birthTime)">
-            <view class="picker">
-              <text class="picker-value">{{ spouse.birthTime || '请选择出生时辰' }}</text>
-              <text class="picker-arrow">▼</text>
-            </view>
-          </picker>
-        </view>
-        
-        <view class="form-group">
-          <text class="form-label">常住地址</text>
-          <input v-model="spouse.address" placeholder="请输入常住地址" class="form-input" />
+          </view>
         </view>
       </view>
-    </view>
+
+      <!-- 配偶信息（姻缘和合法会） -->
+      <view class="section" v-if="selectedProjectIndex === 0">
+        <view class="section-title">
+          <text class="icon">💕</text>配偶信息
+          <text class="section-tip">（选填）</text>
+        </view>
+        <view class="spouse-form">
+          <view class="form-group">
+            <text class="form-label">配偶姓名</text>
+            <input v-model="spouse.name" placeholder="请输入配偶姓名" class="form-input" maxlength="10" />
+          </view>
+          
+          <view class="form-group">
+            <text class="form-label">性别</text>
+            <picker :range="genderOptions" @change="onSpouseGenderChange" :value="genderOptions.indexOf(spouse.gender)">
+              <view class="picker">
+                <text class="picker-value">{{ spouse.gender || '请选择性别' }}</text>
+                <text class="picker-arrow">▼</text>
+              </view>
+            </picker>
+          </view>
+          
+          <view class="form-group">
+            <text class="form-label">联系电话</text>
+            <input v-model="spouse.phone" placeholder="请输入联系电话" class="form-input" type="tel" maxlength="11" />
+          </view>
+          
+          <view class="form-group">
+            <text class="form-label">农历生日</text>
+            <picker mode="date" @change="onSpouseBirthdayChange" :value="spouse.lunarBirthday">
+              <view class="picker">
+                <text class="picker-value">{{ spouse.lunarBirthday || '请选择农历生日' }}</text>
+                <text class="picker-arrow">▼</text>
+              </view>
+            </picker>
+          </view>
+          
+          <view class="form-group">
+            <text class="form-label">出生时辰</text>
+            <picker :range="birthTimeOptions" @change="onSpouseBirthTimeChange" :value="birthTimeOptions.indexOf(spouse.birthTime)">
+              <view class="picker">
+                <text class="picker-value">{{ spouse.birthTime || '请选择出生时辰' }}</text>
+                <text class="picker-arrow">▼</text>
+              </view>
+            </picker>
+          </view>
+          
+          <view class="form-group">
+            <text class="form-label">常住地址</text>
+            <input v-model="spouse.address" placeholder="请输入常住地址" class="form-input" />
+          </view>
+        </view>
+      </view>
 
     <!-- 超度信息（超度法会） -->
     <view class="section" v-if="selectedProjectIndex === 1">
@@ -178,7 +191,7 @@
           <view class="goods-info">
             <text class="goods-name">{{ item.name }}</text>
             <text class="goods-desc">{{ item.description }}</text>
-            <text class="goods-price">¥{{ item.price }}</text>
+            <text class="goods-price">{{ getGoodsPriceText(item) }}</text>
           </view>
           <view class="goods-control">
             <button class="qty-btn" @click="decreaseGoodsQty(index)" :disabled="item.qty <= 0">-</button>
@@ -189,7 +202,7 @@
       </view>
       <view class="total-section">
         <text class="total-label">代办费用：</text>
-        <text class="total-price">¥{{ goodsTotalPrice }}</text>
+        <text class="total-price">{{ getGoodsTotalPriceText() }}</text>
       </view>
     </view>
 
@@ -207,7 +220,7 @@
         
         <view class="form-group">
           <text class="form-label">联系电话</text>
-          <input v-model="receiver.phone" placeholder="请输入联系电话" class="form-input" type="number" maxlength="11" />
+                      <input v-model="receiver.phone" placeholder="请输入联系电话" class="form-input" type="tel" maxlength="11" />
         </view>
         
         <view class="form-group">
@@ -237,7 +250,7 @@
             @mouseenter="hoverIdx=idx" @mouseleave="hoverIdx=-1" @click="onHistoryItemClick(idx, item)">
             <view class="history-main">
               <view class="history-name">{{ item.name }} <text class="history-phone">{{ item.phone }}</text></view>
-              <view class="history-detail">{{ item.gender }} | {{ item.lunarBirthday }} | {{ item.birthTime }} | {{ item.address }}</view>
+              <view class="history-detail">{{ getHistoryDetailText(item) }}</view>
               <view class="history-detail2">身份证号：{{ item.idCard || '—' }}</view>
             </view>
             <button class="history-del" v-if="!batchDeleteMode" @click.stop="deleteHistoryParticipant(idx)">删除</button>
@@ -246,19 +259,23 @@
         </view>
         <view class="dialog-actions">
           <button class="dialog-close" @click="showHistoryDialog=false">关闭</button>
-          <button class="dialog-btn" @click="toggleBatchDeleteMode">{{ batchDeleteMode ? '取消批量' : '批量删除' }}</button>
+          <button class="dialog-btn" @click="toggleBatchDeleteMode">{{ getBatchDeleteButtonText() }}</button>
           <button class="dialog-btn" @click="exportHistory">导出</button>
           <button class="dialog-btn" @click="importHistory">导入</button>
-          <button class="dialog-btn danger" v-if="batchDeleteMode && batchDeleteSet.size" @click="confirmBatchDelete">确认删除({{ batchDeleteSet.size }})</button>
+          <button class="dialog-btn danger" v-if="batchDeleteMode && batchDeleteSet.size" @click="confirmBatchDelete">{{ getConfirmDeleteButtonText() }}</button>
         </view>
         <input v-if="showImportInput" type="file" accept="application/json" style="display:none" ref="importFile" @change="onImportFile" />
       </view>
     </view>
+      </scroll-view>
   </view>
 </template>
 
 <script>
 import ParticipantForm from '@/components/ParticipantForm.vue'
+
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
 
 export default {
   components: {
@@ -306,6 +323,7 @@ export default {
       batchDeleteMode: false,
       batchDeleteSet: new Set(),
       showImportInput: false,
+      refreshing: false, // 新增：控制下拉刷新状态
     }
   },
   computed: {
@@ -339,14 +357,15 @@ export default {
     },
     async loadBanner() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getFahuiBanners',
-          data: { t: Date.now() + Math.random() }
-        })
-        console.log('云函数返回：', res)
-        if (res.result && res.result.data && res.result.data.length > 0) {
-          let image = res.result.data[0].image
-          let desc = res.result.data[0].description || ''
+        const result = await fahuiManagement.getBanners()
+        console.log('云函数返回：', result)
+        if (result.success && result.data && result.data.length > 0) {
+          const bannerData = result.data[0]
+          console.log('Banner数据详情：', bannerData)
+          
+          let image = bannerData.image
+          let desc = bannerData.description || bannerData.desc || bannerData.title || ''
+          
           // fileID 转临时链接
           if (image && !/^https?:\/\//.test(image)) {
             const tempRes = await uniCloud.getTempFileURL({ fileList: [image] })
@@ -361,6 +380,7 @@ export default {
         } else {
           this.bannerImage = ''
           this.bannerDesc = ''
+          console.log('没有找到banner数据')
         }
       } catch (e) {
         this.bannerImage = ''
@@ -370,26 +390,49 @@ export default {
     },
     async loadSpecialIntro() {
       try {
-        const res = await uniCloud.callFunction({ name: 'getFahuiSpecialIntro' })
-        if (res.result && res.result.data) {
-          this.specialIntro = res.result.data
+        console.log('🔍 === 开始加载专场法会介绍数据 ===')
+        console.log('🔍 调用 fahuiManagement.getSpecialIntro()')
+        
+        const result = await fahuiManagement.getSpecialIntro()
+        console.log('🔍 云函数返回结果:', result)
+        console.log('🔍 返回数据详情:', result.data)
+        console.log('🔍 返回数据内容:', result.data?.content)
+        console.log('🔍 返回数据启用状态:', result.data?.enabled)
+        
+        if (result.success && result.data) {
+          console.log('🔍 数据获取成功，更新 specialIntro')
+          console.log('🔍 更新前的 specialIntro:', this.specialIntro)
+          
+          this.specialIntro = result.data
+          
+          console.log('🔍 更新后的 specialIntro:', this.specialIntro)
+          console.log('🔍 更新后的内容:', this.specialIntro.content)
+          console.log('🔍 更新后的启用状态:', this.specialIntro.enabled)
+          console.log('🔍 更新后的图片:', this.specialIntro.image)
         } else {
+          console.log('🔍 数据获取失败或为空，使用默认数据')
+          console.log('🔍 失败原因:', result.message)
           this.specialIntro = { content: '', image: '' }
         }
+        
+        console.log('🔍 === 专场法会介绍数据加载完成 ===')
       } catch (e) {
+        console.error('🔍 加载专场法会介绍失败:', e)
+        console.error('🔍 错误详情:', e.message)
         this.specialIntro = { content: '', image: '' }
       }
     },
     async loadFahuiProjects() {
       try {
-        const res = await uniCloud.callFunction({ 
-          name: 'getFahuiProjects',
-          data: { type: 'special' }
-        })
-        this.fahuiProjects = res.result && res.result.data ? res.result.data.map(p => ({
-          ...p,
-          price: Number(p.price) || 0
-        })) : []
+        const result = await fahuiManagement.getProjects({ type: 'special' })
+        if (result.success && result.data) {
+          this.fahuiProjects = result.data.map(p => ({
+            ...p,
+            price: Number(p.price) || 0
+          }))
+        } else {
+          this.fahuiProjects = []
+        }
         // 恢复上次选中
         const last = uni.getStorageSync('fahuiForm')
         if (last && last.fahuiProject) {
@@ -405,11 +448,11 @@ export default {
     },
     async loadGoodsConfig() {
       try {
-        const result = await uniCloud.callFunction({ name: 'getFahuiGoodsConfig' });
-        if (result.result && result.result.data) {
-          this.showGoods = !!result.result.data.enabled && Array.isArray(result.result.data.goods) && result.result.data.goods.length > 0;
-          this.goodsList = Array.isArray(result.result.data.goods)
-            ? result.result.data.goods.filter(g => g.enabled).map(g => ({ ...g, qty: Number(g.qty) || 0 }))
+        const result = await fahuiManagement.getGoodsConfig();
+        if (result.success && result.data) {
+          this.showGoods = !!result.data.enabled && Array.isArray(result.data.goods) && result.data.goods.length > 0;
+          this.goodsList = Array.isArray(result.data.goods)
+            ? result.data.goods.filter(g => g.enabled).map(g => ({ ...g, qty: Number(g.qty) || 0 }))
             : [];
         } else {
           this.showGoods = false;
@@ -423,14 +466,13 @@ export default {
     },
     async getReceiverConfig() {
       try {
-        const res = await uniCloud.callFunction({ name: 'getFahuiReceiverConfig', data: { t: Date.now() } })
+        const result = await fahuiManagement.getReceiverConfig()
         // 兼容 enabled 字段在 result 或根对象
-        const enabled = (res.result && typeof res.result.enabled !== 'undefined' ? res.result.enabled : res.enabled)
+        const enabled = result.success && result.data ? result.data.enabled : false
         this.showReceiver = !!enabled
-        console.log('[调试] getFahuiReceiverConfig 返回:', res, '最终 showReceiver:', this.showReceiver)
       } catch (e) {
         this.showReceiver = false
-        console.log('[调试] getFahuiReceiverConfig 异常:', e)
+        console.error('获取收件人配置失败:', e)
       }
     },
     getEmptyApplicant() {
@@ -597,9 +639,8 @@ export default {
 
       // 收件信息自动保存到数据库
       if (this.showReceiver && this.receiver.name && this.receiver.phone && this.receiver.address) {
-        uniCloud.callFunction({
-          name: 'addFahuiReceiver',
-          data: { ...this.receiver }
+        fahuiManagement.addReceiver({ ...this.receiver }).catch(e => {
+          console.error('保存收件信息失败:', e)
         })
       }
 
@@ -619,11 +660,44 @@ export default {
         }
       })
     },
-    showProjectIntro(project) {
-      uni.showModal({
-        title: project.name + '简介',
-        content: project.description || '暂无简介'
-      })
+    showProjectIntro(index) {
+      const project = this.fahuiProjects[index]
+      if (project) {
+        uni.showModal({
+          title: project.name + '简介',
+          content: project.description || '暂无简介'
+        })
+      }
+    },
+    getRemainingText(project) {
+      if (project.maxApplicants) {
+        const remaining = project.maxApplicants - (project.currentApplicants || 0)
+        return remaining.toString()
+      }
+      return '不限'
+    },
+    getPriceText(project) {
+      return project.price ? '¥' + project.price : '¥0'
+    },
+    getGoodsPriceText(item) {
+      return item.price ? '¥' + item.price : '¥0'
+    },
+    getGoodsTotalPriceText() {
+      return '¥' + this.goodsTotalPrice
+    },
+    getHistoryDetailText(item) {
+      const parts = []
+      if (item.gender) parts.push(item.gender)
+      if (item.lunarBirthday) parts.push(item.lunarBirthday)
+      if (item.birthTime) parts.push(item.birthTime)
+      if (item.address) parts.push(item.address)
+      return parts.join(' | ')
+    },
+    getBatchDeleteButtonText() {
+      return this.batchDeleteMode ? '取消批量' : '批量删除'
+    },
+    getConfirmDeleteButtonText() {
+      return `确认删除(${this.batchDeleteSet.size})`
     },
     onHistorySearch() {
       this.hoverIdx = -1
@@ -745,6 +819,35 @@ export default {
       reader.readAsText(file)
       this.showImportInput = false
     },
+    
+    // 强制刷新所有数据
+    forceRefreshAll() {
+      console.log('🔍 === 强制刷新所有数据 ===')
+      // 清除所有缓存数据
+      this.bannerImage = ''
+      this.bannerDesc = ''
+      this.specialIntro = { content: '', image: '' }
+      this.fahuiProjects = []
+      this.goodsList = []
+      
+      // 重新加载所有数据
+      this.loadBanner()
+      this.loadSpecialIntro()
+      this.loadFahuiProjects()
+      this.loadGoodsConfig()
+      
+      uni.showToast({ title: '所有数据已强制刷新', icon: 'none' });
+    },
+
+    // 新增：下拉刷新
+    async onRefresh() {
+      this.refreshing = true;
+      await this.loadBanner();
+      await this.loadSpecialIntro();
+      await this.loadFahuiProjects();
+      await this.loadGoodsConfig();
+      this.refreshing = false;
+    }
   },
   onLoad() {
     this.getReceiverConfig();
@@ -756,7 +859,7 @@ export default {
     const last = uni.getStorageSync('fahuiForm')
     if (last) {
       this.applicants = last.applicants || [this.getEmptyApplicant()]
-      this.selectedProjectIndex = this.fahuiProjects.findIndex(p => p.id === last.fahuiProject?.id)
+      this.selectedProjectIndex = this.fahuiProjects.findIndex(p => p._id === last.fahuiProject?.id)
       this.spouse = last.spouse || this.spouse
       this.chaoduType = last.chaoduType || ''
       this.deceasedList = last.deceasedList || [this.getEmptyDeceased()]
@@ -774,7 +877,7 @@ export default {
     }
   },
   onShow() {
-    this.getReceiverConfig();
+    // 移除重复的 getReceiverConfig() 调用，避免重复执行
     try {
       uni.removeStorageSync('fahuiBannerCache')
     } catch (e) {}
@@ -789,6 +892,10 @@ export default {
 .fahui-page {
   min-height: 100vh;
   background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+}
+
+.page-scroll {
+  height: 100vh;
   padding-bottom: 40rpx;
 }
 
@@ -819,11 +926,17 @@ export default {
   box-shadow: 0 2rpx 12rpx #e0eaff;
 }
 
+.intro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
 .intro-title {
   font-size: 32rpx;
   font-weight: bold;
   color: #2d8cf0;
-  margin-bottom: 16rpx;
 }
 
 .intro-image {
@@ -844,6 +957,11 @@ export default {
   font-size: 28rpx;
   color: #666;
   line-height: 1.6;
+}
+
+.intro-text {
+  display: block;
+  margin-bottom: 16rpx;
 }
 
 .section {

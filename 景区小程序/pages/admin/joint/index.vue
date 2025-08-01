@@ -60,20 +60,11 @@
         <view class="module-arrow">→</view>
       </view>
       
-      <view class="module-card" @click="goToStats">
-        <view class="module-icon">📊</view>
+      <view class="module-card" @click="goToBannerTest">
+        <view class="module-icon">🖼️</view>
         <view class="module-info">
-          <text class="module-title">数据统计</text>
-          <text class="module-desc">查看合坛法会数据统计</text>
-        </view>
-        <view class="module-arrow">→</view>
-      </view>
-      
-      <view class="module-card" @click="goToTest">
-        <view class="module-icon">🧪</view>
-        <view class="module-info">
-          <text class="module-title">功能测试</text>
-          <text class="module-desc">测试合坛法会管理功能</text>
+          <text class="module-title">头图测试</text>
+          <text class="module-desc">测试头图更新同步功能</text>
         </view>
         <view class="module-arrow">→</view>
       </view>
@@ -94,7 +85,7 @@ export default {
       uni.navigateTo({ url: '/pages/admin/joint/projects' })
     },
     goToGoods() {
-      uni.navigateTo({ url: '/pages/admin/joint/goods' })
+      uni.navigateTo({ url: '/pages/admin/joint/goods-overview' })
     },
     goToReceiver() {
       uni.navigateTo({ url: '/pages/admin/joint/receiver' })
@@ -102,12 +93,8 @@ export default {
     goToOrders() {
       uni.navigateTo({ url: '/pages/admin/joint/orders' })
     },
-    goToStats() {
-      uni.navigateTo({ url: '/pages/admin/joint/stats' })
-    },
-    goToTest() {
-      uni.showToast({ title: '功能开发中', icon: 'none' })
-      // uni.navigateTo({ url: '/pages/admin/joint/test' })
+    goToBannerTest() {
+      uni.navigateTo({ url: '/pages/admin/joint/test' })
     }
   }
 }

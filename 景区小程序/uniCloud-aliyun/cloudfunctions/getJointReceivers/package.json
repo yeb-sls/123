@@ -1,0 +1,10 @@
+{
+  "name": "getJointReceivers",
+  "version": "1.0.0",
+  "description": "获取合坛法会收件信息列表",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

@@ -2,152 +2,178 @@
   <view class="admin-container">
     <view class="page-header">
       <text class="page-title">合坛法会头图管理</text>
-      <text class="page-desc">管理合坛法会页面头图配置</text>
-      <button class="add-btn" @click="showAddModal">+ 新增头图</button>
+      <text class="page-desc">管理合坛法会页面头图（仅支持一张图片）</text>
     </view>
     
-    <!-- 头图列表 -->
-    <view class="banners-list">
-      <view v-for="(banner, index) in banners" :key="banner._id" class="banner-card">
-        <view class="banner-preview">
-          <image :src="banner.image" class="banner-img" mode="aspectFill" />
-          <view class="banner-overlay">
-            <view class="banner-actions">
-              <button class="action-btn edit" @click="editBanner(index)">编辑</button>
-              <button class="action-btn delete" @click="deleteBanner(banner._id)">删除</button>
-            </view>
-          </view>
-        </view>
-        
-        <view class="banner-info">
-          <view class="info-row">
-            <text class="info-label">排序：</text>
-            <text class="info-value">{{ banner.order || 0 }}</text>
-          </view>
-          <view class="info-row">
-            <text class="info-label">状态：</text>
-            <text class="info-value" :class="banner.enabled ? 'enabled' : 'disabled'">
-              {{ banner.enabled ? '启用' : '禁用' }}
-            </text>
-          </view>
-          <view class="info-row">
-            <text class="info-label">创建时间：</text>
-            <text class="info-value">{{ formatTime(banner.create_time) }}</text>
+    <!-- 单张头图管理 -->
+    <view v-if="currentBanner.image && !isEdit" class="banner-card">
+      <view class="banner-preview">
+        <image :src="currentBanner.image" class="banner-img" mode="aspectFill" />
+        <view class="banner-overlay">
+          <view class="banner-actions">
+            <button class="action-btn edit" @click="isEdit = true">编辑</button>
+            <button v-if="currentBanner._id && !isEdit" class="action-btn delete" @click="deleteBanner">删除</button>
           </view>
         </view>
       </view>
-    </view>
-    
-    <!-- 添加/编辑弹窗 -->
-    <uni-popup ref="popup" type="center" :mask-click="false">
-      <view class="popup-content">
-        <view class="popup-header">
-          <text class="popup-title">{{ isEdit ? '编辑头图' : '新增头图' }}</text>
-          <text class="popup-close" @click="closeModal">×</text>
+      <view class="banner-info">
+        <view class="info-row">
+          <text class="info-label">状态：</text>
+          <text class="info-value" :class="currentBanner.enabled ? 'enabled' : 'disabled'">
+            {{ currentBanner.enabled ? '启用' : '禁用' }}
+          </text>
         </view>
-        
-        <view class="form-content">
-          <view class="form-item">
-            <text class="form-label">头图图片 *</text>
-            <view class="image-upload" @click="chooseImage">
-              <image v-if="currentBanner.image" :src="currentBanner.image" class="upload-preview" mode="aspectFill" />
-              <view v-else class="upload-placeholder">
-                <text class="upload-icon">📷</text>
-                <text class="upload-text">点击选择图片</text>
-              </view>
-            </view>
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">排序</text>
-            <input v-model="currentBanner.order" type="number" class="form-input" placeholder="请输入排序号" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">状态</text>
-            <switch :checked="currentBanner.enabled" @change="onSwitchChange" color="#667eea" />
-            <text class="switch-label">{{ currentBanner.enabled ? '启用' : '禁用' }}</text>
-          </view>
-        </view>
-        
-        <view class="form-actions">
-          <button class="cancel-btn" @click="closeModal">取消</button>
-          <button class="save-btn" @click="saveBanner">保存</button>
+        <view class="info-row">
+          <text class="info-label">更新时间：</text>
+          <text class="info-value">{{ formatTime(currentBanner.update_time || currentBanner.create_time) }}</text>
         </view>
       </view>
-    </uni-popup>
+    </view>
+    <!-- 添加/编辑表单直接在当前页面显示 -->
+    <view v-if="isEdit" class="banner-edit-form">
+      <view class="form-content">
+        <view class="form-item">
+          <text class="form-label">头图图片 *</text>
+          <view class="image-upload" @click="chooseImage">
+            <image v-if="currentBanner.image" :src="currentBanner.image" class="upload-preview" mode="aspectFill" />
+            <view v-else class="upload-placeholder">
+              <text class="upload-icon">📷</text>
+              <text class="upload-text">点击选择图片</text>
+            </view>
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">状态</text>
+          <switch :checked="currentBanner.enabled" @change="onSwitchChange" color="#667eea" />
+          <text class="switch-label">{{ currentBanner.enabled ? '启用' : '禁用' }}</text>
+        </view>
+      </view>
+      <view class="form-actions">
+        <button class="cancel-btn" type="button" @click="cancelEdit">取消</button>
+        <button class="save-btn" type="button" @click="saveBanner">保存</button>
+      </view>
+    </view>
+    <view v-else-if="!currentBanner._id && !isEdit" class="no-banner">
+      <text class="no-banner-text">暂无头图，请添加</text>
+      <button class="add-btn" type="button" @click="showAddForm">+ 添加头图</button>
+    </view>
   </view>
 </template>
 
 <script>
-import uniPopup from '@/components/uni-popup/uni-popup.vue'
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
 
 export default {
-  components: { uniPopup },
   
   data() {
     return {
-      banners: [],
       isEdit: false,
-      editIndex: -1,
       currentBanner: {
         _id: '',
         image: '',
-        order: 0,
         enabled: true,
-        create_time: ''
+        create_time: '',
+        update_time: ''
       }
     }
   },
   
   onLoad() {
+    console.log('[后台] 页面 onLoad')
     this.loadBanners()
   },
+  
+  onShow() {
+    console.log('[后台] 页面 onShow')
+    // 每次页面显示时重新加载数据，确保数据最新
+    this.loadBanners()
+  },
+  
+
   
   methods: {
     async loadBanners() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getJointBanners'
-        })
-        this.banners = res.result && res.result.data ? res.result.data : []
+        console.log('[后台] 开始加载头图...')
+        const result = await jointManagement.getBanners()
+        console.log('[后台] 获取头图结果:', result)
+        // 过滤掉_id为空的数据
+        const validBanners = result.success && result.data ? result.data.filter(b => b._id) : []
+        if (validBanners.length > 0) {
+          let banner = validBanners[0]
+          // 保存原始的fileID用于编辑
+          const originalImage = banner.image
+          if (banner.image && !/^https?:\/\//.test(banner.image)) {
+            // fileID转临时URL用于显示
+            const tempRes = await uniCloud.getTempFileURL({ fileList: [banner.image] })
+            banner.image = tempRes.fileList[0].tempFileURL
+            // 加时间戳强制刷新图片缓存
+            banner.image = banner.image + '?t=' + Date.now()
+            console.log('[后台] fileID转临时URL:', banner.image)
+          }
+          // 保存原始fileID，用于编辑时保存
+          banner.originalImage = originalImage
+          this.currentBanner = banner
+          console.log('[后台] loadBanners 赋值后 currentBanner:', JSON.stringify(this.currentBanner))
+        } else {
+          this.currentBanner = {
+            image: '',
+            enabled: true,
+            create_time: '',
+            update_time: ''
+          }
+          console.log('[后台] 没有找到头图，currentBanner:', JSON.stringify(this.currentBanner))
+        }
       } catch (error) {
-        console.error('加载合坛法会头图失败:', error)
+        console.error('[后台] 加载合坛法会头图失败:', error)
         uni.showToast({ title: '加载失败', icon: 'none' })
       }
     },
     
-    showAddModal() {
-      this.isEdit = false
-      this.editIndex = -1
-      this.currentBanner = {
-        _id: '',
-        image: '',
-        order: 0,
-        enabled: true,
-        create_time: ''
-      }
-      this.$refs.popup.open()
-    },
-    
-    editBanner(index) {
+    showAddForm() {
+      console.log('[后台] 点击添加头图')
       this.isEdit = true
-      this.editIndex = index
-      this.currentBanner = JSON.parse(JSON.stringify(this.banners[index]))
-      this.$refs.popup.open()
+      this.currentBanner = {
+        image: '',
+        enabled: true,
+        create_time: '',
+        update_time: ''
+      }
     },
     
-    closeModal() {
-      this.$refs.popup.close()
+    cancelEdit() {
+      console.log('[后台] 取消编辑')
+      this.isEdit = false
+      this.loadBanners()
     },
     
     chooseImage() {
+      console.log('[后台] 点击选择图片')
       uni.chooseImage({
         count: 1,
         sizeType: ['compressed'],
         sourceType: ['album', 'camera'],
-        success: (res) => {
-          this.currentBanner.image = res.tempFilePaths[0]
+        success: async (res) => {
+          try {
+            uni.showLoading({ title: '上传中...' })
+            const uploadRes = await uniCloud.uploadFile({
+              filePath: res.tempFilePaths[0],
+              cloudPath: 'joint_banners/' + Date.now() + '.jpg'
+            })
+            uni.hideLoading()
+            this.currentBanner.image = uploadRes.fileID
+            // 同时更新originalImage，确保保存时使用新的fileID
+            this.currentBanner.originalImage = uploadRes.fileID
+            console.log('[后台] 图片上传成功，fileID:', uploadRes.fileID)
+            uni.showToast({ title: '图片上传成功' })
+            // 上传成功后自动保存
+            await this.saveBanner()
+          } catch (err) {
+            uni.hideLoading()
+            console.log('[后台] 图片上传失败:', err)
+            uni.showToast({ title: '图片上传失败', icon: 'none' })
+          }
         }
       })
     },
@@ -163,51 +189,107 @@ export default {
       }
       
       try {
+        console.log('[后台] 保存头图，currentBanner:', JSON.stringify(this.currentBanner))
+        
+        // 确定要保存的图片URL：优先使用originalImage（fileID），因为image可能是临时URL
+        let imageToSave = this.currentBanner.originalImage || this.currentBanner.image
+        
+        // 如果originalImage是临时URL，则使用image（fileID）
+        if (imageToSave && imageToSave.startsWith('http') && imageToSave.includes('cdn.bspapp.com')) {
+          // 如果originalImage是临时URL，尝试使用image
+          if (this.currentBanner.image && !this.currentBanner.image.startsWith('http')) {
+            imageToSave = this.currentBanner.image
+          }
+        }
+        
+        console.log('[后台] 保存前检查:')
+        console.log('[后台] - currentBanner.image:', this.currentBanner.image)
+        console.log('[后台] - currentBanner.originalImage:', this.currentBanner.originalImage)
+        console.log('[后台] - 最终保存的imageToSave:', imageToSave)
+        
         const data = {
-          ...this.currentBanner,
-          order: Number(this.currentBanner.order) || 0,
-          create_time: this.currentBanner.create_time || new Date().toISOString()
+          image: imageToSave,
+          enabled: this.currentBanner.enabled
         }
         
-        if (this.isEdit && data._id) {
-          const updateData = { ...data }
-          delete updateData._id
-          await uniCloud.callFunction({
-            name: 'updateJointBanner',
-            data: { id: data._id, banner: updateData }
+        console.log('[后台] 实际保存的图片数据:', data)
+        
+        if (this.currentBanner._id) {
+          // 更新现有头图
+          console.log('[后台] 更新头图')
+          const result = await jointManagement.updateBanner({ 
+            _id: this.currentBanner._id, 
+            ...data 
           })
+          if (!result.success) {
+            throw new Error(result.message || '更新失败')
+          }
         } else {
-          await uniCloud.callFunction({
-            name: 'addJointBanner',
-            data: { banner: data }
+          // 添加新头图
+          console.log('[后台] 新增头图')
+          const result = await jointManagement.addBanner({ 
+            image: data.image,
+            enabled: data.enabled
           })
+          if (!result.success) {
+            throw new Error(result.message || '添加失败')
+          }
         }
         
-        this.closeModal()
-        await this.loadBanners()
-        uni.showToast({ title: this.isEdit ? '更新成功' : '添加成功' })
+        this.isEdit = false
+        setTimeout(() => {
+          this.loadBanners()
+        }, 500)
+        uni.showToast({ title: '保存成功' })
       } catch (error) {
-        console.error('保存合坛法会头图失败:', error)
+        console.error('[后台] 保存合坛法会头图失败:', error)
         uni.showToast({ title: '保存失败', icon: 'none' })
       }
     },
     
-    async deleteBanner(id) {
+    async deleteBanner() {
+      console.log('[后台] deleteBanner 调用，currentBanner:', JSON.stringify(this.currentBanner))
+      // 防御性检查
+      if (!this.currentBanner || !this.currentBanner._id) {
+        uni.showToast({ title: '头图数据无效', icon: 'none' })
+        return
+      }
+      console.log('[后台] 开始删除头图，ID:', this.currentBanner._id)
+      console.log('[后台] 当前头图数据:', this.currentBanner)
+      
+      // 验证ID参数
+      if (!this.currentBanner._id) {
+        console.error('删除失败：头图ID为空')
+        uni.showToast({ title: '头图数据无效', icon: 'none' })
+        return
+      }
+      
       uni.showModal({
         title: '确认删除',
         content: '确定要删除这个头图吗？',
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'deleteJointBanner',
-                data: { id }
-              })
-              await this.loadBanners()
-              uni.showToast({ title: '删除成功' })
+              console.log('[后台] 用户确认删除，调用云函数...')
+              console.log('传递的参数:', { bannerId: this.currentBanner._id })
+              
+              const result = await jointManagement.deleteBanner({ _id: this.currentBanner._id })
+              console.log('[后台] 删除云函数返回结果:', result)
+              
+              if (result.success) {
+                await this.loadBanners()
+                uni.showToast({ title: '删除成功', icon: 'success' })
+              } else {
+                const errorMsg = result.message || '删除失败'
+                console.error('[后台] 删除失败详情:', result)
+                throw new Error(errorMsg)
+              }
             } catch (error) {
-              console.error('删除合坛法会头图失败:', error)
-              uni.showToast({ title: '删除失败', icon: 'none' })
+              console.error('[后台] 删除合坛法会头图失败:', error)
+              uni.showToast({ 
+                title: error.message || '删除失败', 
+                icon: 'none' 
+              })
             }
           }
         }
@@ -260,6 +342,25 @@ export default {
   padding: 20rpx 40rpx;
   border-radius: 8rpx;
   font-size: 28rpx;
+}
+
+.banner-container {
+  margin-bottom: 20rpx;
+}
+
+.no-banner {
+  background: #fff;
+  padding: 60rpx 30rpx;
+  border-radius: 12rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.no-banner-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+  display: block;
 }
 
 .banners-list {

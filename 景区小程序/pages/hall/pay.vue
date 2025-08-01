@@ -31,7 +31,7 @@
       <view class="goods-section">
         <view class="section-title">供品清单</view>
         <view class="goods-list">
-          <view class="goods-item" v-for="(item, idx) in orderInfo.goodsList" :key="idx">
+                      <view class="goods-item" v-for="(item, idx) in orderInfo.goodsList" :key="idx">
             <text class="goods-name">{{ item.name }}</text>
             <text class="goods-qty">x{{ item.quantity }}</text>
             <text class="goods-price">¥{{ item.price }}</text>
@@ -62,7 +62,7 @@
         <view class="payment-options">
           <view 
             v-for="(option, index) in paymentOptions" 
-            :key="index"
+            :key="'hall-' + index"
             class="payment-option"
             :class="{ active: selectedPayment === index }"
             @click="selectPayment(index)"

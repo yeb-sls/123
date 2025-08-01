@@ -1,0 +1,10 @@
+{
+  "name": "notification-system",
+  "version": "1.0.0",
+  "description": "通知系统云对象",
+  "main": "index.obj.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

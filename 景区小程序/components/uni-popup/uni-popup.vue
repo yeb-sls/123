@@ -1,5 +1,5 @@
 <template>
-  <view v-if="show" class="uni-popup">
+  <view v-if="visible" class="uni-popup">
     <!-- 遮罩层，只有点击遮罩才关闭弹窗 -->
     <view class="uni-popup__mask" @click.self="onMaskClick"></view>
     <view class="uni-popup__wrapper" :class="[`uni-popup--${type}`]">
@@ -14,10 +14,6 @@
 export default {
   name: 'UniPopup',
   props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
     type: {
       type: String,
       default: 'center'
@@ -25,12 +21,36 @@ export default {
     maskClick: {
       type: Boolean,
       default: true
+    },
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      visible: false
+    }
+  },
+  watch: {
+    show: {
+      handler(newVal) {
+        this.visible = newVal
+      },
+      immediate: true
     }
   },
   methods: {
+    open(type) {
+      this.visible = true
+    },
+    close() {
+      this.visible = false
+      this.$emit('close')
+    },
     onMaskClick() {
       if (this.maskClick) {
-        this.$emit('close')
+        this.close()
       }
     }
   }
@@ -100,12 +120,12 @@ export default {
   background-color: #fff;
   border-radius: 8rpx;
   max-width: 90vw;
-  width: 420rpx;
+  width: auto;
   max-height: 90vh;
   min-height: 200rpx;
   overflow: auto;
   box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.18);
-  padding: 32rpx 24rpx;
+  padding: 0;
   pointer-events: auto;
 }
 </style> 

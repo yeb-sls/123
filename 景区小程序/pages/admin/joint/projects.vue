@@ -1,115 +1,106 @@
 <template>
-  <view class="admin-container">
-    <view class="page-header">
-      <text class="page-title">合坛法会项目管理</text>
-      <text class="page-desc">管理合坛法会项目及其详细配置</text>
-      <button class="add-btn" @click="showAddModal">+ 新增项目</button>
-    </view>
-    
-    <!-- 项目列表 -->
-    <view class="projects-list">
-      <view v-for="(project, index) in projects" :key="project._id" class="project-card">
-        <view class="project-header">
-          <view class="project-info">
-            <text class="project-name">{{ project.name }}</text>
-            <text class="project-category">{{ project.category }}</text>
-          </view>
-          <view class="project-price">¥{{ project.price }}/人</view>
-        </view>
-        
-        <view class="project-desc">{{ project.description }}</view>
-        
-        <view class="project-details">
-          <view class="detail-item">
-            <text class="detail-label">截止日期：</text>
-            <text class="detail-value">{{ project.deadline }}</text>
-          </view>
-          <view class="detail-item">
-            <text class="detail-label">最大人数：</text>
-            <text class="detail-value">{{ project.maxApplicants || '不限' }}</text>
-          </view>
-          <view class="detail-item">
-            <text class="detail-label">可选日期：</text>
-            <text class="detail-value">{{ project.dates ? project.dates.join('、') : '待定' }}</text>
-          </view>
-        </view>
-        
-        <view class="project-actions">
-          <button class="action-btn edit" @click="editProject(index)">编辑</button>
-          <button class="action-btn delete" @click="deleteProject(project._id)">删除</button>
-        </view>
+  <view>
+    <view class="admin-container">
+      <view class="page-header">
+        <text class="page-title">合坛法会项目管理</text>
+        <text class="page-desc">管理合坛法会项目及其详细配置</text>
+        <button class="add-btn" @click="showAddModal">+ 新增项目</button>
       </view>
-    </view>
-    
-    <!-- 添加/编辑弹窗 -->
-    <uni-popup ref="popup" type="center" :mask-click="false">
-      <view class="popup-content">
-        <view class="popup-header">
-          <text class="popup-title">{{ isEdit ? '编辑项目' : '新增项目' }}</text>
-          <text class="popup-close" @click="closeModal">×</text>
-        </view>
-        
-        <view class="form-content">
-          <view class="form-item">
-            <text class="form-label">项目名称 *</text>
-            <input v-model="current.name" class="form-input" placeholder="请输入项目名称" />
+      
+      <!-- 项目列表 -->
+      <view class="projects-list">
+        <view v-for="(project, index) in projects" :key="project._id" class="project-card">
+          <view class="project-header">
+            <view class="project-info">
+              <text class="project-name">{{ project.name }}</text>
+              <text class="project-category">{{ project.category }}</text>
+            </view>
+            <view class="project-price">¥{{ project.price }}/人</view>
           </view>
           
-          <view class="form-item">
-            <text class="form-label">项目分类</text>
-            <picker @change="onCategoryChange" :value="categoryIndex" :range="categoryOptions">
-              <view class="form-picker">
-                {{ current.category || '请选择分类' }}
-              </view>
-            </picker>
-          </view>
+          <view class="project-desc">{{ project.description }}</view>
           
-          <view class="form-item">
-            <text class="form-label">项目描述</text>
-            <textarea v-model="current.description" class="form-textarea" placeholder="请输入项目描述" maxlength="200" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">法金价格 *</text>
-            <input v-model="current.price" type="number" class="form-input" placeholder="请输入法金价格" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">截止日期</text>
-            <picker mode="date" @change="onDeadlineChange" :value="current.deadline">
-              <view class="form-picker">
-                {{ current.deadline || '请选择截止日期' }}
-              </view>
-            </picker>
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">最大报名人数</text>
-            <input v-model="current.maxApplicants" type="number" class="form-input" placeholder="请输入最大报名人数" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">可选日期</text>
-            <view class="dates-container">
-              <view v-for="(date, index) in current.dates" :key="index" class="date-tag">
-                <text>{{ date }}</text>
-                <text class="date-remove" @click="removeDate(index)">×</text>
-              </view>
-              <button class="add-date-btn" @click="showDatePicker">+ 添加日期</button>
+          <view class="project-details">
+            <view class="detail-item">
+              <text class="detail-label">截止日期：</text>
+              <text class="detail-value">{{ project.deadline }}</text>
+            </view>
+            <view class="detail-item">
+              <text class="detail-label">最大人数：</text>
+              <text class="detail-value">{{ project.maxApplicants || '不限' }}</text>
+            </view>
+            <view class="detail-item">
+              <text class="detail-label">可选日期：</text>
+              <text class="detail-value">{{ project.dates ? project.dates.join('、') : '待定' }}</text>
             </view>
           </view>
+          
+          <view class="project-actions">
+            <button class="action-btn edit" @click="editProject(index)">编辑</button>
+            <button class="action-btn goods" @click="manageGoods(project._id)">物品</button>
+            <button class="action-btn delete" @click="deleteProject(project._id)">删除</button>
+          </view>
         </view>
-        
-        <view class="form-actions">
+      </view>
+      
+      <!-- 添加/编辑弹窗 -->
+      <view v-if="showForm" class="form-content form-vertical form-inline-below">
+        <view class="form-header">
+          <text class="form-title">{{ isEdit ? '编辑项目' : '新增项目' }}</text>
+          <text class="form-close" @click="closeModal">×</text>
+        </view>
+        <view class="form-group">
+          <text class="form-label">项目名称 *</text>
+          <input v-model="current.name" class="form-input" placeholder="请输入项目名称" maxlength="30" />
+        </view>
+        <view class="form-group">
+          <text class="form-label">项目描述</text>
+          <textarea v-model="current.description" class="form-textarea" placeholder="请输入项目描述" maxlength="200" />
+        </view>
+        <view class="form-group">
+          <text class="form-label">项目分类 *</text>
+          <picker :range="categoryOptions" @change="onCategoryChange" :value="categoryIndex">
+            <view class="form-picker">
+              <text class="picker-value">{{ current.category || '请选择分类' }}</text>
+              <text class="picker-arrow">▼</text>
+            </view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">法金价格 *</text>
+          <input v-model.number="current.price" type="number" class="form-input" placeholder="请输入法金价格" min="0" />
+        </view>
+        <view class="form-group">
+          <text class="form-label">报名截止时间 *</text>
+          <picker mode="date" @change="onDeadlineChange" :value="current.deadline">
+            <view class="form-picker">
+              <text class="picker-value">{{ current.deadline || '请选择截止日期' }}</text>
+              <text class="picker-arrow">▼</text>
+            </view>
+          </picker>
+        </view>
+        <view class="form-group">
+          <text class="form-label">可选日期 *</text>
+          <view class="date-list-vertical">
+            <view v-for="(date, i) in current.dates" :key="i" class="date-item-vertical">
+              <input v-model="current.dates[i]" placeholder="YYYY-MM-DD" class="date-input" />
+              <button class="remove-btn" @click="removeDate(i)">删除</button>
+            </view>
+            <button class="add-date-btn" @click="addDate">+ 添加日期</button>
+          </view>
+        </view>
+        <view class="form-group">
+          <text class="form-label">最大报名人数</text>
+          <input v-model.number="current.maxApplicants" type="number" class="form-input" placeholder="不填为不限" />
+        </view>
+        <view class="form-actions form-actions-center">
           <button class="cancel-btn" @click="closeModal">取消</button>
           <button class="save-btn" @click="saveProject">保存</button>
         </view>
       </view>
-    </uni-popup>
-    
-    <!-- 日期选择器 -->
-    <uni-popup ref="datePopup" type="center">
-      <view class="date-popup">
+      
+      <!-- 日期选择器 -->
+      <view v-if="showForm && showDatePickerInline" class="date-picker-inline">
         <view class="date-popup-header">
           <text class="date-popup-title">选择日期</text>
           <text class="date-popup-close" @click="closeDatePicker">×</text>
@@ -124,12 +115,15 @@
           <button class="confirm-btn" @click="addDate">确认</button>
         </view>
       </view>
-    </uni-popup>
+    </view>
   </view>
 </template>
 
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
 
 export default {
   components: { uniPopup },
@@ -137,10 +131,11 @@ export default {
   data() {
     return {
       projects: [],
-      showPopup: false,
+      showForm: false,
+      showDatePickerInline: false,
       isEdit: false,
       editIndex: -1,
-      categoryOptions: ['平安祈福', '姻缘和合', '超度法会', '其他'],
+      categoryOptions: ['姻缘和合', '超度法会'],
       categoryIndex: 0,
       newDate: '',
       current: {
@@ -165,10 +160,12 @@ export default {
   methods: {
     async loadProjects() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getJointProjects'
-        })
-        this.projects = res.result && res.result.data ? res.result.data : []
+        const result = await jointManagement.getProjects()
+        if (result.success) {
+          this.projects = result.data || []
+        } else {
+          uni.showToast({ title: result.message, icon: 'none' })
+        }
       } catch (error) {
         console.error('加载合坛法会项目失败:', error)
         uni.showToast({ title: '加载失败', icon: 'none' })
@@ -190,7 +187,7 @@ export default {
         goods: [],
         needReceiver: false
       }
-      this.$refs.popup.open()
+      this.showForm = true
     },
     
     editProject(index) {
@@ -198,11 +195,11 @@ export default {
       this.editIndex = index
       this.current = JSON.parse(JSON.stringify(this.projects[index]))
       this.categoryIndex = this.categoryOptions.indexOf(this.current.category)
-      this.$refs.popup.open()
+      this.showForm = true
     },
     
     closeModal() {
-      this.$refs.popup.close()
+      this.showForm = false
     },
     
     onCategoryChange(e) {
@@ -216,11 +213,11 @@ export default {
     
     showDatePicker() {
       this.newDate = ''
-      this.$refs.datePopup.open()
+      this.showDatePickerInline = true
     },
     
     closeDatePicker() {
-      this.$refs.datePopup.close()
+      this.showDatePickerInline = false
     },
     
     onDateAdd(e) {
@@ -228,11 +225,7 @@ export default {
     },
     
     addDate() {
-      if (this.newDate && !this.current.dates.includes(this.newDate)) {
-        this.current.dates.push(this.newDate)
-        this.current.dates.sort()
-      }
-      this.closeDatePicker()
+      this.current.dates.push('')
     },
     
     removeDate(index) {
@@ -240,37 +233,55 @@ export default {
     },
     
     async saveProject() {
-      if (!this.current.name || !this.current.price) {
-        uni.showToast({ title: '请填写必填项', icon: 'none' })
+      if (!this.current.name.trim()) {
+        uni.showToast({ title: '请输入项目名称', icon: 'none' })
         return
       }
-      
+      if (typeof this.current.price !== 'number' || isNaN(this.current.price)) {
+        uni.showToast({ title: '请输入法金价格', icon: 'none' })
+        return
+      }
+      if (!this.current.category) {
+        uni.showToast({ title: '请选择项目分类', icon: 'none' })
+        return
+      }
+      if (!this.current.deadline) {
+        uni.showToast({ title: '请选择报名截止时间', icon: 'none' })
+        return
+      }
+      if (!this.current.dates.length || this.current.dates.some(d=>!d.trim())) {
+        uni.showToast({ title: '请填写完整日期', icon: 'none' })
+        return
+      }
+      const data = {
+        ...this.current,
+        category: this.current.category || '',
+        deadline: this.current.deadline || '',
+        price: Number(this.current.price) || 0,
+        maxApplicants: this.current.maxApplicants ? Number(this.current.maxApplicants) : null
+      }
       try {
-        const data = {
-          ...this.current,
-          category: this.current.category || '',
-          deadline: this.current.deadline || '',
-          price: Number(this.current.price) || 0,
-          maxApplicants: this.current.maxApplicants ? Number(this.current.maxApplicants) : null
-        }
-        
         if (this.isEdit && data._id) {
           const updateData = { ...data }
           delete updateData._id
-          await uniCloud.callFunction({
-            name: 'updateJointProject',
-            data: { id: data._id, project: updateData }
-          })
+          const result = await jointManagement.updateProject({ _id: data._id, ...updateData })
+          if (result.success) {
+            this.closeModal()
+            await this.loadProjects()
+            uni.showToast({ title: '更新成功', icon: 'success' })
+          } else {
+            uni.showToast({ title: result.message, icon: 'none' })
+          }
         } else {
-          await uniCloud.callFunction({
-            name: 'addJointProject',
-            data: { project: data }
-          })
+          const result = await jointManagement.addProject(data)
+          if (result.success) {
+            this.closeModal()
+            await this.loadProjects()
+            uni.showToast({ title: '添加成功', icon: 'success' })
+          } else {
+            uni.showToast({ title: result.message, icon: 'none' })
+          }
         }
-        
-        this.closeModal()
-        await this.loadProjects()
-        uni.showToast({ title: this.isEdit ? '更新成功' : '添加成功' })
       } catch (error) {
         console.error('保存合坛法会项目失败:', error)
         uni.showToast({ title: '保存失败', icon: 'none' })
@@ -284,18 +295,31 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'deleteJointProject',
-                data: { id }
-              })
-              await this.loadProjects()
-              uni.showToast({ title: '删除成功' })
+              const result = await jointManagement.deleteProject({ _id: id })
+              if (result.success) {
+                await this.loadProjects()
+                uni.showToast({ title: '删除成功', icon: 'success' })
+              } else {
+                uni.showToast({ title: result.message, icon: 'none' })
+              }
             } catch (error) {
               console.error('删除合坛法会项目失败:', error)
               uni.showToast({ title: '删除失败', icon: 'none' })
             }
           }
         }
+      })
+    },
+    
+    manageGoods(projectId) {
+      console.log('【调试-manageGoods】准备跳转，projectId =', projectId);
+      // 获取项目名称
+      const project = this.projects.find(p => p._id === projectId);
+      const projectName = project ? project.name : '';
+      const url = `/pages/admin/joint/goods?projectId=${projectId}&projectName=${encodeURIComponent(projectName)}`;
+      console.log('【调试-manageGoods】跳转 URL =', url);
+      uni.navigateTo({
+        url: url
       })
     }
   }
@@ -428,6 +452,11 @@ export default {
   color: #fff;
 }
 
+.action-btn.goods {
+  background: #ffa502;
+  color: #fff;
+}
+
 .action-btn.delete {
   background: #ff4757;
   color: #fff;
@@ -461,8 +490,44 @@ export default {
   cursor: pointer;
 }
 
-.form-content {
+.form-content, .form-vertical, .form-inline-below {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08);
+  padding: 40rpx 30rpx;
+  min-width: 400rpx;
+  max-width: 600rpx;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30rpx;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  margin-bottom: 30rpx;
+}
+
+.form-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-close {
+  font-size: 40rpx;
+  color: #999;
+  cursor: pointer;
 }
 
 .form-item {
@@ -473,7 +538,6 @@ export default {
   font-size: 28rpx;
   color: #333;
   margin-bottom: 10rpx;
-  display: block;
 }
 
 .form-input {
@@ -500,37 +564,79 @@ export default {
   border-radius: 8rpx;
   font-size: 28rpx;
   color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.dates-container {
+.picker-value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  font-size: 36rpx;
+  color: #999;
+  margin-left: 10rpx;
+}
+
+
+
+.date-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10rpx;
 }
 
-.date-tag {
-  background: #f0f4ff;
-  color: #667eea;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  font-size: 24rpx;
+.date-list-vertical {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 10rpx;
 }
 
-.date-remove {
-  margin-left: 10rpx;
+.date-item {
+  display: flex;
+  align-items: center;
+  background: #f0f4ff;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 10rpx 20rpx;
+}
+
+.date-item-vertical {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.date-input {
+  flex: 1;
   font-size: 28rpx;
-  cursor: pointer;
+  padding: 0 10rpx;
+  margin-right: 10rpx;
+  height: 60rpx;
+}
+
+.remove-btn {
+  background: #ff4757;
+  color: #fff;
+  border: none;
+  padding: 8rpx 15rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
 }
 
 .add-date-btn {
+  width: 100%;
+  margin-top: 8rpx;
   background: #667eea;
   color: #fff;
   border: none;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  font-size: 24rpx;
+  padding: 16rpx 0;
+  border-radius: 8rpx;
+  font-size: 26rpx;
 }
 
 .form-actions {
@@ -538,6 +644,14 @@ export default {
   gap: 20rpx;
   padding: 30rpx;
   border-top: 1rpx solid #eee;
+}
+
+.form-actions-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20rpx;
+  margin-top: 20rpx;
 }
 
 .cancel-btn, .save-btn {
@@ -607,5 +721,28 @@ export default {
   padding: 20rpx;
   border-radius: 8rpx;
   font-size: 28rpx;
+}
+
+.date-picker-inline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-inline-below {
+  position: relative; /* 确保表单跟随页面纵向排列 */
+  margin-top: 20rpx; /* 与项目列表之间留出空间 */
+  width: 100%; /* 占满父容器宽度 */
+  max-width: 90vw; /* 最大宽度与form-content一致 */
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08); /* 保持阴影效果 */
+  border-radius: 12rpx; /* 保持圆角 */
+  background: #fff; /* 保持背景 */
 }
 </style> 

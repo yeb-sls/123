@@ -99,6 +99,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -128,11 +131,12 @@ export default {
   methods: {
     async loadProjects() {
       try {
-        const res = await uniCloud.callFunction({ 
-          name: 'getFahuiProjects',
-          data: { type: 'joint' }
-        })
-        this.projects = res.result && res.result.data ? res.result.data : []
+        const result = await jointManagement.getProjects()
+        if (result.success) {
+          this.projects = result.data || []
+        } else {
+          throw new Error(result.message || '获取失败')
+        }
       } catch (error) {
         console.error('加载合坛法会项目失败:', error)
         uni.showToast({ title: '加载失败', icon: 'none' })
@@ -221,17 +225,13 @@ export default {
         if ('_id' in data && !data._id) delete data._id
         
         if (this.isEdit && data._id) {
-          const updateData = { ...data }
-          delete updateData._id
-          await uniCloud.callFunction({ 
-            name: 'updateFahuiProject', 
-            data: { id: data._id, project: updateData } 
+          await jointManagement.updateProject({
+            _id: data._id,
+            ...data
           })
         } else {
-          await uniCloud.callFunction({ 
-            name: 'addFahuiProject', 
-            data: { project: data } 
-          })
+          delete data._id
+          await jointManagement.addProject(data)
         }
         
         this.showPopup = false
@@ -249,10 +249,7 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({ 
-                name: 'deleteFahuiProject', 
-                data: { id } 
-              })
+              await jointManagement.deleteProject({ _id: id })
               await this.loadProjects()
               uni.showToast({ title: '删除成功' })
             } catch (error) {

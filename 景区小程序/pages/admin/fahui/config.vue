@@ -126,7 +126,15 @@
 </template>
 
 <script>
+import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
+  components: {
+    uniPopup
+  },
   data() {
     return {
       configs: [],
@@ -165,13 +173,13 @@ export default {
       try {
         uni.showLoading({ title: '加载中...' })
         
-        const result = await uniCloud.callFunction({
-          name: 'getFahuiConfigs'
-        })
+        const result = await fahuiManagement.getConfigs()
         
-        if (result.result && result.result.data) {
-          this.configs = result.result.data
+        if (result.success) {
+          this.configs = result.data || []
           this.filterConfigs()
+        } else {
+          uni.showToast({ title: result.message || '加载失败', icon: 'none' })
         }
       } catch (error) {
         console.error('加载配置失败：', error)
@@ -323,12 +331,12 @@ export default {
       try {
         uni.showLoading({ title: '保存中...' })
         
-        const result = await uniCloud.callFunction({
-          name: this.isEdit ? 'updateFahuiConfig' : 'addFahuiConfig',
-          data: this.formData
-        })
+        const result = await (this.isEdit ? 
+          fahuiManagement.updateConfig(this.formData) : 
+          fahuiManagement.addConfig(this.formData)
+        )
         
-        if (result.result && result.result.success) {
+        if (result.success) {
           uni.showToast({
             title: this.isEdit ? '更新成功' : '添加成功',
             icon: 'success'
@@ -337,7 +345,7 @@ export default {
           this.hideModal()
           this.loadConfigs()
         } else {
-          throw new Error(result.result.message || '操作失败')
+          throw new Error(result.message || '操作失败')
         }
       } catch (error) {
         console.error('保存失败：', error)
@@ -360,19 +368,16 @@ export default {
             try {
               uni.showLoading({ title: '删除中...' })
               
-              const result = await uniCloud.callFunction({
-                name: 'deleteFahuiConfig',
-                data: { id }
-              })
+              const result = await fahuiManagement.deleteConfig({ _id: id })
               
-              if (result.result && result.result.success) {
+              if (result.success) {
                 uni.showToast({
                   title: '删除成功',
                   icon: 'success'
                 })
                 this.loadConfigs()
               } else {
-                throw new Error(result.result.message || '删除失败')
+                throw new Error(result.message || '删除失败')
               }
             } catch (error) {
               console.error('删除失败：', error)

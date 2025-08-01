@@ -1,6 +1,19 @@
 <template>
   <view class="home-bg">
-    <view class="home-container">
+    <!-- 加载状态 -->
+    <view v-if="loading" class="loading-container">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+    
+    <!-- 错误状态 -->
+    <view v-else-if="error" class="error-container">
+      <text class="error-text">加载失败: {{ error }}</text>
+      <button class="retry-btn" @click="retryLoad">重试</button>
+    </view>
+    
+    <!-- 正常内容 -->
+    <view v-else class="home-container">
       <!-- 头图轮播 -->
       <swiper class="banner-swiper" indicator-dots autoplay interval="3000" duration="500">
         <swiper-item v-for="(img, idx) in banners" :key="idx">
@@ -12,7 +25,7 @@
 
       <!-- 图文介绍 -->
       <view v-if="intros.length > 0">
-        <view v-for="(intro, index) in intros" :key="getIntroKey(intro, index)" class="intro-block" v-if="intro.enabled">
+        <view v-for="(intro, index) in intros" :key="index" class="intro-block" v-if="intro.enabled">
           <view class="intro-content" :style="{ color: intro.textColor }">
             {{ intro.content }}
           </view>
@@ -61,6 +74,13 @@
       <view class="footer-section">
         <text class="footer-text">景区小程序 v1.0</text>
         <text class="footer-copyright">© 2024 版权所有</text>
+        <!-- 调试信息 -->
+        <view class="debug-info">
+          <text class="debug-text">轮播图: {{ banners.length }}张</text>
+          <text class="debug-text">导航: {{ navs.length }}个</text>
+          <text class="debug-text">介绍: {{ intros.length }}个</text>
+          <text class="debug-text">平台: {{ platform }}</text>
+        </view>
       </view>
     </view>
   </view>
@@ -72,18 +92,56 @@ export default {
     return {
       banners: [],
       navs: [],
-      intros: []
+      intros: [],
+      loading: false,
+      error: null,
+      platform: ''
     }
   },
   onLoad() {
     console.log('首页加载');
-    this.loadBanners();
-    this.loadNavs();
-    this.loadIntros();
+    console.log('当前时间:', new Date().toLocaleString());
+    const systemInfo = uni.getSystemInfoSync();
+    console.log('当前平台:', systemInfo.platform);
+    this.platform = systemInfo.platform;
+    this.loading = true;
+    this.error = null;
+    
+    // 微信小程序环境下使用串行加载，避免并发问题
+    if (uni.getSystemInfoSync().platform === 'devtools' || uni.getSystemInfoSync().platform === 'mp-weixin') {
+      console.log('微信小程序环境，使用串行加载');
+      this.loadBanners()
+        .then(() => this.loadNavs())
+        .then(() => this.loadIntros())
+        .then(() => {
+          this.loading = false;
+          console.log('首页数据加载完成');
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.error = error.message;
+          console.error('首页数据加载失败:', error);
+        });
+    } else {
+      // 其他平台使用并行加载
+      Promise.all([
+        this.loadBanners(),
+        this.loadNavs(),
+        this.loadIntros()
+      ]).then(() => {
+        this.loading = false;
+        console.log('首页数据加载完成');
+      }).catch((error) => {
+        this.loading = false;
+        this.error = error.message;
+        console.error('首页数据加载失败:', error);
+      });
+    }
   },
   onShow() {
     // 每次页面显示时重新加载数据
     console.log('首页显示，重新加载数据');
+    console.log('当前时间:', new Date().toLocaleString());
     this.loadBanners();
     this.loadNavs();
     this.loadIntros();
@@ -92,12 +150,20 @@ export default {
     async loadBanners() {
       try {
         console.log('开始加载首页轮播图数据...');
-        const result = await uniCloud.callFunction({ name: 'getHomeBanners' });
+        // 使用条件导入，兼容不同平台
+        let commonManagement;
+        try {
+          commonManagement = uniCloud.importObject('common-management');
+        } catch (e) {
+          console.log('云对象导入失败，使用默认数据');
+          throw new Error('云对象不可用');
+        }
+        const result = await commonManagement.getHomeBanners();
         console.log('轮播图数据加载结果:', result);
         
-        if (result.result && result.result.data) {
+        if (result.success && result.data) {
           // 只显示启用的轮播图
-          this.banners = result.result.data
+          this.banners = result.data
             .filter(banner => banner.status === '启用')
             .map(banner => banner.imageUrl);
           console.log('轮播图数据加载成功，共', this.banners.length, '张');
@@ -125,12 +191,20 @@ export default {
     async loadNavs() {
       try {
         console.log('开始加载首页导航数据...');
-        const result = await uniCloud.callFunction({ name: 'getHomeNavs' });
+        // 使用条件导入，兼容不同平台
+        let commonManagement;
+        try {
+          commonManagement = uniCloud.importObject('common-management');
+        } catch (e) {
+          console.log('云对象导入失败，使用默认数据');
+          throw new Error('云对象不可用');
+        }
+        const result = await commonManagement.getHomeNavs();
         console.log('导航数据加载结果:', result);
         
-        if (result.result && result.result.data) {
+        if (result.success && result.data) {
           // 只显示启用的导航，按排序字段排序
-          this.navs = result.result.data
+          this.navs = result.data
             .filter(nav => nav.enabled)
             .sort((a, b) => (a.order || 0) - (b.order || 0));
           console.log('导航数据加载成功，共', this.navs.length, '个');
@@ -151,7 +225,7 @@ export default {
         // 出错时使用默认数据
         this.navs = [
           { text: '专场法会', icon: '🕉️', url: '/pages/fahui/special', color: '#FF6B35', bgColor: '#FFF7EC' },
-          { text: '合坛法会', icon: '🙏', url: '/pages/fahui/group', color: '#2D8CF0', bgColor: '#E0EAFF' },
+          { text: '合坛法会', icon: '🙏', url: '/pages/fahui/joint/index', color: '#2D8CF0', bgColor: '#E0EAFF' },
           { text: '供灯祈福', icon: '💡', url: '/pages/light/index', color: '#FFD700', bgColor: '#FFFBF0' },
           { text: '殿堂供品', icon: '🏛️', url: '/pages/hall/index', color: '#8B4513', bgColor: '#F5F5DC' },
           { text: '功德布施', icon: '💰', url: '/pages/gongde/index', color: '#32CD32', bgColor: '#F0FFF0' },
@@ -164,12 +238,20 @@ export default {
     async loadIntros() {
       try {
         console.log('开始加载首页介绍数据...');
-        const result = await uniCloud.callFunction({ name: 'getHomeIntros' });
+        // 使用条件导入，兼容不同平台
+        let commonManagement;
+        try {
+          commonManagement = uniCloud.importObject('common-management');
+        } catch (e) {
+          console.log('云对象导入失败，使用默认数据');
+          throw new Error('云对象不可用');
+        }
+        const result = await commonManagement.getHomeIntros();
         console.log('介绍数据加载结果:', result);
         
-        if (result.result && result.result.data && result.result.data.length > 0) {
+        if (result.success && result.data && result.data.length > 0) {
           // 只显示启用的介绍，按排序字段排序
-          this.intros = result.result.data
+          this.intros = result.data
             .filter(intro => intro.enabled)
             .sort((a, b) => (a.order || 0) - (b.order || 0));
           console.log('介绍数据加载成功，共', this.intros.length, '个');
@@ -229,6 +311,11 @@ export default {
         });
       }
     },
+    
+    retryLoad() {
+      console.log('重试加载数据');
+      this.onLoad();
+    },
 
 
   }
@@ -240,6 +327,61 @@ export default {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 0;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  border-top: 4rpx solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: white;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  padding: 40rpx;
+}
+
+.error-text {
+  font-size: 28rpx;
+  color: white;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.retry-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2rpx solid white;
+  border-radius: 8rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
 }
 .home-container {
   padding: 0;
@@ -441,5 +583,15 @@ export default {
   color: #999;
 }
 
+.debug-info {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #999;
+  text-align: center;
+}
+.debug-text {
+  display: block;
+  margin-bottom: 4rpx;
+}
 
 </style>

@@ -41,7 +41,7 @@
         <view 
           class="method-item" 
           v-for="(method, index) in paymentMethods" 
-          :key="index"
+          :key="'benefit-' + index"
           :class="{ active: selectedMethod === index }"
           @click="selectMethod(index)"
         >

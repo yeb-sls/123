@@ -67,6 +67,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   components: {
     uniPopup
@@ -100,14 +103,11 @@ export default {
     async loadBanners() {
       uni.showLoading({ title: '加载中...' })
       try {
-        const result = await uniCloud.callFunction({
-          name: 'getFahuiBanners',
-          data: { 
-            type: this.fahuiType,
-            t: Date.now() // 防止云函数缓存
-          }
+        const result = await fahuiManagement.getBanners({ 
+          type: this.fahuiType,
+          t: Date.now() // 防止云函数缓存
         })
-        let banners = result.result && result.result.data ? result.result.data : []
+        let banners = result.success ? (result.data || []) : []
         // 批量转换 fileID 为临时链接
         if (banners.length > 0) {
           const fileList = banners.map(b => b.image).filter(Boolean)
@@ -157,15 +157,19 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'deleteFahuiBanner',
-                data: { id }
-              })
-              uni.showToast({
-                title: '删除成功',
-                icon: 'success'
-              })
-              setTimeout(() => { this.loadBanners() }, 300)
+              const result = await fahuiManagement.deleteBanner({ _id: id })
+              if (result.success) {
+                uni.showToast({
+                  title: '删除成功',
+                  icon: 'success'
+                })
+                setTimeout(() => { this.loadBanners() }, 300)
+              } else {
+                uni.showToast({
+                  title: result.message || '删除失败',
+                  icon: 'none'
+                })
+              }
             } catch (error) {
               console.error('删除失败:', error)
               uni.showToast({
@@ -243,18 +247,18 @@ export default {
           delete bannerData._id
         }
         if (this.isEdit) {
-          await uniCloud.callFunction({
-            name: 'updateFahuiBanner',
-            data: {
-              id: this.banners[this.editIndex]._id,
-              banner: bannerData
-            }
+          const result = await fahuiManagement.updateBanner({
+            _id: this.banners[this.editIndex]._id,
+            ...bannerData
           })
+          if (!result.success) {
+            throw new Error(result.message || '更新失败')
+          }
         } else {
-          await uniCloud.callFunction({
-            name: 'addFahuiBanner',
-            data: { banner: bannerData }
-          })
+          const result = await fahuiManagement.addBanner({ banner: bannerData })
+          if (!result.success) {
+            throw new Error(result.message || '添加失败')
+          }
         }
         
         this.closePopup()

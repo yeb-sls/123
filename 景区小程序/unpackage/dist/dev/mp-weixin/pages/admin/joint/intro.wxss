@@ -113,32 +113,15 @@
   background: #ff4757;
   color: #fff;
 }
-.popup-content.data-v-62ddc184 {
+.intro-edit-form.data-v-62ddc184 {
   background: #fff;
   border-radius: 12rpx;
-  width: 600rpx;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-.popup-header.data-v-62ddc184 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 30rpx;
-  border-bottom: 1rpx solid #eee;
-}
-.popup-title.data-v-62ddc184 {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-}
-.popup-close.data-v-62ddc184 {
-  font-size: 40rpx;
-  color: #999;
-  cursor: pointer;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+  margin-bottom: 20rpx;
 }
 .form-content.data-v-62ddc184 {
-  padding: 30rpx;
+  padding: 0; /* Remove padding as it's now part of intro-edit-form */
 }
 .form-item.data-v-62ddc184 {
   margin-bottom: 30rpx;

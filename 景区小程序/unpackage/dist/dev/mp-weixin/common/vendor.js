@@ -53,6 +53,36 @@ exports.default = _default;
 
 /***/ }),
 /* 2 */
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -2539,37 +2569,7 @@ wx.createPlugin = createPlugin;
 var uni$1 = uni;
 var _default = uni$1;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 3)))
-
-/***/ }),
-/* 3 */
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
 /* 4 */
@@ -3430,7 +3430,7 @@ function resolveLocaleChain(locale) {
   }
   return chain;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
 /* 23 */
@@ -9554,13 +9554,13 @@ internalMixin(Vue);
 
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
 /* 26 */
-/*!*******************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/pages.json ***!
-  \*******************************************************/
+/*!********************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/pages.json ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10101,7 +10101,7 @@ var b = "development" === "development",
   k = "true" === undefined || !0 === undefined,
   P = T([]),
   C = "h5" === E ? "web" : "app-plus" === E || "app-harmony" === E ? "app" : E,
-  A = T({"address":["127.0.0.1","192.168.2.26"],"servePort":7000,"debugPort":9000,"initialLaunchType":"remote","skipFiles":["<node_internals>/**","C:/Users/小美女/Downloads/HBuilderX.4.66.2025051912/HBuilderX/plugins/unicloud/**/*.js"]}),
+  A = T({"address":["127.0.0.1","192.168.3.160"],"servePort":7001,"debugPort":9001,"initialLaunchType":"remote","skipFiles":["<node_internals>/**","C:/Users/qub/Desktop/HBuilderX/plugins/unicloud/**/*.js"]}),
   O = T([{"provider":"aliyun","spaceName":"jingqu","spaceId":"mp-a0685bf1-f038-4e33-98cd-18b5eca73c2c","clientSecret":"uTTD2h3NWKO2lH8uzDL44g==","endpoint":"https://api.next.bspapp.com"}]) || [],
   x = true;
 var N = "";
@@ -17964,7 +17964,7 @@ exports.uniCloud = Xs;
 })();
 var Zs = Xs;
 exports.default = Zs;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3), __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2), __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
 /* 28 */
@@ -18478,9 +18478,9 @@ module.exports = _isNativeFunction, module.exports.__esModule = true, module.exp
 
 /***/ }),
 /* 37 */
-/*!************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/pages.json?{"type":"origin-pages-json"} ***!
-  \************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/pages.json?{"type":"origin-pages-json"} ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18523,7 +18523,7 @@ var _default = {
       "navigationBarTitleText": "我的功德证书"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/profile/special",
@@ -18561,7 +18561,7 @@ var _default = {
       "navigationBarTitleText": "报名者信息"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/fahui/form",
@@ -18569,7 +18569,7 @@ var _default = {
       "navigationBarTitleText": "专场法会报名"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/fahui/confirm",
@@ -18602,14 +18602,32 @@ var _default = {
       "navigationBarTitleText": "合坛法会"
     }
   }, {
+    "path": "pages/fahui/joint/form",
+    "style": {
+      "navigationBarTitleText": "合坛法会报名"
+    },
+    "usingComponents": {
+      "uni-popup": "components/uni-popup/uni-popup"
+    }
+  }, {
+    "path": "pages/fahui/joint/confirm",
+    "style": {
+      "navigationBarTitleText": "报名确认"
+    }
+  }, {
+    "path": "pages/fahui/joint/pay",
+    "style": {
+      "navigationBarTitleText": "支付"
+    }
+  }, {
+    "path": "pages/fahui/joint/success",
+    "style": {
+      "navigationBarTitleText": "报名成功"
+    }
+  }, {
     "path": "pages/light/index",
     "style": {
       "navigationBarTitleText": "供灯祈福"
-    }
-  }, {
-    "path": "pages/light/test",
-    "style": {
-      "navigationBarTitleText": "供灯祈福测试"
     }
   }, {
     "path": "pages/light/confirm",
@@ -18645,16 +18663,14 @@ var _default = {
     "path": "pages/hall/pay",
     "style": {
       "navigationBarTitleText": "殿堂供品支付"
+    },
+    "usingComponents": {
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/hall/success",
     "style": {
       "navigationBarTitleText": "殿堂供品成功"
-    }
-  }, {
-    "path": "pages/hall/test",
-    "style": {
-      "navigationBarTitleText": "殿堂供品测试"
     }
   }, {
     "path": "pages/gongde/index",
@@ -18680,11 +18696,6 @@ var _default = {
     "path": "pages/gongde/success",
     "style": {
       "navigationBarTitleText": "功德布施成功"
-    }
-  }, {
-    "path": "pages/gongde/test",
-    "style": {
-      "navigationBarTitleText": "功德布施测试"
     }
   }, {
     "path": "pages/order/index",
@@ -18717,11 +18728,6 @@ var _default = {
       "navigationBarTitleText": "活动详情"
     }
   }, {
-    "path": "pages/order/test",
-    "style": {
-      "navigationBarTitleText": "活动报名测试"
-    }
-  }, {
     "path": "pages/admin/index",
     "style": {
       "navigationBarTitleText": "后台管理"
@@ -18732,7 +18738,7 @@ var _default = {
       "navigationBarTitleText": "轮播图管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/home/nav",
@@ -18740,7 +18746,7 @@ var _default = {
       "navigationBarTitleText": "导航管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/home/intro",
@@ -18748,7 +18754,7 @@ var _default = {
       "navigationBarTitleText": "介绍管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/index",
@@ -18766,19 +18772,6 @@ var _default = {
       "navigationBarTitleText": "合坛法会管理"
     }
   }, {
-    "path": "pages/admin/fahui/joint/projects",
-    "style": {
-      "navigationBarTitleText": "合坛法会项目管理"
-    },
-    "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
-    }
-  }, {
-    "path": "pages/admin/fahui/joint/test",
-    "style": {
-      "navigationBarTitleText": "合坛法会管理测试"
-    }
-  }, {
     "path": "pages/admin/joint/index",
     "style": {
       "navigationBarTitleText": "合坛法会管理系统"
@@ -18789,7 +18782,7 @@ var _default = {
       "navigationBarTitleText": "合坛法会项目管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/joint/orders",
@@ -18797,7 +18790,7 @@ var _default = {
       "navigationBarTitleText": "合坛法会订单管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/joint/banner",
@@ -18805,7 +18798,7 @@ var _default = {
       "navigationBarTitleText": "合坛法会头图管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/joint/intro",
@@ -18813,7 +18806,7 @@ var _default = {
       "navigationBarTitleText": "合坛法会介绍管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/joint/goods",
@@ -18821,7 +18814,15 @@ var _default = {
       "navigationBarTitleText": "合坛法会代办物品管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
+    }
+  }, {
+    "path": "pages/admin/joint/goods-overview",
+    "style": {
+      "navigationBarTitleText": "代办物品总览"
+    },
+    "usingComponents": {
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/joint/receiver",
@@ -18829,9 +18830,24 @@ var _default = {
       "navigationBarTitleText": "合坛法会收件信息管理"
     }
   }, {
-    "path": "pages/admin/joint/stats",
+    "path": "pages/admin/joint/orderDetail",
     "style": {
-      "navigationBarTitleText": "合坛法会数据统计"
+      "navigationBarTitleText": "订单详情"
+    }
+  }, {
+    "path": "pages/admin/joint/editOrder",
+    "style": {
+      "navigationBarTitleText": "编辑订单"
+    }
+  }, {
+    "path": "pages/admin/fahui/orderDetail",
+    "style": {
+      "navigationBarTitleText": "专场法会订单详情"
+    }
+  }, {
+    "path": "pages/admin/fahui/editOrder",
+    "style": {
+      "navigationBarTitleText": "编辑专场法会订单"
     }
   }, {
     "path": "pages/admin/fahui/config",
@@ -18839,7 +18855,7 @@ var _default = {
       "navigationBarTitleText": "法会配置管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/orders",
@@ -18847,7 +18863,7 @@ var _default = {
       "navigationBarTitleText": "法会订单管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/projects",
@@ -18855,7 +18871,7 @@ var _default = {
       "navigationBarTitleText": "法会项目管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/goods",
@@ -18863,7 +18879,15 @@ var _default = {
       "navigationBarTitleText": "代办物品管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
+    }
+  }, {
+    "path": "pages/admin/fahui/delegateGoods",
+    "style": {
+      "navigationBarTitleText": "代办物品管理"
+    },
+    "usingComponents": {
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/receiver",
@@ -18871,7 +18895,7 @@ var _default = {
       "navigationBarTitleText": "收件信息管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/banner",
@@ -18879,7 +18903,7 @@ var _default = {
       "navigationBarTitleText": "板块头图管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/fahui/intro",
@@ -18887,7 +18911,7 @@ var _default = {
       "navigationBarTitleText": "图文介绍管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/light/config",
@@ -18895,7 +18919,7 @@ var _default = {
       "navigationBarTitleText": "供灯配置管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/light/orders",
@@ -18903,7 +18927,7 @@ var _default = {
       "navigationBarTitleText": "供灯订单管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/hall/config",
@@ -18911,7 +18935,7 @@ var _default = {
       "navigationBarTitleText": "殿堂供品配置管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/gongde/config",
@@ -18919,7 +18943,7 @@ var _default = {
       "navigationBarTitleText": "功德布施配置管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
     "path": "pages/admin/activity/config",
@@ -18927,17 +18951,20 @@ var _default = {
       "navigationBarTitleText": "活动配置管理"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
-    "path": "pages/admin/activity/test",
+    "path": "pages/admin/activity/config-backup",
     "style": {
-      "navigationBarTitleText": "活动管理测试"
+      "navigationBarTitleText": "活动配置管理备份"
+    },
+    "usingComponents": {
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }, {
-    "path": "pages/admin/test",
+    "path": "pages/admin/notifications",
     "style": {
-      "navigationBarTitleText": "后台管理测试"
+      "navigationBarTitleText": "管理员通知"
     }
   }, {
     "path": "pages/developer/index",
@@ -18945,12 +18972,7 @@ var _default = {
       "navigationBarTitleText": "开发人员专用"
     },
     "usingComponents": {
-      "uni-popup": "/components/uni-popup/uni-popup"
-    }
-  }, {
-    "path": "pages/test-admin",
-    "style": {
-      "navigationBarTitleText": "后台管理测试"
+      "uni-popup": "components/uni-popup/uni-popup"
     }
   }],
   "globalStyle": {
@@ -18966,8 +18988,8 @@ var _default = {
     }
   },
   "usingComponents": {
-    "placeholder-component": "/components/placeholder/placeholder",
-    "uni-popup": "/components/uni-popup/uni-popup"
+    "placeholder-component": "components/placeholder/placeholder",
+    "uni-popup": "components/uni-popup/uni-popup"
   },
   "uniIdRouter": {}
 };
@@ -18975,9 +18997,9 @@ exports.default = _default;
 
 /***/ }),
 /* 38 */
-/*!***********************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/pages.json?{"type":"stat"} ***!
-  \***********************************************************************/
+/*!************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/pages.json?{"type":"stat"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19131,9 +19153,110 @@ function normalizeComponent (
 
 /***/ }),
 /* 45 */
-/*!***************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/index.js ***!
-  \***************************************************************************/
+/*!*************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/utils/simpleErrorHandler.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setupSimpleErrorHandler = exports.default = void 0;
+/**
+ * 简化错误处理器 - 专门处理缓存相关错误
+ */
+
+// 简化的错误处理
+var setupSimpleErrorHandler = function setupSimpleErrorHandler() {
+  console.log('🔧 设置简化错误处理器...');
+
+  // 只处理缓存相关的错误
+  var handleCacheError = function handleCacheError(error) {
+    if (error && typeof error === 'string' && error.includes('getCachePermissionBytes')) {
+      console.warn('⚠️ 检测到缓存权限错误，使用备用存储方案');
+      return true;
+    }
+    return false;
+  };
+
+  // 重写存储方法以添加错误处理
+  try {
+    // 保存原始方法
+    var originalGetStorageSync = uni.getStorageSync;
+    var originalSetStorageSync = uni.setStorageSync;
+    var originalRemoveStorageSync = uni.removeStorageSync;
+    var originalClearStorageSync = uni.clearStorageSync;
+
+    // 重写 getStorageSync
+    uni.getStorageSync = function (key) {
+      try {
+        return originalGetStorageSync.call(this, key);
+      } catch (error) {
+        if (handleCacheError(error.message || error)) {
+          return null;
+        }
+        console.warn('存储读取错误:', error);
+        return null;
+      }
+    };
+
+    // 重写 setStorageSync
+    uni.setStorageSync = function (key, data) {
+      try {
+        return originalSetStorageSync.call(this, key, data);
+      } catch (error) {
+        if (handleCacheError(error.message || error)) {
+          return false;
+        }
+        console.warn('存储写入错误:', error);
+        return false;
+      }
+    };
+
+    // 重写 removeStorageSync
+    uni.removeStorageSync = function (key) {
+      try {
+        return originalRemoveStorageSync.call(this, key);
+      } catch (error) {
+        if (handleCacheError(error.message || error)) {
+          return false;
+        }
+        console.warn('存储删除错误:', error);
+        return false;
+      }
+    };
+
+    // 重写 clearStorageSync
+    uni.clearStorageSync = function () {
+      try {
+        return originalClearStorageSync.call(this);
+      } catch (error) {
+        if (handleCacheError(error.message || error)) {
+          return false;
+        }
+        console.warn('存储清空错误:', error);
+        return false;
+      }
+    };
+    console.log('✅ 简化错误处理器设置完成');
+  } catch (error) {
+    console.warn('❌ 简化错误处理器设置失败:', error);
+  }
+};
+exports.setupSimpleErrorHandler = setupSimpleErrorHandler;
+var _default = setupSimpleErrorHandler;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
+
+/***/ }),
+/* 46 */
+/*!****************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/index.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19146,20 +19269,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 46));
-var _mpMixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mpMixin.js */ 47));
-var _luchRequest = _interopRequireDefault(__webpack_require__(/*! ./libs/luch-request */ 48));
-var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/util/route.js */ 66));
-var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 67));
-var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 68));
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 69));
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 70));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./libs/function/index.js */ 71));
-var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 74));
-var _props = _interopRequireDefault(__webpack_require__(/*! ./libs/config/props.js */ 75));
-var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 165));
-var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/config/color.js */ 123));
-var _platform = _interopRequireDefault(__webpack_require__(/*! ./libs/function/platform */ 166));
+var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 47));
+var _mpMixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mpMixin.js */ 48));
+var _luchRequest = _interopRequireDefault(__webpack_require__(/*! ./libs/luch-request */ 49));
+var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/util/route.js */ 67));
+var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 68));
+var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 69));
+var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 70));
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 71));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./libs/function/index.js */ 72));
+var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 75));
+var _props = _interopRequireDefault(__webpack_require__(/*! ./libs/config/props.js */ 76));
+var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 166));
+var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/config/color.js */ 124));
+var _platform = _interopRequireDefault(__webpack_require__(/*! ./libs/function/platform */ 167));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // 看到此报错，是因为没有配置vue.config.js的【transpileDependencies】，详见：https://www.uviewui.com/components/npmSetting.html#_5-cli模式额外配置
@@ -19216,13 +19339,13 @@ var _default = {
   install: install
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
 
 /***/ }),
-/* 46 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/mixin/mixin.js ***!
-  \**************************************************************************************/
+/* 47 */
+/*!***************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/mixin/mixin.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19384,13 +19507,13 @@ exports.default = _default;
     }
   }
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
 
 /***/ }),
-/* 47 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/mixin/mpMixin.js ***!
-  \****************************************************************************************/
+/* 48 */
+/*!*****************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/mixin/mpMixin.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19410,10 +19533,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 48 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/index.js ***!
-  \*********************************************************************************************/
+/* 49 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/index.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19425,15 +19548,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _Request = _interopRequireDefault(__webpack_require__(/*! ./core/Request */ 49));
+var _Request = _interopRequireDefault(__webpack_require__(/*! ./core/Request */ 50));
 var _default = _Request.default;
 exports.default = _default;
 
 /***/ }),
-/* 49 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/Request.js ***!
-  \****************************************************************************************************/
+/* 50 */
+/*!*****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/Request.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19448,12 +19571,12 @@ exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest */ 50));
-var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager */ 58));
-var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig */ 59));
-var _defaults = _interopRequireDefault(__webpack_require__(/*! ./defaults */ 60));
-var _utils = __webpack_require__(/*! ../utils */ 53);
-var _clone = _interopRequireDefault(__webpack_require__(/*! ../utils/clone */ 61));
+var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest */ 51));
+var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager */ 59));
+var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig */ 60));
+var _defaults = _interopRequireDefault(__webpack_require__(/*! ./defaults */ 61));
+var _utils = __webpack_require__(/*! ../utils */ 54);
+var _clone = _interopRequireDefault(__webpack_require__(/*! ../utils/clone */ 62));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var Request = /*#__PURE__*/function () {
@@ -19636,10 +19759,10 @@ var Request = /*#__PURE__*/function () {
 exports.default = Request;
 
 /***/ }),
-/* 50 */
-/*!************************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
-  \************************************************************************************************************/
+/* 51 */
+/*!*************************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
+  \*************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19651,17 +19774,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _index = _interopRequireDefault(__webpack_require__(/*! ../adapters/index */ 51));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../adapters/index */ 52));
 var _default = function _default(config) {
   return (0, _index.default)(config);
 };
 exports.default = _default;
 
 /***/ }),
-/* 51 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/adapters/index.js ***!
-  \******************************************************************************************************/
+/* 52 */
+/*!*******************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/adapters/index.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19674,10 +19797,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL */ 52));
-var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath */ 54));
-var _settle = _interopRequireDefault(__webpack_require__(/*! ../core/settle */ 57));
-var _utils = __webpack_require__(/*! ../utils */ 53);
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL */ 53));
+var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath */ 55));
+var _settle = _interopRequireDefault(__webpack_require__(/*! ../core/settle */ 58));
+var _utils = __webpack_require__(/*! ../utils */ 54);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
@@ -19736,13 +19859,13 @@ var _default = function _default(config) {
   });
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
 
 /***/ }),
-/* 52 */
-/*!********************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
-  \********************************************************************************************************/
+/* 53 */
+/*!*********************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19754,7 +19877,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildURL;
-var utils = _interopRequireWildcard(__webpack_require__(/*! ../utils */ 53));
+var utils = _interopRequireWildcard(__webpack_require__(/*! ../utils */ 54));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function encode(val) {
@@ -19809,10 +19932,10 @@ function buildURL(url, params) {
 }
 
 /***/ }),
-/* 53 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/utils.js ***!
-  \*********************************************************************************************/
+/* 54 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/utils.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19962,10 +20085,10 @@ function isUndefined(val) {
 }
 
 /***/ }),
-/* 54 */
-/*!**********************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
-  \**********************************************************************************************************/
+/* 55 */
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19977,8 +20100,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildFullPath;
-var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL */ 55));
-var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs */ 56));
+var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL */ 56));
+var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs */ 57));
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
  * only when the requestedURL is not already an absolute URL.
@@ -19996,10 +20119,10 @@ function buildFullPath(baseURL, requestedURL) {
 }
 
 /***/ }),
-/* 55 */
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
-  \*************************************************************************************************************/
+/* 56 */
+/*!**************************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20024,10 +20147,10 @@ function isAbsoluteURL(url) {
 }
 
 /***/ }),
-/* 56 */
-/*!***********************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
-  \***********************************************************************************************************/
+/* 57 */
+/*!************************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20050,10 +20173,10 @@ function combineURLs(baseURL, relativeURL) {
 }
 
 /***/ }),
-/* 57 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/settle.js ***!
-  \***************************************************************************************************/
+/* 58 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/settle.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20082,10 +20205,10 @@ function settle(resolve, reject, response) {
 }
 
 /***/ }),
-/* 58 */
-/*!***************************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
-  \***************************************************************************************************************/
+/* 59 */
+/*!****************************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20146,10 +20269,10 @@ var _default = InterceptorManager;
 exports.default = _default;
 
 /***/ }),
-/* 59 */
-/*!********************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
-  \********************************************************************************************************/
+/* 60 */
+/*!*********************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20162,7 +20285,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _utils = __webpack_require__(/*! ../utils */ 53);
+var _utils = __webpack_require__(/*! ../utils */ 54);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
@@ -20222,10 +20345,10 @@ var _default = function _default(globalsConfig) {
 exports.default = _default;
 
 /***/ }),
-/* 60 */
-/*!*****************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/defaults.js ***!
-  \*****************************************************************************************************/
+/* 61 */
+/*!******************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/core/defaults.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20254,10 +20377,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 61 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/luch-request/utils/clone.js ***!
-  \***************************************************************************************************/
+/* 62 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/luch-request/utils/clone.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20503,10 +20626,10 @@ var clone = function () {
 }();
 var _default = clone;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../Downloads/HBuilderX.4.66.2025051912/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 62).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../Desktop/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 63).Buffer))
 
 /***/ }),
-/* 62 */
+/* 63 */
 /*!**************************************!*\
   !*** ./node_modules/buffer/index.js ***!
   \**************************************/
@@ -20524,9 +20647,9 @@ exports.default = _default;
 
 
 
-var base64 = __webpack_require__(/*! base64-js */ 63)
-var ieee754 = __webpack_require__(/*! ieee754 */ 64)
-var isArray = __webpack_require__(/*! isarray */ 65)
+var base64 = __webpack_require__(/*! base64-js */ 64)
+var ieee754 = __webpack_require__(/*! ieee754 */ 65)
+var isArray = __webpack_require__(/*! isarray */ 66)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -22304,10 +22427,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 63 */
+/* 64 */
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
   \*****************************************/
@@ -22468,7 +22591,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
   \***************************************/
@@ -22563,7 +22686,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
   \***************************************/
@@ -22578,10 +22701,10 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 66 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/util/route.js ***!
-  \*************************************************************************************/
+/* 67 */
+/*!**************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/util/route.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22763,13 +22886,13 @@ var Router = /*#__PURE__*/function () {
 }();
 var _default = new Router().route;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
 
 /***/ }),
-/* 67 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/colorGradient.js ***!
-  \*************************************************************************************************/
+/* 68 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/colorGradient.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22921,10 +23044,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 68 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/test.js ***!
-  \****************************************************************************************/
+/* 69 */
+/*!*****************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/test.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23226,10 +23349,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 69 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/debounce.js ***!
-  \********************************************************************************************/
+/* 70 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/debounce.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23273,10 +23396,10 @@ var _default = debounce;
 exports.default = _default;
 
 /***/ }),
-/* 70 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/throttle.js ***!
-  \********************************************************************************************/
+/* 71 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/throttle.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23322,10 +23445,10 @@ var _default = throttle;
 exports.default = _default;
 
 /***/ }),
-/* 71 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/index.js ***!
-  \*****************************************************************************************/
+/* 72 */
+/*!******************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/index.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23339,8 +23462,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 68));
-var _digit = __webpack_require__(/*! ./digit.js */ 72);
+var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 69));
+var _digit = __webpack_require__(/*! ./digit.js */ 73);
 /**
  * @description 如果value小于min，取min；如果value大于max，取max
  * @param {number} min
@@ -24120,13 +24243,13 @@ var _default = {
   setConfig: setConfig
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
 
 /***/ }),
-/* 72 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/digit.js ***!
-  \*****************************************************************************************/
+/* 73 */
+/*!******************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/digit.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24144,7 +24267,7 @@ exports.minus = minus;
 exports.plus = plus;
 exports.round = round;
 exports.times = times;
-var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 73));
+var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 74));
 var _boundaryCheckingState = true; // 是否进行越界检查的全局开关
 
 /**
@@ -24325,7 +24448,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /*!********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toArray.js ***!
   \********************************************************/
@@ -24342,10 +24465,10 @@ function _toArray(arr) {
 module.exports = _toArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 74 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/config.js ***!
-  \****************************************************************************************/
+/* 75 */
+/*!*****************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/config.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24386,10 +24509,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 75 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props.js ***!
-  \***************************************************************************************/
+/* 76 */
+/*!****************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24402,95 +24525,95 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 74));
-var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./props/actionSheet.js */ 76));
-var _album = _interopRequireDefault(__webpack_require__(/*! ./props/album.js */ 77));
-var _alert = _interopRequireDefault(__webpack_require__(/*! ./props/alert.js */ 78));
-var _avatar = _interopRequireDefault(__webpack_require__(/*! ./props/avatar */ 79));
-var _avatarGroup = _interopRequireDefault(__webpack_require__(/*! ./props/avatarGroup */ 80));
-var _backtop = _interopRequireDefault(__webpack_require__(/*! ./props/backtop */ 81));
-var _badge = _interopRequireDefault(__webpack_require__(/*! ./props/badge */ 82));
-var _button = _interopRequireDefault(__webpack_require__(/*! ./props/button */ 83));
-var _calendar = _interopRequireDefault(__webpack_require__(/*! ./props/calendar */ 84));
-var _carKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/carKeyboard */ 85));
-var _cell = _interopRequireDefault(__webpack_require__(/*! ./props/cell */ 86));
-var _cellGroup = _interopRequireDefault(__webpack_require__(/*! ./props/cellGroup */ 87));
-var _checkbox = _interopRequireDefault(__webpack_require__(/*! ./props/checkbox */ 88));
-var _checkboxGroup = _interopRequireDefault(__webpack_require__(/*! ./props/checkboxGroup */ 89));
-var _circleProgress = _interopRequireDefault(__webpack_require__(/*! ./props/circleProgress */ 90));
-var _code = _interopRequireDefault(__webpack_require__(/*! ./props/code */ 91));
-var _codeInput = _interopRequireDefault(__webpack_require__(/*! ./props/codeInput */ 92));
-var _col = _interopRequireDefault(__webpack_require__(/*! ./props/col */ 93));
-var _collapse = _interopRequireDefault(__webpack_require__(/*! ./props/collapse */ 94));
-var _collapseItem = _interopRequireDefault(__webpack_require__(/*! ./props/collapseItem */ 95));
-var _columnNotice = _interopRequireDefault(__webpack_require__(/*! ./props/columnNotice */ 96));
-var _countDown = _interopRequireDefault(__webpack_require__(/*! ./props/countDown */ 97));
-var _countTo = _interopRequireDefault(__webpack_require__(/*! ./props/countTo */ 98));
-var _datetimePicker = _interopRequireDefault(__webpack_require__(/*! ./props/datetimePicker */ 99));
-var _divider = _interopRequireDefault(__webpack_require__(/*! ./props/divider */ 100));
-var _empty = _interopRequireDefault(__webpack_require__(/*! ./props/empty */ 101));
-var _form = _interopRequireDefault(__webpack_require__(/*! ./props/form */ 102));
-var _formItem = _interopRequireDefault(__webpack_require__(/*! ./props/formItem */ 103));
-var _gap = _interopRequireDefault(__webpack_require__(/*! ./props/gap */ 104));
-var _grid = _interopRequireDefault(__webpack_require__(/*! ./props/grid */ 105));
-var _gridItem = _interopRequireDefault(__webpack_require__(/*! ./props/gridItem */ 106));
-var _icon = _interopRequireDefault(__webpack_require__(/*! ./props/icon */ 107));
-var _image = _interopRequireDefault(__webpack_require__(/*! ./props/image */ 108));
-var _indexAnchor = _interopRequireDefault(__webpack_require__(/*! ./props/indexAnchor */ 109));
-var _indexList = _interopRequireDefault(__webpack_require__(/*! ./props/indexList */ 110));
-var _input = _interopRequireDefault(__webpack_require__(/*! ./props/input */ 111));
-var _keyboard = _interopRequireDefault(__webpack_require__(/*! ./props/keyboard */ 112));
-var _line = _interopRequireDefault(__webpack_require__(/*! ./props/line */ 113));
-var _lineProgress = _interopRequireDefault(__webpack_require__(/*! ./props/lineProgress */ 114));
-var _link = _interopRequireDefault(__webpack_require__(/*! ./props/link */ 115));
-var _list = _interopRequireDefault(__webpack_require__(/*! ./props/list */ 116));
-var _listItem = _interopRequireDefault(__webpack_require__(/*! ./props/listItem */ 117));
-var _loadingIcon = _interopRequireDefault(__webpack_require__(/*! ./props/loadingIcon */ 118));
-var _loadingPage = _interopRequireDefault(__webpack_require__(/*! ./props/loadingPage */ 119));
-var _loadmore = _interopRequireDefault(__webpack_require__(/*! ./props/loadmore */ 120));
-var _modal = _interopRequireDefault(__webpack_require__(/*! ./props/modal */ 121));
-var _navbar = _interopRequireDefault(__webpack_require__(/*! ./props/navbar */ 122));
-var _noNetwork = _interopRequireDefault(__webpack_require__(/*! ./props/noNetwork */ 124));
-var _noticeBar = _interopRequireDefault(__webpack_require__(/*! ./props/noticeBar */ 125));
-var _notify = _interopRequireDefault(__webpack_require__(/*! ./props/notify */ 126));
-var _numberBox = _interopRequireDefault(__webpack_require__(/*! ./props/numberBox */ 127));
-var _numberKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/numberKeyboard */ 128));
-var _overlay = _interopRequireDefault(__webpack_require__(/*! ./props/overlay */ 129));
-var _parse = _interopRequireDefault(__webpack_require__(/*! ./props/parse */ 130));
-var _picker = _interopRequireDefault(__webpack_require__(/*! ./props/picker */ 131));
-var _popup = _interopRequireDefault(__webpack_require__(/*! ./props/popup */ 132));
-var _radio = _interopRequireDefault(__webpack_require__(/*! ./props/radio */ 133));
-var _radioGroup = _interopRequireDefault(__webpack_require__(/*! ./props/radioGroup */ 134));
-var _rate = _interopRequireDefault(__webpack_require__(/*! ./props/rate */ 135));
-var _readMore = _interopRequireDefault(__webpack_require__(/*! ./props/readMore */ 136));
-var _row = _interopRequireDefault(__webpack_require__(/*! ./props/row */ 137));
-var _rowNotice = _interopRequireDefault(__webpack_require__(/*! ./props/rowNotice */ 138));
-var _scrollList = _interopRequireDefault(__webpack_require__(/*! ./props/scrollList */ 139));
-var _search = _interopRequireDefault(__webpack_require__(/*! ./props/search */ 140));
-var _section = _interopRequireDefault(__webpack_require__(/*! ./props/section */ 141));
-var _skeleton = _interopRequireDefault(__webpack_require__(/*! ./props/skeleton */ 142));
-var _slider = _interopRequireDefault(__webpack_require__(/*! ./props/slider */ 143));
-var _statusBar = _interopRequireDefault(__webpack_require__(/*! ./props/statusBar */ 144));
-var _steps = _interopRequireDefault(__webpack_require__(/*! ./props/steps */ 145));
-var _stepsItem = _interopRequireDefault(__webpack_require__(/*! ./props/stepsItem */ 146));
-var _sticky = _interopRequireDefault(__webpack_require__(/*! ./props/sticky */ 147));
-var _subsection = _interopRequireDefault(__webpack_require__(/*! ./props/subsection */ 148));
-var _swipeAction = _interopRequireDefault(__webpack_require__(/*! ./props/swipeAction */ 149));
-var _swipeActionItem = _interopRequireDefault(__webpack_require__(/*! ./props/swipeActionItem */ 150));
-var _swiper = _interopRequireDefault(__webpack_require__(/*! ./props/swiper */ 151));
-var _swipterIndicator = _interopRequireDefault(__webpack_require__(/*! ./props/swipterIndicator */ 152));
-var _switch2 = _interopRequireDefault(__webpack_require__(/*! ./props/switch */ 153));
-var _tabbar = _interopRequireDefault(__webpack_require__(/*! ./props/tabbar */ 154));
-var _tabbarItem = _interopRequireDefault(__webpack_require__(/*! ./props/tabbarItem */ 155));
-var _tabs = _interopRequireDefault(__webpack_require__(/*! ./props/tabs */ 156));
-var _tag = _interopRequireDefault(__webpack_require__(/*! ./props/tag */ 157));
-var _text = _interopRequireDefault(__webpack_require__(/*! ./props/text */ 158));
-var _textarea = _interopRequireDefault(__webpack_require__(/*! ./props/textarea */ 159));
-var _toast = _interopRequireDefault(__webpack_require__(/*! ./props/toast */ 160));
-var _toolbar = _interopRequireDefault(__webpack_require__(/*! ./props/toolbar */ 161));
-var _tooltip = _interopRequireDefault(__webpack_require__(/*! ./props/tooltip */ 162));
-var _transition = _interopRequireDefault(__webpack_require__(/*! ./props/transition */ 163));
-var _upload = _interopRequireDefault(__webpack_require__(/*! ./props/upload */ 164));
+var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 75));
+var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./props/actionSheet.js */ 77));
+var _album = _interopRequireDefault(__webpack_require__(/*! ./props/album.js */ 78));
+var _alert = _interopRequireDefault(__webpack_require__(/*! ./props/alert.js */ 79));
+var _avatar = _interopRequireDefault(__webpack_require__(/*! ./props/avatar */ 80));
+var _avatarGroup = _interopRequireDefault(__webpack_require__(/*! ./props/avatarGroup */ 81));
+var _backtop = _interopRequireDefault(__webpack_require__(/*! ./props/backtop */ 82));
+var _badge = _interopRequireDefault(__webpack_require__(/*! ./props/badge */ 83));
+var _button = _interopRequireDefault(__webpack_require__(/*! ./props/button */ 84));
+var _calendar = _interopRequireDefault(__webpack_require__(/*! ./props/calendar */ 85));
+var _carKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/carKeyboard */ 86));
+var _cell = _interopRequireDefault(__webpack_require__(/*! ./props/cell */ 87));
+var _cellGroup = _interopRequireDefault(__webpack_require__(/*! ./props/cellGroup */ 88));
+var _checkbox = _interopRequireDefault(__webpack_require__(/*! ./props/checkbox */ 89));
+var _checkboxGroup = _interopRequireDefault(__webpack_require__(/*! ./props/checkboxGroup */ 90));
+var _circleProgress = _interopRequireDefault(__webpack_require__(/*! ./props/circleProgress */ 91));
+var _code = _interopRequireDefault(__webpack_require__(/*! ./props/code */ 92));
+var _codeInput = _interopRequireDefault(__webpack_require__(/*! ./props/codeInput */ 93));
+var _col = _interopRequireDefault(__webpack_require__(/*! ./props/col */ 94));
+var _collapse = _interopRequireDefault(__webpack_require__(/*! ./props/collapse */ 95));
+var _collapseItem = _interopRequireDefault(__webpack_require__(/*! ./props/collapseItem */ 96));
+var _columnNotice = _interopRequireDefault(__webpack_require__(/*! ./props/columnNotice */ 97));
+var _countDown = _interopRequireDefault(__webpack_require__(/*! ./props/countDown */ 98));
+var _countTo = _interopRequireDefault(__webpack_require__(/*! ./props/countTo */ 99));
+var _datetimePicker = _interopRequireDefault(__webpack_require__(/*! ./props/datetimePicker */ 100));
+var _divider = _interopRequireDefault(__webpack_require__(/*! ./props/divider */ 101));
+var _empty = _interopRequireDefault(__webpack_require__(/*! ./props/empty */ 102));
+var _form = _interopRequireDefault(__webpack_require__(/*! ./props/form */ 103));
+var _formItem = _interopRequireDefault(__webpack_require__(/*! ./props/formItem */ 104));
+var _gap = _interopRequireDefault(__webpack_require__(/*! ./props/gap */ 105));
+var _grid = _interopRequireDefault(__webpack_require__(/*! ./props/grid */ 106));
+var _gridItem = _interopRequireDefault(__webpack_require__(/*! ./props/gridItem */ 107));
+var _icon = _interopRequireDefault(__webpack_require__(/*! ./props/icon */ 108));
+var _image = _interopRequireDefault(__webpack_require__(/*! ./props/image */ 109));
+var _indexAnchor = _interopRequireDefault(__webpack_require__(/*! ./props/indexAnchor */ 110));
+var _indexList = _interopRequireDefault(__webpack_require__(/*! ./props/indexList */ 111));
+var _input = _interopRequireDefault(__webpack_require__(/*! ./props/input */ 112));
+var _keyboard = _interopRequireDefault(__webpack_require__(/*! ./props/keyboard */ 113));
+var _line = _interopRequireDefault(__webpack_require__(/*! ./props/line */ 114));
+var _lineProgress = _interopRequireDefault(__webpack_require__(/*! ./props/lineProgress */ 115));
+var _link = _interopRequireDefault(__webpack_require__(/*! ./props/link */ 116));
+var _list = _interopRequireDefault(__webpack_require__(/*! ./props/list */ 117));
+var _listItem = _interopRequireDefault(__webpack_require__(/*! ./props/listItem */ 118));
+var _loadingIcon = _interopRequireDefault(__webpack_require__(/*! ./props/loadingIcon */ 119));
+var _loadingPage = _interopRequireDefault(__webpack_require__(/*! ./props/loadingPage */ 120));
+var _loadmore = _interopRequireDefault(__webpack_require__(/*! ./props/loadmore */ 121));
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./props/modal */ 122));
+var _navbar = _interopRequireDefault(__webpack_require__(/*! ./props/navbar */ 123));
+var _noNetwork = _interopRequireDefault(__webpack_require__(/*! ./props/noNetwork */ 125));
+var _noticeBar = _interopRequireDefault(__webpack_require__(/*! ./props/noticeBar */ 126));
+var _notify = _interopRequireDefault(__webpack_require__(/*! ./props/notify */ 127));
+var _numberBox = _interopRequireDefault(__webpack_require__(/*! ./props/numberBox */ 128));
+var _numberKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/numberKeyboard */ 129));
+var _overlay = _interopRequireDefault(__webpack_require__(/*! ./props/overlay */ 130));
+var _parse = _interopRequireDefault(__webpack_require__(/*! ./props/parse */ 131));
+var _picker = _interopRequireDefault(__webpack_require__(/*! ./props/picker */ 132));
+var _popup = _interopRequireDefault(__webpack_require__(/*! ./props/popup */ 133));
+var _radio = _interopRequireDefault(__webpack_require__(/*! ./props/radio */ 134));
+var _radioGroup = _interopRequireDefault(__webpack_require__(/*! ./props/radioGroup */ 135));
+var _rate = _interopRequireDefault(__webpack_require__(/*! ./props/rate */ 136));
+var _readMore = _interopRequireDefault(__webpack_require__(/*! ./props/readMore */ 137));
+var _row = _interopRequireDefault(__webpack_require__(/*! ./props/row */ 138));
+var _rowNotice = _interopRequireDefault(__webpack_require__(/*! ./props/rowNotice */ 139));
+var _scrollList = _interopRequireDefault(__webpack_require__(/*! ./props/scrollList */ 140));
+var _search = _interopRequireDefault(__webpack_require__(/*! ./props/search */ 141));
+var _section = _interopRequireDefault(__webpack_require__(/*! ./props/section */ 142));
+var _skeleton = _interopRequireDefault(__webpack_require__(/*! ./props/skeleton */ 143));
+var _slider = _interopRequireDefault(__webpack_require__(/*! ./props/slider */ 144));
+var _statusBar = _interopRequireDefault(__webpack_require__(/*! ./props/statusBar */ 145));
+var _steps = _interopRequireDefault(__webpack_require__(/*! ./props/steps */ 146));
+var _stepsItem = _interopRequireDefault(__webpack_require__(/*! ./props/stepsItem */ 147));
+var _sticky = _interopRequireDefault(__webpack_require__(/*! ./props/sticky */ 148));
+var _subsection = _interopRequireDefault(__webpack_require__(/*! ./props/subsection */ 149));
+var _swipeAction = _interopRequireDefault(__webpack_require__(/*! ./props/swipeAction */ 150));
+var _swipeActionItem = _interopRequireDefault(__webpack_require__(/*! ./props/swipeActionItem */ 151));
+var _swiper = _interopRequireDefault(__webpack_require__(/*! ./props/swiper */ 152));
+var _swipterIndicator = _interopRequireDefault(__webpack_require__(/*! ./props/swipterIndicator */ 153));
+var _switch2 = _interopRequireDefault(__webpack_require__(/*! ./props/switch */ 154));
+var _tabbar = _interopRequireDefault(__webpack_require__(/*! ./props/tabbar */ 155));
+var _tabbarItem = _interopRequireDefault(__webpack_require__(/*! ./props/tabbarItem */ 156));
+var _tabs = _interopRequireDefault(__webpack_require__(/*! ./props/tabs */ 157));
+var _tag = _interopRequireDefault(__webpack_require__(/*! ./props/tag */ 158));
+var _text = _interopRequireDefault(__webpack_require__(/*! ./props/text */ 159));
+var _textarea = _interopRequireDefault(__webpack_require__(/*! ./props/textarea */ 160));
+var _toast = _interopRequireDefault(__webpack_require__(/*! ./props/toast */ 161));
+var _toolbar = _interopRequireDefault(__webpack_require__(/*! ./props/toolbar */ 162));
+var _tooltip = _interopRequireDefault(__webpack_require__(/*! ./props/tooltip */ 163));
+var _transition = _interopRequireDefault(__webpack_require__(/*! ./props/transition */ 164));
+var _upload = _interopRequireDefault(__webpack_require__(/*! ./props/upload */ 165));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var color = _config.default.color;
@@ -24498,10 +24621,10 @@ var _default = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSp
 exports.default = _default;
 
 /***/ }),
-/* 76 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/actionSheet.js ***!
-  \***************************************************************************************************/
+/* 77 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/actionSheet.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24542,10 +24665,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 77 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/album.js ***!
-  \*********************************************************************************************/
+/* 78 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/album.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24586,10 +24709,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 78 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/alert.js ***!
-  \*********************************************************************************************/
+/* 79 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/alert.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24625,10 +24748,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 79 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/avatar.js ***!
-  \**********************************************************************************************/
+/* 80 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/avatar.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24670,10 +24793,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 80 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/avatarGroup.js ***!
-  \***************************************************************************************************/
+/* 81 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/avatarGroup.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24712,10 +24835,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 81 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/backtop.js ***!
-  \***********************************************************************************************/
+/* 82 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/backtop.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24758,10 +24881,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 82 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/badge.js ***!
-  \*********************************************************************************************/
+/* 83 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/badge.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24804,10 +24927,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 83 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/button.js ***!
-  \**********************************************************************************************/
+/* 84 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/button.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24863,10 +24986,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 84 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/calendar.js ***!
-  \************************************************************************************************/
+/* 85 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/calendar.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24926,10 +25049,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 85 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/carKeyboard.js ***!
-  \***************************************************************************************************/
+/* 86 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/carKeyboard.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24958,10 +25081,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 86 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/cell.js ***!
-  \********************************************************************************************/
+/* 87 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/cell.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25010,10 +25133,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 87 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/cellGroup.js ***!
-  \*************************************************************************************************/
+/* 88 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/cellGroup.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25044,10 +25167,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 88 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/checkbox.js ***!
-  \************************************************************************************************/
+/* 89 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/checkbox.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25088,10 +25211,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 89 */
-/*!*****************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
-  \*****************************************************************************************************/
+/* 90 */
+/*!******************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25136,10 +25259,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 90 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/circleProgress.js ***!
-  \******************************************************************************************************/
+/* 91 */
+/*!*******************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/circleProgress.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25168,10 +25291,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 91 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/code.js ***!
-  \********************************************************************************************/
+/* 92 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/code.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25205,10 +25328,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 92 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/codeInput.js ***!
-  \*************************************************************************************************/
+/* 93 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/codeInput.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25251,10 +25374,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 93 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/col.js ***!
-  \*******************************************************************************************/
+/* 94 */
+/*!********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/col.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25287,10 +25410,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 94 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/collapse.js ***!
-  \************************************************************************************************/
+/* 95 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/collapse.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25321,10 +25444,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 95 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/collapseItem.js ***!
-  \****************************************************************************************************/
+/* 96 */
+/*!*****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/collapseItem.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25363,10 +25486,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 96 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/columnNotice.js ***!
-  \****************************************************************************************************/
+/* 97 */
+/*!*****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/columnNotice.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25404,10 +25527,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 97 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/countDown.js ***!
-  \*************************************************************************************************/
+/* 98 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/countDown.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25439,10 +25562,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 98 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/countTo.js ***!
-  \***********************************************************************************************/
+/* 99 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/countTo.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25481,10 +25604,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 99 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/datetimePicker.js ***!
-  \******************************************************************************************************/
+/* 100 */
+/*!*******************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/datetimePicker.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25537,10 +25660,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 100 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/divider.js ***!
-  \***********************************************************************************************/
+/* 101 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/divider.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25576,10 +25699,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 101 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/empty.js ***!
-  \*********************************************************************************************/
+/* 102 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/empty.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25618,10 +25741,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 102 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/form.js ***!
-  \********************************************************************************************/
+/* 103 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/form.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25663,10 +25786,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 103 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/formItem.js ***!
-  \************************************************************************************************/
+/* 104 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/formItem.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25703,10 +25826,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 104 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/gap.js ***!
-  \*******************************************************************************************/
+/* 105 */
+/*!********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/gap.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25739,10 +25862,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 105 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/grid.js ***!
-  \********************************************************************************************/
+/* 106 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/grid.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25773,10 +25896,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 106 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/gridItem.js ***!
-  \************************************************************************************************/
+/* 107 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/gridItem.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25806,10 +25929,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 107 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/icon.js ***!
-  \********************************************************************************************/
+/* 108 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/icon.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25821,7 +25944,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 74));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 75));
 /*
  * @Author       : LQ
  * @Description  :
@@ -25858,10 +25981,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 108 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/image.js ***!
-  \*********************************************************************************************/
+/* 109 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/image.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25905,10 +26028,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 109 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/indexAnchor.js ***!
-  \***************************************************************************************************/
+/* 110 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/indexAnchor.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25941,10 +26064,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 110 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/indexList.js ***!
-  \*************************************************************************************************/
+/* 111 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/indexList.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25979,10 +26102,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 111 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/input.js ***!
-  \*********************************************************************************************/
+/* 112 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/input.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26044,10 +26167,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 112 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/keyboard.js ***!
-  \************************************************************************************************/
+/* 113 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/keyboard.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26091,10 +26214,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 113 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/line.js ***!
-  \********************************************************************************************/
+/* 114 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/line.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26128,10 +26251,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 114 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/lineProgress.js ***!
-  \****************************************************************************************************/
+/* 115 */
+/*!*****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/lineProgress.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26164,10 +26287,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 115 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/link.js ***!
-  \********************************************************************************************/
+/* 116 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/link.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26179,7 +26302,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 74));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 75));
 /*
  * @Author       : LQ
  * @Description  :
@@ -26206,10 +26329,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 116 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/list.js ***!
-  \********************************************************************************************/
+/* 117 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/list.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26251,10 +26374,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 117 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/listItem.js ***!
-  \************************************************************************************************/
+/* 118 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/listItem.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26283,10 +26406,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 118 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/loadingIcon.js ***!
-  \***************************************************************************************************/
+/* 119 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/loadingIcon.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26298,7 +26421,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 74));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 75));
 /*
  * @Author       : LQ
  * @Description  :
@@ -26329,10 +26452,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 119 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/loadingPage.js ***!
-  \***************************************************************************************************/
+/* 120 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/loadingPage.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26369,10 +26492,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 120 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/loadmore.js ***!
-  \************************************************************************************************/
+/* 121 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/loadmore.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26418,10 +26541,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 121 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/modal.js ***!
-  \*********************************************************************************************/
+/* 122 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/modal.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26466,10 +26589,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 122 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/navbar.js ***!
-  \**********************************************************************************************/
+/* 123 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/navbar.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26481,7 +26604,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 123));
+var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 124));
 /*
  * @Author       : LQ
  * @Description  :
@@ -26515,10 +26638,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 123 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/color.js ***!
-  \***************************************************************************************/
+/* 124 */
+/*!****************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/color.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26548,10 +26671,10 @@ var _default = color;
 exports.default = _default;
 
 /***/ }),
-/* 124 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/noNetwork.js ***!
-  \*************************************************************************************************/
+/* 125 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/noNetwork.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26582,10 +26705,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 125 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/noticeBar.js ***!
-  \*************************************************************************************************/
+/* 126 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/noticeBar.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26628,10 +26751,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 126 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/notify.js ***!
-  \**********************************************************************************************/
+/* 127 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/notify.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26667,10 +26790,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 127 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/numberBox.js ***!
-  \*************************************************************************************************/
+/* 128 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/numberBox.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26719,10 +26842,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 128 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
-  \******************************************************************************************************/
+/* 129 */
+/*!*******************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26753,10 +26876,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 129 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/overlay.js ***!
-  \***********************************************************************************************/
+/* 130 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/overlay.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26788,10 +26911,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 130 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/parse.js ***!
-  \*********************************************************************************************/
+/* 131 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/parse.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26827,10 +26950,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 131 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/picker.js ***!
-  \**********************************************************************************************/
+/* 132 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/picker.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26877,10 +27000,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 132 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/popup.js ***!
-  \*********************************************************************************************/
+/* 133 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/popup.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26923,10 +27046,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 133 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/radio.js ***!
-  \*********************************************************************************************/
+/* 134 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/radio.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26967,10 +27090,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 134 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/radioGroup.js ***!
-  \**************************************************************************************************/
+/* 135 */
+/*!***************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/radioGroup.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27014,10 +27137,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 135 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/rate.js ***!
-  \********************************************************************************************/
+/* 136 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/rate.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27057,10 +27180,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 136 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/readMore.js ***!
-  \************************************************************************************************/
+/* 137 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/readMore.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27096,10 +27219,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 137 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/row.js ***!
-  \*******************************************************************************************/
+/* 138 */
+/*!********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/row.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27130,10 +27253,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 138 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/rowNotice.js ***!
-  \*************************************************************************************************/
+/* 139 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/rowNotice.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27168,10 +27291,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 139 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/scrollList.js ***!
-  \**************************************************************************************************/
+/* 140 */
+/*!***************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/scrollList.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27205,10 +27328,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 140 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/search.js ***!
-  \**********************************************************************************************/
+/* 141 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/search.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27263,10 +27386,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 141 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/section.js ***!
-  \***********************************************************************************************/
+/* 142 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/section.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27304,10 +27427,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 142 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/skeleton.js ***!
-  \************************************************************************************************/
+/* 143 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/skeleton.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27346,10 +27469,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 143 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/slider.js ***!
-  \**********************************************************************************************/
+/* 144 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/slider.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27388,10 +27511,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 144 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/statusBar.js ***!
-  \*************************************************************************************************/
+/* 145 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/statusBar.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27420,10 +27543,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 145 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/steps.js ***!
-  \*********************************************************************************************/
+/* 146 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/steps.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27458,10 +27581,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 146 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/stepsItem.js ***!
-  \*************************************************************************************************/
+/* 147 */
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/stepsItem.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27493,10 +27616,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 147 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/sticky.js ***!
-  \**********************************************************************************************/
+/* 148 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/sticky.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27530,10 +27653,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 148 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/subsection.js ***!
-  \**************************************************************************************************/
+/* 149 */
+/*!***************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/subsection.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27570,10 +27693,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 149 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/swipeAction.js ***!
-  \***************************************************************************************************/
+/* 150 */
+/*!****************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/swipeAction.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27602,10 +27725,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 150 */
-/*!*******************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
-  \*******************************************************************************************************/
+/* 151 */
+/*!********************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27640,10 +27763,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 151 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/swiper.js ***!
-  \**********************************************************************************************/
+/* 152 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/swiper.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27697,10 +27820,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 152 */
-/*!********************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
-  \********************************************************************************************************/
+/* 153 */
+/*!*********************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27733,10 +27856,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 153 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/switch.js ***!
-  \**********************************************************************************************/
+/* 154 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/switch.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27774,10 +27897,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 154 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/tabbar.js ***!
-  \**********************************************************************************************/
+/* 155 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/tabbar.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27813,10 +27936,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 155 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/tabbarItem.js ***!
-  \**************************************************************************************************/
+/* 156 */
+/*!***************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/tabbarItem.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27850,10 +27973,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 156 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/tabs.js ***!
-  \********************************************************************************************/
+/* 157 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/tabs.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27907,10 +28030,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 157 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/tag.js ***!
-  \*******************************************************************************************/
+/* 158 */
+/*!********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/tag.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27953,10 +28076,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 158 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/text.js ***!
-  \********************************************************************************************/
+/* 159 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/text.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28009,10 +28132,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 159 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/textarea.js ***!
-  \************************************************************************************************/
+/* 160 */
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/textarea.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28062,10 +28185,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 160 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/toast.js ***!
-  \*********************************************************************************************/
+/* 161 */
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/toast.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28108,10 +28231,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 161 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/toolbar.js ***!
-  \***********************************************************************************************/
+/* 162 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/toolbar.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28145,10 +28268,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 162 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/tooltip.js ***!
-  \***********************************************************************************************/
+/* 163 */
+/*!************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/tooltip.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28189,10 +28312,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 163 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/transition.js ***!
-  \**************************************************************************************************/
+/* 164 */
+/*!***************************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/transition.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28224,10 +28347,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 164 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/props/upload.js ***!
-  \**********************************************************************************************/
+/* 165 */
+/*!***********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/props/upload.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28283,10 +28406,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 165 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/config/zIndex.js ***!
-  \****************************************************************************************/
+/* 166 */
+/*!*****************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/config/zIndex.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28319,10 +28442,10 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 166 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/小美女/Desktop/景区小程序/123/景区小程序/node_modules/uview-ui/libs/function/platform.js ***!
-  \********************************************************************************************/
+/* 167 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/node_modules/uview-ui/libs/function/platform.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28347,6 +28470,517 @@ platform = 'weixin';
 platform = 'mp';
 var _default = platform;
 exports.default = _default;
+
+/***/ }),
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */
+/*!***********************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/utils/jointDataManager.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
+var _cache = _interopRequireDefault(__webpack_require__(/*! ./cache.js */ 335));
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var JointDataManager = /*#__PURE__*/function () {
+  function JointDataManager() {
+    (0, _classCallCheck2.default)(this, JointDataManager);
+    this.storageKey = 'joint_fahui_order';
+    this.draftKey = 'joint_fahui_draft';
+    this.confirmKey = 'joint_fahui_confirm';
+    this.orderIdKey = 'joint_fahui_order_id';
+  }
+
+  // 保存订单数据
+  (0, _createClass2.default)(JointDataManager, [{
+    key: "saveOrderData",
+    value: function saveOrderData(orderData) {
+      try {
+        // 添加时间戳
+        var dataWithTimestamp = _objectSpread(_objectSpread({}, orderData), {}, {
+          createTime: new Date().getTime(),
+          lastUpdateTime: new Date().getTime()
+        });
+        var result = _cache.default.set(this.storageKey, dataWithTimestamp);
+        if (result) {
+          console.log('✅ 订单数据已保存:', dataWithTimestamp);
+          return true;
+        } else {
+          console.error('❌ 保存订单数据失败');
+          return false;
+        }
+      } catch (error) {
+        console.error('❌ 保存订单数据失败:', error);
+        return false;
+      }
+    }
+
+    // 获取订单数据
+  }, {
+    key: "getOrderData",
+    value: function getOrderData() {
+      try {
+        var data = _cache.default.get(this.storageKey);
+        console.log('📋 获取订单数据:', data);
+        return data;
+      } catch (error) {
+        console.error('❌ 获取订单数据失败:', error);
+        return null;
+      }
+    }
+
+    // 清除订单数据
+  }, {
+    key: "clearOrderData",
+    value: function clearOrderData() {
+      try {
+        _cache.default.remove(this.storageKey);
+        _cache.default.remove(this.confirmKey);
+        _cache.default.remove(this.orderIdKey);
+        console.log('🧹 订单数据已清除');
+        return true;
+      } catch (error) {
+        console.error('❌ 清除订单数据失败:', error);
+        return false;
+      }
+    }
+
+    // 保存草稿数据
+  }, {
+    key: "saveDraftData",
+    value: function saveDraftData(draftData) {
+      try {
+        var result = _cache.default.set(this.draftKey, draftData);
+        if (result) {
+          console.log('✅ 草稿数据已保存:', draftData);
+          return true;
+        } else {
+          console.error('❌ 保存草稿数据失败');
+          return false;
+        }
+      } catch (error) {
+        console.error('❌ 保存草稿数据失败:', error);
+        return false;
+      }
+    }
+
+    // 获取草稿数据
+  }, {
+    key: "getDraftData",
+    value: function getDraftData() {
+      try {
+        var data = _cache.default.get(this.draftKey);
+        console.log('📋 获取草稿数据:', data);
+        return data;
+      } catch (error) {
+        console.error('❌ 获取草稿数据失败:', error);
+        return null;
+      }
+    }
+
+    // 清除草稿数据
+  }, {
+    key: "clearDraftData",
+    value: function clearDraftData() {
+      try {
+        _cache.default.remove(this.draftKey);
+        console.log('🧹 草稿数据已清除');
+        return true;
+      } catch (error) {
+        console.error('❌ 清除草稿数据失败:', error);
+        return false;
+      }
+    }
+
+    // 验证数据完整性
+  }, {
+    key: "validateOrderData",
+    value: function validateOrderData(orderData) {
+      if (!orderData) {
+        console.log('❌ 订单数据为空');
+        return false;
+      }
+
+      // 检查必要字段
+      var requiredFields = ['projectName', 'applicants', 'activityFee', 'totalFee'];
+      for (var _i = 0, _requiredFields = requiredFields; _i < _requiredFields.length; _i++) {
+        var field = _requiredFields[_i];
+        if (!orderData[field]) {
+          console.log("\u274C \u7F3A\u5C11\u5FC5\u8981\u5B57\u6BB5: ".concat(field));
+          return false;
+        }
+      }
+
+      // 检查报名人信息
+      if (!Array.isArray(orderData.applicants) || orderData.applicants.length === 0) {
+        console.log('❌ 报名人信息不完整');
+        return false;
+      }
+
+      // 检查每个报名人的必要信息
+      var _iterator = _createForOfIteratorHelper(orderData.applicants),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var applicant = _step.value;
+          if (!applicant.name || !applicant.phone || !applicant.gender) {
+            console.log('❌ 报名人信息不完整:', applicant);
+            return false;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      console.log('✅ 订单数据验证通过');
+      return true;
+    }
+
+    // 清理和标准化数据
+  }, {
+    key: "cleanOrderData",
+    value: function cleanOrderData(orderData) {
+      return {
+        projectName: orderData.projectName || orderData.project_name || '合坛法会',
+        applicantCount: orderData.applicantCount || (orderData.applicants ? orderData.applicants.length : 0),
+        applicants: orderData.applicants || [],
+        selectedItems: orderData.selectedItems || orderData.goods || [],
+        receiver: orderData.receiver || null,
+        activityFee: orderData.activityFee || orderData.activity_fee || 0,
+        goodsFee: orderData.goodsFee || orderData.goods_fee || 0,
+        totalFee: orderData.totalFee || orderData.total_fee || 0,
+        spouse: orderData.spouse || null,
+        deceasedList: orderData.deceasedList || [],
+        chaoduType: orderData.chaoduType || '',
+        selectedDate: orderData.selectedDate || '',
+        type: orderData.type || 'joint_fahui',
+        createTime: orderData.createTime || new Date().getTime(),
+        lastUpdateTime: new Date().getTime()
+      };
+    }
+
+    // 获取所有调试信息
+  }, {
+    key: "getDebugInfo",
+    value: function getDebugInfo() {
+      return {
+        orderData: this.getOrderData(),
+        draftData: this.getDraftData(),
+        confirmData: _cache.default.get(this.confirmKey),
+        orderId: _cache.default.get(this.orderIdKey)
+      };
+    }
+
+    // 生成测试数据
+  }, {
+    key: "generateTestData",
+    value: function generateTestData() {
+      var testData = {
+        type: 'joint_fahui',
+        projectId: 'test_project',
+        projectName: '测试合坛法会',
+        projectPrice: 200,
+        selectedDate: '2025-08-15',
+        chaoduType: '',
+        applicants: [{
+          name: '测试用户',
+          gender: '男',
+          phone: '13800138000',
+          lunarBirthday: '1990-01-01',
+          birthTime: '子时',
+          address: '测试地址'
+        }],
+        spouse: null,
+        deceasedList: [],
+        selectedItems: [{
+          name: '香烛',
+          price: 50,
+          count: 2
+        }],
+        receiver: {
+          name: '收件人',
+          phone: '13800138001',
+          address: '收件地址'
+        },
+        activityFee: 200,
+        goodsFee: 100,
+        totalFee: 300,
+        applicantCount: 1,
+        createTime: new Date().getTime()
+      };
+      this.saveOrderData(testData);
+      return testData;
+    }
+  }]);
+  return JointDataManager;
+}(); // 创建单例实例
+var jointDataManager = new JointDataManager();
+var _default = jointDataManager;
+exports.default = _default;
+
+/***/ }),
+/* 335 */
+/*!************************************************************************!*\
+  !*** C:/Users/qub/Documents/HBuilderProjects/123/景区小程序/utils/cache.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.safeStorage = exports.default = void 0;
+/**
+ * 缓存工具类 - 处理 getCachePermissionBytes 错误
+ */
+
+// 安全的存储操作
+var safeStorage = {
+  // 获取存储数据
+  get: function get(key) {
+    var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    try {
+      var data = uni.getStorageSync(key);
+      return data !== '' ? data : defaultValue;
+    } catch (error) {
+      console.warn("\u83B7\u53D6\u5B58\u50A8\u6570\u636E\u5931\u8D25 [".concat(key, "]:"), error);
+      return defaultValue;
+    }
+  },
+  // 设置存储数据
+  set: function set(key, data) {
+    try {
+      uni.setStorageSync(key, data);
+      return true;
+    } catch (error) {
+      console.warn("\u8BBE\u7F6E\u5B58\u50A8\u6570\u636E\u5931\u8D25 [".concat(key, "]:"), error);
+      return false;
+    }
+  },
+  // 删除存储数据
+  remove: function remove(key) {
+    try {
+      uni.removeStorageSync(key);
+      return true;
+    } catch (error) {
+      console.warn("\u5220\u9664\u5B58\u50A8\u6570\u636E\u5931\u8D25 [".concat(key, "]:"), error);
+      return false;
+    }
+  },
+  // 清空所有存储
+  clear: function clear() {
+    try {
+      uni.clearStorageSync();
+      return true;
+    } catch (error) {
+      console.warn('清空存储失败:', error);
+      return false;
+    }
+  },
+  // 获取存储信息
+  getInfo: function getInfo() {
+    try {
+      return uni.getStorageInfoSync();
+    } catch (error) {
+      console.warn('获取存储信息失败:', error);
+      return {
+        keys: [],
+        currentSize: 0,
+        limitSize: 0
+      };
+    }
+  }
+};
+
+// 导出默认对象
+exports.safeStorage = safeStorage;
+var _default = safeStorage;
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 3)["default"]))
 
 /***/ })
 ]]);

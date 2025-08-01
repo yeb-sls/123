@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "合坛法会头图管理",
-  "usingComponents": {
-    "uni-popup": "/components/uni-popup/uni-popup"
-  }
+  "usingComponents": {}
 }

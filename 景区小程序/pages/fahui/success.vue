@@ -50,7 +50,7 @@
       <view class="applicants-section">
         <view class="section-title">报名人信息</view>
         <view class="applicants-card">
-          <view v-for="(applicant, index) in orderInfo.applicants" :key="index" class="applicant-item">
+          <view v-for="(applicant, index) in orderInfo.applicants" :key="'applicant-' + index" class="applicant-item">
             <view class="applicant-header">
               <text class="applicant-title">报名人 {{ index + 1 }}</text>
             </view>
@@ -65,7 +65,7 @@
       <view v-if="orderInfo.goods && orderInfo.goods.length > 0" class="goods-section">
         <view class="section-title">代办物品</view>
         <view class="goods-card">
-          <view v-for="(item, index) in orderInfo.goods" :key="index" class="goods-item">
+          <view v-for="(item, index) in orderInfo.goods" :key="'goods-' + index" class="goods-item">
             <text class="goods-name">{{ item.name }}</text>
             <text class="goods-qty">{{ item.qty }} 个</text>
             <text class="goods-price">¥{{ item.price * item.qty }}</text>

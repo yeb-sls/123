@@ -1,0 +1,10 @@
+{
+  "name": "deleteJointGood",
+  "version": "1.0.0",
+  "description": "删除合坛法会代办物品",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

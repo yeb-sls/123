@@ -3,7 +3,6 @@
     <view class="page-header">
       <text class="page-title">合坛法会代办物品管理</text>
       <text class="page-desc">管理合坛法会代办物品及价格设置</text>
-      <button class="add-btn" @click="showAddModal">+ 新增物品</button>
     </view>
     
     <!-- 模块开关 -->
@@ -13,26 +12,78 @@
         <switch :checked="moduleEnabled" @change="onModuleToggle" color="#667eea" />
         <text class="switch-desc">{{ moduleEnabled ? '已启用' : '已禁用' }}</text>
       </view>
+      <text class="switch-tip">启用后前台将显示代办物品选择功能</text>
     </view>
     
-    <!-- 物品列表 -->
-    <view v-if="moduleEnabled" class="goods-list">
-      <view v-for="(good, index) in goods" :key="good._id" class="good-card">
-        <view class="good-info">
-          <view class="good-header">
-            <text class="good-name">{{ good.name }}</text>
-            <text class="good-price">¥{{ good.price }}</text>
+    <!-- 模块启用时的管理界面 -->
+    <view v-if="moduleEnabled">
+      <view class="page-actions">
+        <button class="add-btn" @click="showAddModal">+ 新增物品</button>
+      </view>
+    
+      <!-- 项目信息 -->
+      <view class="project-info">
+        <text class="project-title">当前项目：{{ projectName || '未知项目' }}</text>
+        <text class="project-desc">管理该项目的代办物品</text>
+      </view>
+      
+      <!-- 添加/编辑表单直接在页面显示 -->
+      <view v-if="isEdit" class="good-edit-form">
+        <view class="form-content">
+          <view class="form-item">
+            <text class="form-label">物品名称 *</text>
+            <input v-model="currentGood.name" class="form-input" placeholder="请输入物品名称" />
           </view>
-          <view class="good-desc">{{ good.description || '暂无描述' }}</view>
-          <view class="good-details">
-            <text class="detail-item">库存：{{ good.stock || '不限' }}</text>
-            <text class="detail-item">状态：{{ good.enabled ? '启用' : '禁用' }}</text>
+          <view class="form-item">
+            <text class="form-label">物品描述</text>
+            <textarea v-model="currentGood.description" class="form-textarea" placeholder="请输入物品描述" maxlength="200" />
+          </view>
+          <view class="form-item">
+            <text class="form-label">法金价格 *</text>
+            <input v-model="currentGood.price" type="number" class="form-input" placeholder="请输入法金价格" />
+          </view>
+          <view class="form-item">
+            <text class="form-label">库存数量</text>
+            <input v-model="currentGood.stock" type="number" class="form-input" placeholder="请输入库存数量（留空表示不限）" />
+          </view>
+          <view class="form-item">
+            <text class="form-label">状态</text>
+            <switch :checked="currentGood.enabled" @change="onGoodSwitchChange" color="#667eea" />
+            <text class="switch-label">{{ currentGood.enabled ? '启用' : '禁用' }}</text>
           </view>
         </view>
-        
-        <view class="good-actions">
-          <button class="action-btn edit" @click="editGood(index)">编辑</button>
-          <button class="action-btn delete" @click="deleteGood(good._id)">删除</button>
+        <view class="form-actions">
+          <button class="cancel-btn" @click="closeModal">取消</button>
+          <button class="save-btn" @click="saveGood">保存</button>
+        </view>
+      </view>
+      <!-- 物品列表 -->
+      <view v-if="!isEdit" class="goods-list">
+        <view v-for="(good, index) in goods" :key="good._id || index" class="good-card">
+          <view class="good-info">
+            <view class="good-header">
+              <text class="good-name">{{ good.name }}</text>
+              <text class="good-price">¥{{ good.price }}</text>
+            </view>
+            <view class="good-desc">{{ good.description || '暂无描述' }}</view>
+            <view class="good-details">
+              <text class="detail-item">库存：{{ good.stock || '不限' }}</text>
+              <text class="detail-item">状态：{{ good.enabled ? '启用' : '禁用' }}</text>
+            </view>
+          </view>
+          <view class="good-actions">
+            <button class="action-btn edit" @click="editGood(index)">编辑</button>
+            <button class="action-btn delete" @click="deleteGood(index)">删除</button>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 无物品提示 -->
+      <view v-if="!isEdit && goods.length === 0" class="no-goods">
+        <view class="no-goods-content">
+          <text class="no-goods-icon">📦</text>
+          <text class="no-goods-title">暂无代办物品</text>
+          <text class="no-goods-desc">点击上方"新增物品"按钮添加代办物品</text>
         </view>
       </view>
     </view>
@@ -40,69 +91,32 @@
     <!-- 模块禁用提示 -->
     <view v-else class="module-disabled">
       <view class="disabled-content">
-        <text class="disabled-icon">🚫</text>
+        <text class="disabled-icon">📦</text>
         <text class="disabled-title">代办物品模块已禁用</text>
         <text class="disabled-desc">启用后可在前台显示代办物品选择功能</text>
       </view>
     </view>
     
-    <!-- 添加/编辑弹窗 -->
-    <uni-popup ref="popup" type="center" :mask-click="false">
-      <view class="popup-content">
-        <view class="popup-header">
-          <text class="popup-title">{{ isEdit ? '编辑物品' : '新增物品' }}</text>
-          <text class="popup-close" @click="closeModal">×</text>
-        </view>
-        
-        <view class="form-content">
-          <view class="form-item">
-            <text class="form-label">物品名称 *</text>
-            <input v-model="currentGood.name" class="form-input" placeholder="请输入物品名称" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">物品描述</text>
-            <textarea v-model="currentGood.description" class="form-textarea" placeholder="请输入物品描述" maxlength="200" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">法金价格 *</text>
-            <input v-model="currentGood.price" type="number" class="form-input" placeholder="请输入法金价格" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">库存数量</text>
-            <input v-model="currentGood.stock" type="number" class="form-input" placeholder="请输入库存数量（留空表示不限）" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">状态</text>
-            <switch :checked="currentGood.enabled" @change="onGoodSwitchChange" color="#667eea" />
-            <text class="switch-label">{{ currentGood.enabled ? '启用' : '禁用' }}</text>
-          </view>
-        </view>
-        
-        <view class="form-actions">
-          <button class="cancel-btn" @click="closeModal">取消</button>
-          <button class="save-btn" @click="saveGood">保存</button>
-        </view>
-      </view>
-    </uni-popup>
   </view>
 </template>
 
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
+
 export default {
   components: { uniPopup },
   
   data() {
     return {
-      moduleEnabled: false,
       goods: [],
       isEdit: false,
       editIndex: -1,
+      projectId: '',
+      projectName: '',
+      moduleEnabled: false,
       currentGood: {
         _id: '',
         name: '',
@@ -114,44 +128,107 @@ export default {
     }
   },
   
-  onLoad() {
-    this.loadGoodsConfig()
+  onLoad(options) {
+    console.log('【调试-onLoad】接收到的 options =', options);
+    this.projectId = options.projectId || '';
+    this.projectName = options.projectName || '';
+    console.log('【调试-onLoad】设置后的 projectId =', this.projectId);
+    console.log('【调试-onLoad】设置后的 projectName =', this.projectName);
+    if (!this.projectId) {
+      uni.showToast({ title: '缺少项目ID，无法管理物品', icon: 'none' });
+      // 可选：跳转回项目列表页
+      return;
+    }
+    this.loadModuleConfig();
+    this.loadGoodsConfig();
   },
   
   methods: {
-    async loadGoodsConfig() {
+    async loadModuleConfig() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getJointGoodsConfig'
-        })
-        if (res.result && res.result.data) {
-          this.moduleEnabled = res.result.data.enabled || false
-          this.goods = res.result.data.goods || []
+        const result = await jointManagement.getGoodsConfig()
+        
+        if (result.success && result.data) {
+          this.moduleEnabled = result.data.enabled || false
+        } else {
+          this.moduleEnabled = false
         }
       } catch (error) {
-        console.error('加载合坛法会代办物品配置失败:', error)
-        uni.showToast({ title: '加载失败', icon: 'none' })
+        console.error('加载代办物品模块配置失败:', error)
+        this.moduleEnabled = false
       }
     },
     
     async onModuleToggle(e) {
       try {
-        await uniCloud.callFunction({
-          name: 'updateJointGoodsConfig',
-          data: { 
-            enabled: e.detail.value,
-            goods: this.goods
-          }
+        const result = await jointManagement.updateGoodsConfig({ 
+          enabled: e.detail.value
         })
-        this.moduleEnabled = e.detail.value
-        uni.showToast({ title: e.detail.value ? '模块已启用' : '模块已禁用' })
+        if (result.success) {
+          this.moduleEnabled = e.detail.value
+          uni.showToast({ title: e.detail.value ? '模块已启用' : '模块已禁用', icon: 'success' })
+        } else {
+          uni.showToast({ title: result.message, icon: 'none' })
+        }
       } catch (error) {
         console.error('更新模块状态失败:', error)
         uni.showToast({ title: '操作失败', icon: 'none' })
       }
     },
     
+    async loadGoodsConfig() {
+      try {
+        const projectId = this.projectId;
+        console.log('🔍 加载物品配置，项目ID:', projectId);
+        
+        if (!projectId) {
+          console.error('🔍 缺少项目ID，无法加载物品配置');
+          uni.showToast({ title: '缺少项目ID', icon: 'none' });
+          return;
+        }
+        
+        const result = await jointManagement.getGoods({ projectId })
+        console.log('🔍 获取物品配置结果:', result);
+        
+        if (result.success && result.data) {
+          this.goods = result.data
+          console.log('🔍 加载到的物品列表:', this.goods)
+        } else {
+          console.error('🔍 获取物品配置失败:', result.message);
+          this.goods = []
+          if (result.message) {
+            uni.showToast({ title: result.message, icon: 'none' })
+          }
+        }
+      } catch (error) {
+        console.error('🔍 加载合坛法会代办物品配置失败:', error)
+        this.goods = []
+        uni.showToast({ title: '加载失败', icon: 'none' })
+      }
+    },
+    
+    // 模块开关功能已移除，现在基于项目管理物品
+    
     showAddModal() {
+      this.isEdit = true
+      this.editIndex = -1
+      this.currentGood = {
+        _id: '',
+        name: '',
+        description: '',
+        price: '',
+        stock: '',
+        enabled: true
+      }
+    },
+    
+    editGood(index) {
+      this.isEdit = true
+      this.editIndex = index
+      this.currentGood = JSON.parse(JSON.stringify(this.goods[index]))
+    },
+    
+    closeModal() {
       this.isEdit = false
       this.editIndex = -1
       this.currentGood = {
@@ -162,18 +239,6 @@ export default {
         stock: '',
         enabled: true
       }
-      this.$refs.popup.open()
-    },
-    
-    editGood(index) {
-      this.isEdit = true
-      this.editIndex = index
-      this.currentGood = JSON.parse(JSON.stringify(this.goods[index]))
-      this.$refs.popup.open()
-    },
-    
-    closeModal() {
-      this.$refs.popup.close()
     },
     
     onGoodSwitchChange(e) {
@@ -192,55 +257,81 @@ export default {
           price: Number(this.currentGood.price) || 0,
           stock: this.currentGood.stock ? Number(this.currentGood.stock) : null
         }
+        const projectId = this.projectId;
+        console.log('🔍 保存物品，项目ID:', projectId, '物品数据:', data)
         
-        if (this.isEdit && data._id) {
-          // 更新物品
-          const updateData = { ...data }
-          delete updateData._id
-          this.goods[this.editIndex] = { ...this.goods[this.editIndex], ...updateData }
-        } else {
-          // 新增物品
-          delete data._id
-          data._id = Date.now().toString() // 临时ID
-          this.goods.push(data)
+        if (!projectId) {
+          uni.showToast({ title: '缺少项目ID，无法保存', icon: 'none' });
+          return;
         }
         
-        // 保存到云端
-        await uniCloud.callFunction({
-          name: 'updateJointGoodsConfig',
-          data: { 
-            enabled: this.moduleEnabled,
-            goods: this.goods
-          }
-        })
+        let result
+        if (this.editIndex !== -1) {
+          // 更新物品
+          console.log('🔍 更新物品，索引:', this.editIndex)
+          result = await jointManagement.updateGood({
+            projectId,
+            goodIndex: this.editIndex,
+            good: data
+          })
+        } else {
+          // 添加物品
+          console.log('🔍 添加物品')
+          result = await jointManagement.addGood({
+            projectId,
+            good: data
+          })
+        }
         
-        this.closeModal()
-        uni.showToast({ title: this.isEdit ? '更新成功' : '添加成功' })
+        console.log('🔍 保存结果:', result)
+        
+        if (result.success) {
+          await this.loadGoodsConfig();
+          console.log('🔍 保存后物品列表:', this.goods)
+          this.closeModal();
+          uni.showToast({ title: this.editIndex !== -1 ? '更新成功' : '添加成功', icon: 'success' })
+        } else {
+          throw new Error(result.message || '保存失败')
+        }
       } catch (error) {
-        console.error('保存合坛法会代办物品失败:', error)
-        uni.showToast({ title: '保存失败', icon: 'none' })
+        console.error('🔍 保存合坛法会代办物品失败:', error)
+        uni.showToast({ title: '保存失败: ' + (error.message || error), icon: 'none' })
       }
     },
     
-    async deleteGood(id) {
+    async deleteGood(index) {
+      const projectId = this.projectId;
+      console.log('🔍 删除物品，项目ID:', projectId, '物品索引:', index)
+      
+      if (!projectId) {
+        uni.showToast({ title: '缺少项目ID，无法删除', icon: 'none' });
+        return;
+      }
+      
       uni.showModal({
         title: '确认删除',
         content: '确定要删除这个物品吗？',
         success: async (res) => {
           if (res.confirm) {
             try {
-              this.goods = this.goods.filter(good => good._id !== id)
-              await uniCloud.callFunction({
-                name: 'updateJointGoodsConfig',
-                data: { 
-                  enabled: this.moduleEnabled,
-                  goods: this.goods
-                }
+              console.log('🔍 执行删除操作')
+              const result = await jointManagement.deleteGood({
+                projectId,
+                goodIndex: index
               })
-              uni.showToast({ title: '删除成功' })
+              
+              console.log('🔍 删除结果:', result)
+              
+              if (result.success) {
+                await this.loadGoodsConfig();
+                console.log('🔍 删除后物品列表:', this.goods)
+                uni.showToast({ title: '删除成功', icon: 'success' })
+              } else {
+                uni.showToast({ title: result.message || '删除失败', icon: 'none' })
+              }
             } catch (error) {
-              console.error('删除合坛法会代办物品失败:', error)
-              uni.showToast({ title: '删除失败', icon: 'none' })
+              console.error('🔍 删除合坛法会代办物品失败:', error)
+              uni.showToast({ title: '删除失败: ' + (error.message || error), icon: 'none' })
             }
           }
         }
@@ -312,6 +403,19 @@ export default {
 .switch-desc {
   font-size: 26rpx;
   color: #666;
+}
+
+.switch-tip {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-top: 10rpx;
+}
+
+.page-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20rpx;
 }
 
 .goods-list {
@@ -395,6 +499,7 @@ export default {
   border-radius: 12rpx;
   padding: 60rpx 30rpx;
   text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
 }
 
 .disabled-content {
@@ -417,6 +522,59 @@ export default {
 .disabled-desc {
   font-size: 26rpx;
   color: #666;
+  text-align: center;
+}
+
+.project-info {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.project-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.project-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.no-goods {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 60rpx 30rpx;
+  margin-top: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.no-goods-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.no-goods-icon {
+  font-size: 80rpx;
+}
+
+.no-goods-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.no-goods-desc {
+  font-size: 26rpx;
+  color: #666;
+  text-align: center;
 }
 
 .popup-content {

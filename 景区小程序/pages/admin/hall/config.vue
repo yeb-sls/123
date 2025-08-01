@@ -168,6 +168,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -203,11 +206,11 @@ export default {
         this.loading = true
         console.log('开始加载殿堂供品数据...')
         
-        const result = await uniCloud.callFunction({ name: 'getHallItems' })
+        const result = await commonManagement.getHallItems()
         console.log('殿堂供品数据加载结果:', result)
         
-        if (result.result && result.result.data) {
-          this.hallItems = result.result.data
+        if (result.success && result.data) {
+          this.hallItems = result.data
           console.log('殿堂供品数据加载成功，共', this.hallItems.length, '条')
         } else {
           this.hallItems = []
@@ -254,10 +257,10 @@ export default {
           if (res.confirm) {
             try {
               uni.showLoading({ title: '删除中...' })
-              await uniCloud.callFunction({
-                name: 'deleteHallItem',
-                data: { id: this.hallItems[index]._id }
-              })
+              const result = await commonManagement.deleteHallItem({ _id: this.hallItems[index]._id })
+              if (!result.success) {
+                throw new Error(result.message || '删除失败')
+              }
               this.hallItems.splice(index, 1)
               uni.hideLoading()
               uni.showToast({ 
@@ -298,23 +301,23 @@ export default {
         
         if (this.isEdit) {
           console.log('更新供品，ID:', this.hallItems[this.editIndex]._id)
-          const updateResult = await uniCloud.callFunction({
-            name: 'updateHallItem',
-            data: { id: this.hallItems[this.editIndex]._id, item: this.currentHallItem }
+          const updateResult = await commonManagement.updateHallItem({
+            _id: this.hallItems[this.editIndex]._id,
+            ...this.currentHallItem
           })
           console.log('更新结果:', updateResult)
+          if (!updateResult.success) {
+            throw new Error(updateResult.message || '更新失败')
+          }
           this.hallItems[this.editIndex] = { ...this.currentHallItem }
         } else {
           console.log('添加新供品')
-          const result = await uniCloud.callFunction({
-            name: 'addHallItem',
-            data: { item: this.currentHallItem }
-          })
+          const result = await commonManagement.addHallItem({ item: this.currentHallItem })
           console.log('添加结果:', result)
-          if (result.result && result.result.data) {
-            this.hallItems.push(result.result.data)
+          if (result.success && result.data) {
+            this.hallItems.push(result.data)
           } else {
-            throw new Error('添加失败：返回数据格式错误')
+            throw new Error(result.message || '添加失败：返回数据格式错误')
           }
         }
         this.closePopup()
@@ -354,13 +357,13 @@ export default {
         
         item.status = newStatus
         
-        const result = await uniCloud.callFunction({ 
-          name: 'updateHallItem', 
-          data: { 
-            id: item._id, 
-            item: { status: newStatus } 
-          } 
+        const result = await commonManagement.updateHallItem({ 
+          _id: item._id, 
+          status: newStatus 
         })
+        if (!result.success) {
+          throw new Error(result.message || '状态更新失败')
+        }
         
         console.log('状态更新结果:', result)
         

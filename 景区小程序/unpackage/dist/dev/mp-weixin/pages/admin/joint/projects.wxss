@@ -105,6 +105,10 @@
   background: #667eea;
   color: #fff;
 }
+.action-btn.goods.data-v-6d1fbf98 {
+  background: #ffa502;
+  color: #fff;
+}
 .action-btn.delete.data-v-6d1fbf98 {
   background: #ff4757;
   color: #fff;
@@ -133,8 +137,40 @@
   color: #999;
   cursor: pointer;
 }
-.form-content.data-v-6d1fbf98 {
+.form-content.data-v-6d1fbf98, .form-vertical.data-v-6d1fbf98, .form-inline-below.data-v-6d1fbf98 {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08);
+  padding: 40rpx 30rpx;
+  min-width: 400rpx;
+  max-width: 600rpx;
+  margin: 0 auto;
+}
+.form-group.data-v-6d1fbf98 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30rpx;
+}
+.form-header.data-v-6d1fbf98 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+  margin-bottom: 30rpx;
+}
+.form-title.data-v-6d1fbf98 {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.form-close.data-v-6d1fbf98 {
+  font-size: 40rpx;
+  color: #999;
+  cursor: pointer;
 }
 .form-item.data-v-6d1fbf98 {
   margin-bottom: 30rpx;
@@ -143,7 +179,6 @@
   font-size: 28rpx;
   color: #333;
   margin-bottom: 10rpx;
-  display: block;
 }
 .form-input.data-v-6d1fbf98 {
   width: 100%;
@@ -167,39 +202,81 @@
   border-radius: 8rpx;
   font-size: 28rpx;
   color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.dates-container.data-v-6d1fbf98 {
+.picker-value.data-v-6d1fbf98 {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+}
+.picker-arrow.data-v-6d1fbf98 {
+  font-size: 36rpx;
+  color: #999;
+  margin-left: 10rpx;
+}
+.date-list.data-v-6d1fbf98 {
   display: flex;
   flex-wrap: wrap;
   gap: 10rpx;
 }
-.date-tag.data-v-6d1fbf98 {
-  background: #f0f4ff;
-  color: #667eea;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  font-size: 24rpx;
+.date-list-vertical.data-v-6d1fbf98 {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+.date-item.data-v-6d1fbf98 {
   display: flex;
   align-items: center;
+  background: #f0f4ff;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 10rpx 20rpx;
 }
-.date-remove.data-v-6d1fbf98 {
-  margin-left: 10rpx;
+.date-item-vertical.data-v-6d1fbf98 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+.date-input.data-v-6d1fbf98 {
+  flex: 1;
   font-size: 28rpx;
-  cursor: pointer;
+  padding: 0 10rpx;
+  margin-right: 10rpx;
+  height: 60rpx;
+}
+.remove-btn.data-v-6d1fbf98 {
+  background: #ff4757;
+  color: #fff;
+  border: none;
+  padding: 8rpx 15rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
 }
 .add-date-btn.data-v-6d1fbf98 {
+  width: 100%;
+  margin-top: 8rpx;
   background: #667eea;
   color: #fff;
   border: none;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  font-size: 24rpx;
+  padding: 16rpx 0;
+  border-radius: 8rpx;
+  font-size: 26rpx;
 }
 .form-actions.data-v-6d1fbf98 {
   display: flex;
   gap: 20rpx;
   padding: 30rpx;
   border-top: 1rpx solid #eee;
+}
+.form-actions-center.data-v-6d1fbf98 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20rpx;
+  margin-top: 20rpx;
 }
 .cancel-btn.data-v-6d1fbf98, .save-btn.data-v-6d1fbf98 {
   flex: 1;
@@ -259,5 +336,26 @@
   padding: 20rpx;
   border-radius: 8rpx;
   font-size: 28rpx;
+}
+.date-picker-inline.data-v-6d1fbf98 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.form-inline-below.data-v-6d1fbf98 {
+  position: relative; /* 确保表单跟随页面纵向排列 */
+  margin-top: 20rpx; /* 与项目列表之间留出空间 */
+  width: 100%; /* 占满父容器宽度 */
+  max-width: 90vw; /* 最大宽度与form-content一致 */
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08); /* 保持阴影效果 */
+  border-radius: 12rpx; /* 保持圆角 */
+  background: #fff; /* 保持背景 */
 }
 

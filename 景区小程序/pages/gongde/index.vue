@@ -20,7 +20,7 @@
       <view class="types-section">
         <view class="section-title">布施类型</view>
         <view class="types-grid">
-          <view class="type-item" v-for="(type, index) in donateTypes" :key="index">
+          <view class="type-item" v-for="(type, index) in donateTypes" :key="'type-' + index">
             <view class="type-icon">{{ type.icon }}</view>
             <view class="type-name">{{ type.name }}</view>
             <view class="type-desc">{{ type.desc }}</view>
@@ -32,7 +32,7 @@
       <view class="benefits-section">
         <view class="section-title">布施功德</view>
         <view class="benefits-list">
-          <view class="benefit-item" v-for="(benefit, index) in benefits" :key="index">
+          <view class="benefit-item" v-for="(benefit, index) in benefits" :key="'benefit-' + index">
             <text class="benefit-icon">{{ benefit.icon }}</text>
             <text class="benefit-text">{{ benefit.text }}</text>
           </view>

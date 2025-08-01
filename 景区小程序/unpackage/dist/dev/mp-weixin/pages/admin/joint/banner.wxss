@@ -32,6 +32,22 @@
   border-radius: 8rpx;
   font-size: 28rpx;
 }
+.banner-container.data-v-7dc426ca {
+  margin-bottom: 20rpx;
+}
+.no-banner.data-v-7dc426ca {
+  background: #fff;
+  padding: 60rpx 30rpx;
+  border-radius: 12rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.no-banner-text.data-v-7dc426ca {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+  display: block;
+}
 .banners-list.data-v-7dc426ca {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300rpx, 1fr));

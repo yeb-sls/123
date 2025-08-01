@@ -6,7 +6,7 @@
     </view>
 
     <view class="cert-list">
-      <view v-for="(cert, index) in certificates" :key="index" class="cert-item" @click="viewCert(cert)">
+              <view v-for="(cert, index) in certificates" :key="index" class="cert-item" @click="viewCert(cert)">
         <view class="cert-preview">
           <image :src="cert.preview" class="cert-image" mode="aspectFit" />
         </view>
@@ -22,7 +22,7 @@
     </view>
 
     <!-- 证书详情弹窗 -->
-    <uni-popup ref="certPopup" type="center">
+    <uni-popup :show="showCertPopup" type="center" @close="closeCertDetail">
       <view class="cert-detail">
         <view class="detail-header">
           <text class="detail-title">功德证书</text>
@@ -55,7 +55,12 @@
 </template>
 
 <script>
+import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
 export default {
+  components: {
+    uniPopup
+  },
   data() {
     return {
       certificates: [
@@ -104,7 +109,8 @@ export default {
           amount: 200
         }
       ],
-      currentCert: {}
+      currentCert: {},
+      showCertPopup: false
     }
   },
   onLoad() {
@@ -120,10 +126,10 @@ export default {
     },
     viewCert(cert) {
       this.currentCert = cert
-      this.$refs.certPopup.open()
+      this.showCertPopup = true
     },
     closeCertDetail() {
-      this.$refs.certPopup.close()
+      this.showCertPopup = false
     }
   }
 }

@@ -87,6 +87,9 @@
 // 替换为本地自定义uni-popup组件
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   components: {
     uniPopup
@@ -123,15 +126,16 @@ export default {
     // 加载代办物品配置
     async loadGoodsConfig() {
       try {
-        const result = await uniCloud.callFunction({
-          name: 'getFahuiGoodsConfig',
-          data: { type: this.fahuiType }
-        })
+        const result = await fahuiManagement.getGoodsConfig()
         
-        if (result.result && result.result.data) {
-          const config = result.result.data
+        if (result.success && result.data) {
+          const config = result.data
           this.moduleEnabled = config.enabled || false
           this.goodsList = config.goods || []
+        } else {
+          // 如果没有配置，创建默认配置
+          this.moduleEnabled = false
+          this.goodsList = []
         }
       } catch (error) {
         console.error('加载配置失败:', error)
@@ -146,14 +150,11 @@ export default {
     async onModuleToggle(e) {
       this.moduleEnabled = e.detail.value
       try {
-        await uniCloud.callFunction({
-          name: 'updateFahuiGoodsConfig',
-          data: {
-            type: this.fahuiType,
-            enabled: this.moduleEnabled,
-            goods: this.goodsList
-          }
+        await fahuiManagement.updateGoodsConfig({
+          enabled: this.moduleEnabled,
+          goods: this.goodsList
         })
+        
         uni.showToast({
           title: this.moduleEnabled ? '已启用' : '已禁用',
           icon: 'success'
@@ -202,14 +203,11 @@ export default {
             // 若删除后为空，自动关闭模块
             const enabled = newGoodsList.length > 0 ? this.moduleEnabled : false;
             try {
-              await uniCloud.callFunction({
-                name: 'updateFahuiGoodsConfig',
-                data: {
-                  type: this.fahuiType,
-                  enabled,
-                  goods: newGoodsList
-                }
-              });
+              await fahuiManagement.updateGoodsConfig({
+                enabled,
+                goods: newGoodsList
+              })
+              
               uni.showToast({ title: '删除成功', icon: 'success' });
               this.loadGoodsConfig(); // 删除后刷新
             } catch (error) {
@@ -282,16 +280,19 @@ export default {
     },
     // 排序后保存
     async saveGoodsList() {
-      // 若排序后为空，自动关闭模块
-      const enabled = this.goodsList.length > 0 ? this.moduleEnabled : false;
-      await uniCloud.callFunction({
-        name: 'updateFahuiGoodsConfig',
-        data: {
+      try {
+        // 若排序后为空，自动关闭模块
+        const enabled = this.goodsList.length > 0 ? this.moduleEnabled : false;
+        await fahuiManagement.updateGoodsConfig({
           enabled,
           goods: this.goodsList
-        }
-      })
-      uni.showToast({ title: '排序已保存', icon: 'success' })
+        })
+        
+        uni.showToast({ title: '排序已保存', icon: 'success' })
+      } catch (error) {
+        console.error('保存排序失败:', error)
+        uni.showToast({ title: '保存失败', icon: 'none' })
+      }
     },
     
     // 验证物品数据
@@ -327,13 +328,11 @@ export default {
       // 若保存后为空，自动关闭模块
       const enabled = newGoodsList.length > 0 ? this.moduleEnabled : false;
       try {
-        await uniCloud.callFunction({
-          name: 'updateFahuiGoodsConfig',
-          data: {
-            enabled,
-            goods: newGoodsList
-          }
-        });
+        await fahuiManagement.updateGoodsConfig({
+          enabled,
+          goods: newGoodsList
+        })
+        
         this.cancelEdit(); // 使用 cancelEdit 替代关闭弹窗
         uni.showToast({ title: '保存成功', icon: 'success' });
         this.loadGoodsConfig(); // 保存后刷新

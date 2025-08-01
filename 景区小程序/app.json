@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "景区小程序",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F8F8F8"
+  },
+  "permissions": {
+    "scope.camera": {
+      "desc": "用于拍摄轮播图照片"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "用于保存轮播图到相册"
+    }
+  },
+  "usingComponents": {
+    "placeholder-component": "/components/placeholder/placeholder",
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+} 

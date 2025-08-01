@@ -2,6 +2,9 @@
 .fahui-page.data-v-497fb5e2 {
   min-height: 100vh;
   background: linear-gradient(180deg, #e0eaff 0%, #f8f8f8 100%);
+}
+.page-scroll.data-v-497fb5e2 {
+  height: 100vh;
   padding-bottom: 40rpx;
 }
 .fahui-banner.data-v-497fb5e2 {
@@ -28,11 +31,16 @@
   padding: 32rpx 24rpx;
   box-shadow: 0 2rpx 12rpx #e0eaff;
 }
+.intro-header.data-v-497fb5e2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
 .intro-title.data-v-497fb5e2 {
   font-size: 32rpx;
   font-weight: bold;
   color: #2d8cf0;
-  margin-bottom: 16rpx;
 }
 .intro-image.data-v-497fb5e2 {
   width: 100%;
@@ -50,6 +58,10 @@
   font-size: 28rpx;
   color: #666;
   line-height: 1.6;
+}
+.intro-text.data-v-497fb5e2 {
+  display: block;
+  margin-bottom: 16rpx;
 }
 .section.data-v-497fb5e2 {
   background: #fff;

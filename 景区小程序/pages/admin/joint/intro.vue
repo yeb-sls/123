@@ -6,8 +6,63 @@
       <button class="add-btn" @click="showAddModal">+ 新增介绍</button>
     </view>
     
+    <!-- 添加/编辑表单直接在页面显示 -->
+    <view v-if="isEdit || editIndex === -1" class="intro-edit-form">
+      <view class="form-content">
+        <view class="form-item">
+          <text class="form-label">介绍内容 *</text>
+          <textarea v-model="currentIntro.content" class="form-textarea" placeholder="请输入合坛法会介绍内容" maxlength="500" />
+          <text class="char-count">{{ currentIntro.content.length }}/500</text>
+        </view>
+        <view class="form-item">
+          <text class="form-label">排序</text>
+          <input v-model="currentIntro.order" type="number" class="form-input" placeholder="请输入排序号" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">文字颜色</text>
+          <view class="color-picker">
+            <view class="color-option" v-for="option in textColorOptions" :key="option.key" 
+                  :style="{ backgroundColor: option.color }" 
+                  :class="{ active: currentIntro.textColor === option.color }"
+                  @click="selectTextColor(option.color)">
+            </view>
+            <input v-model="currentIntro.textColor" class="color-input" placeholder="#333333" />
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">背景颜色</text>
+          <view class="color-picker">
+            <view class="color-option" v-for="option in bgColorOptions" :key="option.key" 
+                  :style="{ backgroundColor: option.color }" 
+                  :class="{ active: currentIntro.bgColor === option.color }"
+                  @click="selectBgColor(option.color)">
+            </view>
+            <input v-model="currentIntro.bgColor" class="color-input" placeholder="#FFFFFF" />
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">背景图片</text>
+          <view class="image-upload" @click="chooseImage">
+            <image v-if="currentIntro.bgImage" :src="currentIntro.bgImage" class="upload-preview" mode="aspectFill" />
+            <view v-else class="upload-placeholder">
+              <text class="upload-icon">🖼️</text>
+              <text class="upload-text">点击选择背景图片（可选）</text>
+            </view>
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">状态</text>
+          <switch :checked="currentIntro.enabled" @change="onSwitchChange" color="#667eea" />
+          <text class="switch-label">{{ currentIntro.enabled ? '启用' : '禁用' }}</text>
+        </view>
+      </view>
+      <view class="form-actions">
+        <button class="cancel-btn" @click="cancelEdit">取消</button>
+        <button class="save-btn" @click="saveIntro">保存</button>
+      </view>
+    </view>
     <!-- 介绍列表 -->
-    <view class="intros-list">
+    <view class="intros-list" v-if="!isEdit && editIndex === -1">
       <view v-for="(intro, index) in intros" :key="intro._id" class="intro-card">
         <view class="intro-content">
           <text class="intro-text">{{ intro.content }}</text>
@@ -15,7 +70,6 @@
             <text class="preview-text" :style="{ color: intro.textColor }">{{ intro.content }}</text>
           </view>
         </view>
-        
         <view class="intro-info">
           <view class="info-row">
             <text class="info-label">排序：</text>
@@ -36,87 +90,20 @@
             <view class="color-preview" :style="{ backgroundColor: intro.bgColor }"></view>
           </view>
         </view>
-        
         <view class="intro-actions">
           <button class="action-btn edit" @click="editIntro(index)">编辑</button>
           <button class="action-btn delete" @click="deleteIntro(intro._id)">删除</button>
         </view>
       </view>
     </view>
-    
-    <!-- 添加/编辑弹窗 -->
-    <uni-popup ref="popup" type="center" :mask-click="false">
-      <view class="popup-content">
-        <view class="popup-header">
-          <text class="popup-title">{{ isEdit ? '编辑介绍' : '新增介绍' }}</text>
-          <text class="popup-close" @click="closeModal">×</text>
-        </view>
-        
-        <view class="form-content">
-          <view class="form-item">
-            <text class="form-label">介绍内容 *</text>
-            <textarea v-model="currentIntro.content" class="form-textarea" placeholder="请输入合坛法会介绍内容" maxlength="500" />
-            <text class="char-count">{{ currentIntro.content.length }}/500</text>
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">排序</text>
-            <input v-model="currentIntro.order" type="number" class="form-input" placeholder="请输入排序号" />
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">文字颜色</text>
-            <view class="color-picker">
-              <view class="color-option" v-for="color in textColors" :key="color" 
-                    :style="{ backgroundColor: color }" 
-                    :class="{ active: currentIntro.textColor === color }"
-                    @click="selectTextColor(color)">
-              </view>
-              <input v-model="currentIntro.textColor" class="color-input" placeholder="#333333" />
-            </view>
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">背景颜色</text>
-            <view class="color-picker">
-              <view class="color-option" v-for="color in bgColors" :key="color" 
-                    :style="{ backgroundColor: color }" 
-                    :class="{ active: currentIntro.bgColor === color }"
-                    @click="selectBgColor(color)">
-              </view>
-              <input v-model="currentIntro.bgColor" class="color-input" placeholder="#FFFFFF" />
-            </view>
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">背景图片</text>
-            <view class="image-upload" @click="chooseImage">
-              <image v-if="currentIntro.bgImage" :src="currentIntro.bgImage" class="upload-preview" mode="aspectFill" />
-              <view v-else class="upload-placeholder">
-                <text class="upload-icon">🖼️</text>
-                <text class="upload-text">点击选择背景图片（可选）</text>
-              </view>
-            </view>
-          </view>
-          
-          <view class="form-item">
-            <text class="form-label">状态</text>
-            <switch :checked="currentIntro.enabled" @change="onSwitchChange" color="#667eea" />
-            <text class="switch-label">{{ currentIntro.enabled ? '启用' : '禁用' }}</text>
-          </view>
-        </view>
-        
-        <view class="form-actions">
-          <button class="cancel-btn" @click="closeModal">取消</button>
-          <button class="save-btn" @click="saveIntro">保存</button>
-        </view>
-      </view>
-    </uni-popup>
   </view>
 </template>
 
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
 
 export default {
   components: { uniPopup },
@@ -144,13 +131,32 @@ export default {
     this.loadIntros()
   },
   
+  computed: {
+    textColorOptions() {
+      return this.textColors.map((color, index) => ({
+        color,
+        index,
+        key: `text-${index}`
+      }))
+    },
+    bgColorOptions() {
+      return this.bgColors.map((color, index) => ({
+        color,
+        index,
+        key: `bg-${index}`
+      }))
+    }
+  },
+  
   methods: {
     async loadIntros() {
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getJointIntros'
-        })
-        this.intros = res.result && res.result.data ? res.result.data : []
+        const result = await jointManagement.getIntros()
+        if (result.success) {
+          this.intros = result.data || []
+        } else {
+          uni.showToast({ title: result.message, icon: 'none' })
+        }
       } catch (error) {
         console.error('加载合坛法会介绍失败:', error)
         uni.showToast({ title: '加载失败', icon: 'none' })
@@ -158,6 +164,26 @@ export default {
     },
     
     showAddModal() {
+      this.isEdit = true
+      this.editIndex = -1
+      this.currentIntro = {
+        _id: '',
+        content: '',
+        order: 0,
+        textColor: '#333333',
+        bgColor: '#FFFFFF',
+        bgImage: '',
+        enabled: true
+      }
+    },
+    
+    editIntro(index) {
+      this.isEdit = true
+      this.editIndex = index
+      this.currentIntro = JSON.parse(JSON.stringify(this.intros[index]))
+    },
+    
+    cancelEdit() {
       this.isEdit = false
       this.editIndex = -1
       this.currentIntro = {
@@ -169,18 +195,6 @@ export default {
         bgImage: '',
         enabled: true
       }
-      this.$refs.popup.open()
-    },
-    
-    editIntro(index) {
-      this.isEdit = true
-      this.editIndex = index
-      this.currentIntro = JSON.parse(JSON.stringify(this.intros[index]))
-      this.$refs.popup.open()
-    },
-    
-    closeModal() {
-      this.$refs.popup.close()
     },
     
     selectTextColor(color) {
@@ -221,18 +235,18 @@ export default {
         if (this.isEdit && data._id) {
           const updateData = { ...data }
           delete updateData._id
-          await uniCloud.callFunction({
-            name: 'updateJointIntro',
-            data: { id: data._id, intro: updateData }
-          })
+          const result = await jointManagement.updateIntro({ _id: data._id, ...updateData })
+          if (!result.success) {
+            throw new Error(result.message || '更新失败')
+          }
         } else {
-          await uniCloud.callFunction({
-            name: 'addJointIntro',
-            data: { intro: data }
-          })
+          const result = await jointManagement.addIntro(data)
+          if (!result.success) {
+            throw new Error(result.message || '添加失败')
+          }
         }
         
-        this.closeModal()
+        this.cancelEdit()
         await this.loadIntros()
         uni.showToast({ title: this.isEdit ? '更新成功' : '添加成功' })
       } catch (error) {
@@ -248,12 +262,13 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'deleteJointIntro',
-                data: { id }
-              })
-              await this.loadIntros()
-              uni.showToast({ title: '删除成功' })
+              const result = await jointManagement.deleteIntro({ _id: id })
+              if (result.success) {
+                await this.loadIntros()
+                uni.showToast({ title: '删除成功', icon: 'success' })
+              } else {
+                uni.showToast({ title: result.message, icon: 'none' })
+              }
             } catch (error) {
               console.error('删除合坛法会介绍失败:', error)
               uni.showToast({ title: '删除失败', icon: 'none' })
@@ -403,36 +418,16 @@ export default {
   color: #fff;
 }
 
-.popup-content {
+.intro-edit-form {
   background: #fff;
   border-radius: 12rpx;
-  width: 600rpx;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 30rpx;
-  border-bottom: 1rpx solid #eee;
-}
-
-.popup-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
-}
-
-.popup-close {
-  font-size: 40rpx;
-  color: #999;
-  cursor: pointer;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+  margin-bottom: 20rpx;
 }
 
 .form-content {
-  padding: 30rpx;
+  padding: 0; /* Remove padding as it's now part of intro-edit-form */
 }
 
 .form-item {

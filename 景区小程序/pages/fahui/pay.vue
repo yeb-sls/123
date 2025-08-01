@@ -71,7 +71,7 @@
       <view v-if="orderInfo.goods && orderInfo.goods.length > 0" class="goods-section">
         <view class="section-title">代办物品</view>
         <view class="goods-card">
-          <view v-for="(item, index) in orderInfo.goods" :key="index" class="goods-item">
+          <view v-for="(item, index) in orderInfo.goods" :key="'goods-' + index" class="goods-item">
             <text class="goods-name">{{ item.name }}</text>
             <text class="goods-qty">{{ item.qty }} 个</text>
             <text class="goods-price">¥{{ item.price * item.qty }}</text>
@@ -121,6 +121,10 @@
 </template>
 
 <script>
+// 导入云对象
+const notificationSystem = uniCloud.importObject('notification-system')
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   data() {
     return {
@@ -190,7 +194,8 @@ export default {
           paymentMethod: this.selectedPayment,
           payTime: new Date().getTime(),
           totalFee: this.totalPrice,
-          status: 'paid',
+          status: '待确认',
+          fahuiType: 'special', // 添加法会类型字段
           // 兼容所有关键信息字段
           applicants: this.orderInfo.applicants || [],
           fahuiProject: this.orderInfo.fahuiProject || {},
@@ -216,13 +221,10 @@ export default {
         uni.setStorageSync('orders', orders);
         // 同步订单到后台数据库
         try {
-          const res = await uniCloud.callFunction({
-            name: 'submitFahuiOrder',
-            data: { order: orderData }
-          })
-          console.log('submitFahuiOrder result:', res)
-          if (!res.result || !res.result.success) {
-            uni.showToast({ title: '订单同步失败', icon: 'none' })
+          const result = await fahuiManagement.submitOrder(orderData)
+          console.log('submitFahuiOrder result:', result)
+          if (!result.success) {
+            uni.showToast({ title: result.message || '订单同步失败', icon: 'none' })
           }
         } catch (e) {
           console.error('订单同步到后台失败', e)
@@ -230,8 +232,30 @@ export default {
         }
         // 支付成功后推送提醒
         try {
-          await uniCloud.callFunction({ name: 'notifyAdminOnPayment', data: { order: orderData } })
-        } catch (e) { console.error('支付成功提醒失败', e) }
+          console.log('准备创建支付成功通知，订单数据:', orderData)
+          const notificationSystem = uniCloud.importObject('notification-system')
+          
+          const notificationData = {
+            type: 'fahui_order_paid',
+            title: '专场法会订单支付成功',
+            content: `订单号：${orderData.orderNo || orderData._id || '未知'}，金额：¥${orderData.amount || orderData.totalFee || 0}`,
+            order_id: orderData._id || orderData.orderNo || orderData.order_id,
+            priority: 'high'
+          }
+          
+          console.log('通知数据:', notificationData)
+          
+          const result = await notificationSystem.createNotification(notificationData)
+          console.log('通知创建结果:', result)
+          
+          if (result.success) {
+            console.log('支付成功通知创建成功')
+          } else {
+            console.error('支付成功通知创建失败:', result.message)
+          }
+        } catch (e) { 
+          console.error('支付成功提醒失败', e) 
+        }
         // 跳转到成功页面
         uni.navigateTo({ 
           url: '/pages/fahui/success',

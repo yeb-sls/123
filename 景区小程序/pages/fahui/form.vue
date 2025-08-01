@@ -55,7 +55,7 @@
               <text class="picker-arrow">▼</text>
             </view>
           </picker>
-          <input v-model="editApplicant.phone" placeholder="* 联系电话（必填）" class="input" type="number" maxlength="11" @blur="validatePhone" @input="saveDraft" />
+                      <input v-model="editApplicant.phone" placeholder="* 联系电话（必填）" class="input" type="tel" maxlength="11" @blur="validatePhone" @input="saveDraft" />
           <picker mode="date" @change="onLunarBirthdayChange" :value="editApplicant.lunarBirthday">
             <view class="picker">
               <text class="picker-label">* 农历生日：</text>
@@ -212,6 +212,10 @@
 
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue';
+
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -647,12 +651,12 @@ export default {
     },
     async loadGoodsConfig() {
       try {
-        const result = await uniCloud.callFunction({ name: 'getFahuiGoodsConfig' });
-        console.log('云函数返回:', result.result.data.goods);
-        if (result.result && result.result.data) {
-          this.showItems = !!result.result.data.enabled;
-          this.items = Array.isArray(result.result.data.goods)
-            ? result.result.data.goods.filter(g => g.enabled).map(g => ({ ...g, count: 0 }))
+        const result = await fahuiManagement.getGoodsConfig();
+        console.log('云函数返回:', result.data?.goods);
+        if (result.success && result.data) {
+          this.showItems = !!result.data.enabled;
+          this.items = Array.isArray(result.data.goods)
+            ? result.data.goods.filter(g => g.enabled).map(g => ({ ...g, count: 0 }))
             : [];
         } else {
           this.showItems = false;

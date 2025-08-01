@@ -56,12 +56,12 @@
   background-color: #fff;
   border-radius: 8rpx;
   max-width: 90vw;
-  width: 420rpx;
+  width: auto;
   max-height: 90vh;
   min-height: 200rpx;
   overflow: auto;
   box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.18);
-  padding: 32rpx 24rpx;
+  padding: 0;
   pointer-events: auto;
 }
 

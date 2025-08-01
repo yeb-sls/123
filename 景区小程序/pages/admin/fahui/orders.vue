@@ -20,6 +20,7 @@
         {{ receiverEnabled ? '已启用' : '未启用' }}
       </text>
       <switch :checked="receiverEnabled" @change="onReceiverSwitchChange" style="margin-left: 24rpx;" />
+      <button class="set-btn" @click="testReceiverConfig">测试配置</button>
     </view>
 
     <!-- 筛选栏 -->
@@ -90,14 +91,43 @@
         </view>
         
         <view class="order-actions">
-          <button class="action-btn detail-btn" @click="toggleDetail(index)">{{ showDetailIndex === index ? '收起' : '详情' }}</button>
+          <button class="action-btn detail-btn" @click="viewDetail(order)">详情</button>
           <button class="action-btn status-btn" @click="changeStatus(order)" v-if="order.status === '待确认'">
-            {{ order.status === '待确认' ? '确认' : '取消确认' }}
+            确认
           </button>
           <button class="action-btn confirm-date-btn" v-if="order.status === '待确认'" @click="openFahuiDateDialog(order)">专场日期确认</button>
-          <button class="action-btn remark-btn" @click="toggleRemark(index)">{{ showRemarkIndex === index ? '收起备注' : '备注' }}</button>
+          <button class="action-btn remark-btn" @click="addRemark(order)">备注</button>
           <button class="action-btn delete-btn" @click="deleteOrder(order._id)">删除</button>
         </view>
+        
+        <!-- 专场法会日期确认弹窗 -->
+        <uni-popup ref="fahuiDateModal" type="center">
+          <view class="modal-content">
+            <view class="modal-header">
+              <text class="modal-title">专场法会日期确认</text>
+              <text class="modal-close" @click="hideFahuiDateModal">×</text>
+            </view>
+            
+            <view class="modal-body">
+              <view class="form-group">
+                <text class="form-label">专场法会具体日期 *</text>
+                <input v-model="fahuiDate" type="date" class="form-input" required />
+              </view>
+              
+              <view class="form-group">
+                <text class="form-label">操作人</text>
+                <input v-model="operator" class="form-input" placeholder="请输入操作人姓名" />
+              </view>
+              
+              <view class="modal-footer">
+                <button class="modal-btn cancel-btn" @click="hideFahuiDateModal">取消</button>
+                <button class="modal-btn confirm-btn" @click="confirmFahuiDate">确认此专场法会已确认</button>
+              </view>
+            </view>
+          </view>
+        </uni-popup>
+        
+
         <!-- 详情内联区 -->
         <view v-if="showDetailIndex === index" class="inline-detail">
           <view class="detail-section">
@@ -109,7 +139,7 @@
             <view class="detail-item"><text class="detail-label">状态：</text><text class="detail-value">{{ getStatusText(order.status) }}</text></view>
             <view class="detail-item"><text class="detail-label">专场法会日期：</text>
               <input v-model="inlineFahuiDate" type="date" class="form-input" style="width:200rpx;display:inline-block;" />
-              <button class="modal-btn confirm-btn" style="margin-left:16rpx;" @click="confirmFahuiDate(order)">确认</button>
+              <button class="modal-btn confirm-btn" style="margin-left:16rpx;" @click="confirmInlineFahuiDate(order)">确认</button>
             </view>
             <!-- 可补充更多字段 -->
           </view>
@@ -121,7 +151,7 @@
           <button class="modal-btn confirm-btn" @click="saveInlineRemark(order)">保存备注</button>
           <view v-if="order.adminRemarks && order.adminRemarks.length">
             <view class="detail-title">历史备注</view>
-            <view v-for="(r, i) in order.adminRemarks" :key="i" class="remark-item">
+            <view v-for="(r, i) in order.adminRemarks" :key="'remark-' + i" class="remark-item">
               <view class="remark-content">{{ r.content }}</view>
               <view class="remark-info"><text class="remark-author">{{ r.author }}</text><text class="remark-time">{{ formatDate(r.createTime) }}</text></view>
             </view>
@@ -153,7 +183,7 @@
           </view>
           <view class="detail-section" v-if="selectedOrder.applicants && selectedOrder.applicants.length">
             <view class="detail-title">报名人信息</view>
-            <view v-for="(applicant, idx) in selectedOrder.applicants" :key="idx" class="applicant-detail">
+            <view v-for="(applicant, idx) in selectedOrder.applicants" :key="'applicant-' + idx" class="applicant-detail">
               <view class="detail-item"><text class="detail-label">姓名：</text><text class="detail-value">{{ applicant.name }}</text></view>
               <view class="detail-item"><text class="detail-label">性别：</text><text class="detail-value">{{ applicant.gender }}</text></view>
               <view class="detail-item"><text class="detail-label">电话：</text><text class="detail-value">{{ applicant.phone }}</text></view>
@@ -178,7 +208,7 @@
           </view>
           <view class="detail-section" v-if="selectedOrder.deceasedList && selectedOrder.deceasedList.length">
             <view class="detail-title">已故亲人信息</view>
-            <view v-for="(d, i) in selectedOrder.deceasedList" :key="i" class="applicant-detail">
+            <view v-for="(d, i) in selectedOrder.deceasedList" :key="'deceased-' + i" class="applicant-detail">
               <view class="detail-item"><text class="detail-label">姓名：</text><text class="detail-value">{{ d.name }}</text></view>
               <view class="detail-item"><text class="detail-label">关系：</text><text class="detail-value">{{ d.relation }}</text></view>
               <view class="detail-item"><text class="detail-label">出生农历：</text><text class="detail-value">{{ d.lunarBirthday }}</text></view>
@@ -187,7 +217,7 @@
           </view>
           <view class="detail-section" v-if="selectedOrder.goods && selectedOrder.goods.length">
             <view class="detail-title">代办物品</view>
-            <view v-for="(g, i) in selectedOrder.goods" :key="i" class="applicant-detail">
+            <view v-for="(g, i) in selectedOrder.goods" :key="'goods-' + i" class="applicant-detail">
               <view class="detail-item"><text class="detail-label">物品名称：</text><text class="detail-value">{{ g.name }}</text></view>
               <view class="detail-item"><text class="detail-label">数量：</text><text class="detail-value">{{ g.qty }}</text></view>
               <view class="detail-item"><text class="detail-label">单价：</text><text class="detail-value">¥{{ g.price }}</text></view>
@@ -202,7 +232,7 @@
           
           <view class="detail-section" v-if="selectedOrder.adminRemarks && selectedOrder.adminRemarks.length > 0">
             <view class="detail-title">管理备注</view>
-            <view v-for="(remark, index) in selectedOrder.adminRemarks" :key="index" class="remark-item">
+            <view v-for="(remark, index) in selectedOrder.adminRemarks" :key="'remark-' + index" class="remark-item">
               <view class="remark-content">{{ remark.content }}</view>
               <view class="remark-info">
                 <text class="remark-author">{{ remark.author }}</text>
@@ -213,7 +243,7 @@
 
           <view class="detail-section" v-if="selectedOrder.logs && selectedOrder.logs.length">
             <view class="detail-title">操作日志</view>
-            <view v-for="(log, idx) in selectedOrder.logs" :key="idx" class="remark-item">
+            <view v-for="(log, idx) in selectedOrder.logs" :key="'log-' + idx" class="remark-item">
               <view class="remark-content">{{ log.action }}</view>
               <view class="remark-info">
                 <text class="remark-author">{{ log.operator }}</text>
@@ -230,7 +260,7 @@
     </uni-popup>
 
     <!-- 备注弹窗 -->
-    <uni-popup ref="remarkModal" type="center">
+    <uni-popup :show="showRemarkModal" type="center" @close="hideRemarkModal">
       <view class="modal-content">
         <view class="modal-header">
           <text class="modal-title">添加备注</text>
@@ -239,8 +269,13 @@
         
         <view class="modal-body">
           <view class="form-group">
-            <text class="form-label">备注内容</text>
-            <textarea v-model="remarkContent" placeholder="请输入备注内容" class="form-textarea" maxlength="200" />
+            <text class="form-label">备注内容 *</text>
+            <textarea v-model="remarkContent" placeholder="请输入备注内容" class="form-textarea" maxlength="500" />
+          </view>
+          
+          <view class="form-group">
+            <text class="form-label">操作人</text>
+            <input v-model="remarkOperator" class="form-input" placeholder="请输入操作人姓名" />
           </view>
         </view>
         
@@ -274,28 +309,38 @@
 
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+const jointManagement = uniCloud.importObject('joint-management')
+
 export default {
   components: { uniPopup },
   data() {
     return {
-      fahuiType: 'special', // 默认专场法会
+      fahuiType: 'special',
       orders: [],
-      filteredOrders: [],
-      statusOptions: ['全部', '待确认', '已确认', '已取消'],
+      loading: false,
       statusIndex: 0,
-      typeOptions: ['全部', '专场法会', '合坛法会'],
       typeIndex: 0,
-      selectedOrder: null,
-      remarkContent: '',
-      currentOrderForRemark: null,
-      receiverEnabled: false,
-      fahuiDateInput: '',
-      showFahuiDatePopup: false,
-      fahuiDateOrder: null,
+      statusOptions: ['全部', '待确认', '已确认', '已取消'],
+      typeOptions: ['全部', '专场法会', '合坛法会'],
       showDetailIndex: -1,
       showRemarkIndex: -1,
+      selectedOrder: null,
+      currentOrderForRemark: null,
+      remarkContent: '',
       inlineFahuiDate: '',
       inlineRemarkContent: '',
+      fahuiDate: '', // 新增专场法会日期输入框
+      operator: '', // 新增操作人输入框
+      remarkOperator: '', // 新增备注操作人输入框
+      currentOrderForDate: null, // 新增当前操作的订单
+      // 添加缺失的响应式属性
+      receiverEnabled: false,
+      showFahuiDatePopup: false,
+      fahuiDateInput: '',
+      showRemarkModal: false,
     }
   },
   
@@ -308,38 +353,8 @@ export default {
     this.getReceiverConfig()
   },
   
-  methods: {
-    goBack() {
-      uni.navigateBack()
-    },
-    
-    // 加载订单列表
-    async loadOrders() {
-      try {
-        uni.showLoading({ title: '加载中...' })
-        
-        const result = await uniCloud.callFunction({
-          name: 'getFahuiOrders',
-          data: { type: this.fahuiType }
-        })
-        
-        if (result.result && result.result.data) {
-          this.orders = result.result.data
-          this.filterOrders()
-        }
-      } catch (error) {
-        console.error('加载订单失败：', error)
-        uni.showToast({
-          title: '加载失败',
-          icon: 'none'
-        })
-      } finally {
-        uni.hideLoading()
-      }
-    },
-    
-    // 筛选订单
-    filterOrders() {
+  computed: {
+    filteredOrders() {
       let filtered = [...this.orders]
       
       // 按状态筛选
@@ -354,19 +369,53 @@ export default {
         filtered = filtered.filter(item => item.fahuiType === type)
       }
       
-      this.filteredOrders = filtered
+      return filtered
+    }
+  },
+  
+  methods: {
+    goBack() {
+      uni.navigateBack()
+    },
+    
+    // 加载订单列表
+    async loadOrders() {
+      try {
+        uni.showLoading({ title: '加载中...' })
+        
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会订单
+          result = await jointManagement.getOrders()
+        } else {
+          // 专场法会订单
+          result = await fahuiManagement.getOrders({ type: this.fahuiType })
+        }
+        
+        if (result.success) {
+          this.orders = result.data || []
+        } else {
+          uni.showToast({ title: result.message || '加载失败', icon: 'none' })
+        }
+      } catch (error) {
+        console.error('加载订单失败：', error)
+        uni.showToast({
+          title: '加载失败',
+          icon: 'none'
+        })
+      } finally {
+        uni.hideLoading()
+      }
     },
     
     // 状态筛选变化
     onStatusChange(e) {
       this.statusIndex = e.detail.value
-      this.filterOrders()
     },
     
     // 类型筛选变化
     onTypeChange(e) {
       this.typeIndex = e.detail.value
-      this.filterOrders()
     },
     
     // 获取状态样式
@@ -385,7 +434,29 @@ export default {
     
     // 获取状态文本
     getStatusText(status) {
-      return status || '未知'
+      // 状态映射
+      const statusMap = {
+        'paid': '已支付',
+        'pending': '待确认',
+        'confirmed': '已确认',
+        'cancelled': '已取消',
+        '待确认': '待确认',
+        '已确认': '已确认',
+        '已取消': '已取消',
+        '已支付': '已支付',
+        '待支付': '待支付'
+      }
+      return statusMap[status] || status || '未知'
+    },
+    
+    // 获取支付方式文本
+    getPaymentMethodText(method) {
+      const methodMap = {
+        'wechat': '微信支付',
+        'alipay': '支付宝',
+        'bank': '银行转账'
+      }
+      return methodMap[method] || method || '未知'
     },
     
     // 格式化日期
@@ -415,31 +486,59 @@ export default {
     
     // 更改状态
     async changeStatus(order) {
+      console.log('🔍 确认按钮被点击，订单信息:', order)
+      console.log('🔍 当前订单状态:', order.status)
+      console.log('🔍 法会类型:', this.fahuiType)
+      
+      // 先显示一个测试提示
+      uni.showToast({
+        title: '按钮点击成功',
+        icon: 'success',
+        duration: 1000
+      })
+      
       const newStatus = order.status === '待确认' ? '已确认' : '待确认'
+      console.log('🔍 新状态:', newStatus)
+      
       try {
         uni.showLoading({ title: '更新中...' })
-        const result = await uniCloud.callFunction({
-          name: 'updateFahuiOrderStatus',
-          data: {
-            id: order._id,
+        
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会订单
+          console.log('🔍 调用合坛法会更新方法')
+          result = await jointManagement.updateOrderStatus({
+            orderId: order._id,
             status: newStatus,
-            operator: '管理员' // 可替换为当前登录用户
-          }
-        })
-        if (result.result && result.result.success) {
+            operator: '管理员'
+          })
+        } else {
+          // 专场法会订单
+          console.log('🔍 调用专场法会更新方法，订单ID:', order._id)
+          result = await fahuiManagement.updateOrderStatus({
+            _id: order._id,
+            status: newStatus,
+            operator: '管理员'
+          })
+        }
+        
+        console.log('🔍 更新结果:', result)
+        
+        if (result.success) {
           uni.showToast({
             title: '状态更新成功',
             icon: 'success'
           })
           this.loadOrders()
         } else {
-          throw new Error(result.result.message || '更新失败')
+          throw new Error(result.message || '更新失败')
         }
       } catch (error) {
-        console.error('更新状态失败：', error)
+        console.error('🔍 更新状态失败：', error)
         uni.showToast({
-          title: '更新失败',
-          icon: 'none'
+          title: '更新失败: ' + (error.message || error),
+          icon: 'none',
+          duration: 3000
         })
       } finally {
         uni.hideLoading()
@@ -456,19 +555,23 @@ export default {
             try {
               uni.showLoading({ title: '删除中...' })
               
-              const result = await uniCloud.callFunction({
-                name: 'deleteFahuiOrder',
-                data: { id }
-              })
+              let result
+              if (this.fahuiType === 'joint') {
+                // 合坛法会订单
+                result = await jointManagement.deleteOrder({ _id: id })
+              } else {
+                // 专场法会订单
+                result = await fahuiManagement.deleteOrder({ _id: id })
+              }
               
-              if (result.result && result.result.success) {
+              if (result.success) {
                 uni.showToast({
                   title: '删除成功',
                   icon: 'success'
                 })
                 this.loadOrders()
               } else {
-                throw new Error(result.result.message || '删除失败')
+                throw new Error(result.message || '删除失败')
               }
             } catch (error) {
               console.error('删除失败：', error)
@@ -488,12 +591,8 @@ export default {
     addRemark(order) {
       this.currentOrderForRemark = order
       this.remarkContent = ''
-      console.log('remarkModal ref:', this.$refs.remarkModal)
-      if (this.$refs.remarkModal && typeof this.$refs.remarkModal.open === 'function') {
-        this.$refs.remarkModal.open('center')
-      } else if (this.$refs.remarkModal && typeof this.$refs.remarkModal.show === 'function') {
-        this.$refs.remarkModal.show()
-      }
+      this.remarkOperator = '' // 重置备注操作人
+      this.showRemarkModal = true
     },
     
     // 保存备注
@@ -505,25 +604,44 @@ export default {
         })
         return
       }
+      if (!this.remarkOperator.trim()) {
+        uni.showToast({
+          title: '请输入操作人姓名',
+          icon: 'none'
+        })
+        return
+      }
       try {
         const remark = {
-          content: this.remarkContent
+          content: this.remarkContent,
+          operator: this.remarkOperator
         }
-        await uniCloud.callFunction({
-          name: 'addFahuiOrderRemark',
-          data: {
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会订单
+          result = await jointManagement.addOrderRemark({
+            orderId: this.currentOrderForRemark._id,
+            content: this.remarkContent,
+            operator: this.remarkOperator
+          })
+        } else {
+          // 专场法会订单
+          result = await fahuiManagement.addOrderRemark({
             orderId: this.currentOrderForRemark._id,
             remark: remark,
-            operator: '管理员' // 可替换为当前登录用户
-          }
-        })
+            operator: this.remarkOperator
+          })
+        }
+        if (!result.success) {
+          throw new Error(result.message || '添加备注失败')
+        }
         // 更新本地数据
         const orderIndex = this.orders.findIndex(o => o._id === this.currentOrderForRemark._id)
         if (orderIndex !== -1) {
           if (!this.orders[orderIndex].adminRemarks) {
             this.orders[orderIndex].adminRemarks = []
           }
-          this.orders[orderIndex].adminRemarks.push({ ...remark, author: '管理员', createTime: new Date() })
+          this.orders[orderIndex].adminRemarks.push({ ...remark, createTime: new Date() })
         }
         this.hideRemarkModal()
         uni.showToast({
@@ -541,53 +659,106 @@ export default {
     
     // 隐藏备注弹窗
     hideRemarkModal() {
-      this.$refs.remarkModal.close()
+      this.showRemarkModal = false
       this.currentOrderForRemark = null
       this.remarkContent = ''
+      this.remarkOperator = '' // 重置备注操作人
     },
 
     async getReceiverConfig() {
       try {
-        const res = await uniCloud.callFunction({ name: 'getFahuiReceiverConfig', data: { t: Date.now() } })
-        console.log('[调试] getFahuiReceiverConfig 返回:', res)
-        // 兼容 enabled 字段在 result 或根对象
-        this.receiverEnabled = !!((res.result && typeof res.result.enabled !== 'undefined' ? res.result.enabled : res.enabled))
+        console.log('🔍 开始获取收件信息配置，法会类型:', this.fahuiType)
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会收件信息配置
+          console.log('🔍 调用合坛法会收件配置')
+          result = await jointManagement.getReceiverConfig()
+        } else {
+          // 专场法会收件信息配置
+          console.log('🔍 调用专场法会收件配置')
+          result = await fahuiManagement.getReceiverConfig()
+        }
+        console.log('🔍 getReceiverConfig 返回:', result)
+        if (result.success) {
+          this.receiverEnabled = !!result.data?.enabled
+          console.log('🔍 设置收件信息状态为:', this.receiverEnabled)
+        } else {
+          this.receiverEnabled = false
+          console.log('🔍 获取配置失败，设置为默认状态:', this.receiverEnabled)
+        }
       } catch (e) {
+        console.error('🔍 获取收件信息配置异常:', e)
         this.receiverEnabled = false
       }
     },
     async onReceiverSwitchChange(e) {
       const value = e.detail.value
+      console.log('🔍 收件信息开关变化，新值:', value, '法会类型:', this.fahuiType)
+      
       try {
-        await uniCloud.callFunction({ name: 'updateFahuiReceiverConfig', data: { enabled: value } })
-        this.receiverEnabled = value
-        uni.showToast({ title: value ? '已启用' : '已关闭', icon: 'success' })
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会收件信息配置
+          console.log('🔍 更新合坛法会收件配置')
+          result = await jointManagement.updateReceiverConfig({ 
+            enabled: value,
+            nameRequired: true,
+            phoneRequired: true,
+            addressRequired: true
+          })
+        } else {
+          // 专场法会收件信息配置
+          console.log('🔍 更新专场法会收件配置')
+          result = await fahuiManagement.updateReceiverConfig({ 
+            enabled: value 
+          })
+        }
+        
+        console.log('🔍 更新收件配置结果:', result)
+        
+        if (result.success) {
+          this.receiverEnabled = value
+          uni.showToast({ title: value ? '已启用' : '已关闭', icon: 'success' })
+          console.log('🔍 收件信息状态更新成功:', this.receiverEnabled)
+        } else {
+          console.error('🔍 更新收件配置失败:', result.message)
+          uni.showToast({ title: result.message || '设置失败', icon: 'none' })
+        }
       } catch (e) {
+        console.error('🔍 收件信息模块设置失败:', e)
         uni.showToast({ title: '设置失败', icon: 'none' })
       }
     },
     exportOrders() {
       // 导出当前筛选结果为CSV
       const headers = [
-        '订单号','法会名称','法会项目','报名人','配偶','超度类型','已故亲人','代办物品','收件人','金额','支付方式','支付时间','报名时间','专场法会日期','状态','备注'
+        '订单号','法会类型','法会名称','法会项目','报名人','报名人电话','配偶','配偶电话','超度类型','已故亲人','代办物品','收件人','收件人电话','收件地址','金额','支付方式','支付时间','报名时间','专场法会日期','确认人','确认时间','状态','备注','操作日志'
       ]
       const rows = this.filteredOrders.map(o => [
         o.orderNo || o._id,
+        o.fahuiType === 'joint' ? '合坛法会' : '专场法会',
         o.fahuiName || (o.fahuiProject && o.fahuiProject.name) || '',
         o.fahuiProject && o.fahuiProject.name ? o.fahuiProject.name : '',
-        (o.applicants && o.applicants.length) ? o.applicants.map(a => `${a.name}/${a.phone}`).join('；') : '',
+        (o.applicants && o.applicants.length) ? o.applicants.map(a => a.name).join('；') : '',
+        (o.applicants && o.applicants.length) ? o.applicants.map(a => a.phone).join('；') : '',
         o.spouse && o.spouse.name ? o.spouse.name : '',
+        o.spouse && o.spouse.phone ? o.spouse.phone : '',
         o.chaoduType || '',
         (o.deceasedList && o.deceasedList.length) ? o.deceasedList.map(d => `${d.name}/${d.relation}`).join('；') : '',
         (o.goods && o.goods.length) ? o.goods.map(g => `${g.name}×${g.qty}`).join('；') : '',
         o.receiver && o.receiver.name ? o.receiver.name : '',
+        o.receiver && o.receiver.phone ? o.receiver.phone : '',
+        o.receiver && o.receiver.address ? o.receiver.address : '',
         o.amount || o.totalFee || 0,
-        o.paymentMethod || '',
+        this.getPaymentMethodText(o.paymentMethod),
         o.payTime ? this.formatDate(o.payTime) : '',
         o.createTime ? this.formatDate(o.createTime) : '',
         o.fahuiDate || '',
+        o.confirmBy || '',
+        o.confirmTime ? this.formatDate(o.confirmTime) : '',
         this.getStatusText(o.status),
-        (o.adminRemarks && o.adminRemarks.length) ? o.adminRemarks[o.adminRemarks.length-1].content : (o.remark || '')
+        (o.adminRemarks && o.adminRemarks.length) ? o.adminRemarks[o.adminRemarks.length-1].content : (o.remark || ''),
+        (o.logs && o.logs.length) ? o.logs.map(l => `${this.formatDate(l.time)}-${l.operator}-${l.action}`).join('；') : ''
       ])
       // 加 BOM 兼容 Excel
       const csv = '\uFEFF' + [headers, ...rows].map(row => row.map(v => `"${(v||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n')
@@ -604,29 +775,38 @@ export default {
       uni.showToast({ title: '导出成功', icon: 'success' })
     },
     openFahuiDateDialog(order) {
-      this.fahuiDateOrder = order
+      this.currentOrderForDate = order
       this.fahuiDateInput = order.fahuiDate || ''
       this.showFahuiDatePopup = true
     },
     async confirmFahuiDate() {
-      if (!this.fahuiDateOrder || !this.fahuiDateInput) return
+      if (!this.currentOrderForDate || !this.fahuiDateInput) return
       try {
         uni.showLoading({ title: '确认中...' })
-        const result = await uniCloud.callFunction({
-          name: 'updateFahuiOrderStatus',
-          data: {
-            id: this.fahuiDateOrder._id,
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会订单
+          result = await jointManagement.updateOrderStatus({
+            orderId: this.currentOrderForDate._id,
             status: '已确认',
             fahuiDate: this.fahuiDateInput,
-            operator: '管理员' // 可替换为当前登录用户
-          }
-        })
-        if (result.result && result.result.success) {
+            operator: '管理员'
+          })
+        } else {
+          // 专场法会订单
+          result = await fahuiManagement.updateOrderStatus({
+            _id: this.currentOrderForDate._id,
+            status: '已确认',
+            fahuiDate: this.fahuiDateInput,
+            operator: '管理员'
+          })
+        }
+        if (result.success) {
           uni.showToast({ title: '专场法会已确认', icon: 'success' })
           this.showFahuiDatePopup = false
           this.loadOrders()
         } else {
-          throw new Error(result.result.message || '确认失败')
+          throw new Error(result.message || '确认失败')
         }
       } catch (error) {
         uni.showToast({ title: '确认失败', icon: 'none' })
@@ -650,24 +830,33 @@ export default {
         this.inlineRemarkContent = ''
       }
     },
-    async confirmFahuiDate(order) {
+    async confirmInlineFahuiDate(order) {
       if (!order || !this.inlineFahuiDate) return
       try {
         uni.showLoading({ title: '确认中...' })
-        const result = await uniCloud.callFunction({
-          name: 'updateFahuiOrderStatus',
-          data: {
-            id: order._id,
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会订单
+          result = await jointManagement.updateOrderStatus({
+            orderId: order._id,
             status: '已确认',
             fahuiDate: this.inlineFahuiDate,
             operator: '管理员'
-          }
-        })
-        if (result.result && result.result.success) {
+          })
+        } else {
+          // 专场法会订单
+          result = await fahuiManagement.updateOrderStatus({
+            _id: order._id,
+            status: '已确认',
+            fahuiDate: this.inlineFahuiDate,
+            operator: '管理员'
+          })
+        }
+        if (result.success) {
           uni.showToast({ title: '专场法会已确认', icon: 'success' })
           this.loadOrders()
         } else {
-          throw new Error(result.result.message || '确认失败')
+          throw new Error(result.message || '确认失败')
         }
       } catch (error) {
         uni.showToast({ title: '确认失败', icon: 'none' })
@@ -680,22 +869,77 @@ export default {
         uni.showToast({ title: '请输入备注内容', icon: 'none' })
         return
       }
+      if (!this.remarkOperator.trim()) {
+        uni.showToast({ title: '请输入操作人姓名', icon: 'none' })
+        return
+      }
       try {
-        const remark = { content: this.inlineRemarkContent }
-        await uniCloud.callFunction({
-          name: 'addFahuiOrderRemark',
-          data: {
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会订单
+          result = await jointManagement.addOrderRemark({
+            orderId: order._id,
+            content: this.inlineRemarkContent,
+            operator: this.remarkOperator
+          })
+        } else {
+          // 专场法会订单
+          const remark = { content: this.inlineRemarkContent }
+          result = await fahuiManagement.addOrderRemark({
             orderId: order._id,
             remark: remark,
-            operator: '管理员'
-          }
-        })
-        this.inlineRemarkContent = ''
-        this.loadOrders()
-        uni.showToast({ title: '备注添加成功', icon: 'success' })
+            operator: this.remarkOperator
+          })
+        }
+        
+        if (result.success) {
+          this.inlineRemarkContent = ''
+          this.loadOrders()
+          uni.showToast({ title: '备注添加成功', icon: 'success' })
+        } else {
+          uni.showToast({ title: result.message || '添加备注失败', icon: 'none' })
+        }
       } catch (error) {
+        console.error('添加备注失败：', error)
         uni.showToast({ title: '添加备注失败', icon: 'none' })
       }
+    },
+    async testReceiverConfig() {
+      try {
+        uni.showLoading({ title: '测试中...' })
+        let result
+        if (this.fahuiType === 'joint') {
+          // 合坛法会收件信息配置
+          console.log('🔍 测试合坛法会收件配置')
+          result = await jointManagement.getReceiverConfig()
+          console.log('🔍 合坛法会收件配置测试结果:', result)
+          if (result.success) {
+            uni.showToast({ title: '合坛法会收件配置已获取', icon: 'success' })
+          } else {
+            uni.showToast({ title: '合坛法会收件配置获取失败', icon: 'none' })
+          }
+        } else {
+          // 专场法会收件信息配置
+          console.log('🔍 测试专场法会收件配置')
+          result = await fahuiManagement.getReceiverConfig()
+          console.log('🔍 专场法会收件配置测试结果:', result)
+          if (result.success) {
+            uni.showToast({ title: '专场法会收件配置已获取', icon: 'success' })
+          } else {
+            uni.showToast({ title: '专场法会收件配置获取失败', icon: 'none' })
+          }
+        }
+      } catch (e) {
+        console.error('🔍 测试收件信息配置异常:', e)
+        uni.showToast({ title: '测试失败', icon: 'none' })
+      } finally {
+        uni.hideLoading()
+      }
+    },
+    hideFahuiDateModal() {
+      this.$refs.fahuiDatePopup.close()
+      this.fahuiDate = ''
+      this.operator = ''
     }
   }
 }
@@ -1002,6 +1246,17 @@ export default {
   resize: none;
 }
 
+.form-textarea {
+  width: 100%;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  min-height: 120rpx;
+  resize: vertical;
+}
+
 .remark-item {
   background: #f8f9fa;
   border-radius: 8rpx;
@@ -1063,5 +1318,13 @@ export default {
   border-radius: 8rpx;
   padding: 16rpx;
   margin-bottom: 12rpx;
+}
+
+.inline-detail, .inline-remark {
+  background: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-top: 16rpx;
+  border: 1rpx solid #e0e0e0;
 }
 </style> 

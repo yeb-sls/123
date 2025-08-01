@@ -1,0 +1,10 @@
+{
+  "name": "updateJointGoodsConfig",
+  "version": "1.0.0",
+  "description": "更新合坛法会代办物品模块配置",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

@@ -12,14 +12,25 @@
       "outputPath": ""
     },
     "useCompilerPlugins": false,
-    "minifyWXML": true
+    "minifyWXML": true,
+    "disableUseStrict": false,
+    "useStaticServer": true,
+    "showLog": false,
+    "checkInvalidKey": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "compileType": "miniprogram",
+  "miniprogramRoot": "./",
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [],
     "include": []
   },
   "appid": "wx4e6f935113bac52b",
-  "editorSetting": {}
+  "editorSetting": {},
+  "libVersion": "3.8.12"
 }

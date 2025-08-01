@@ -200,6 +200,21 @@
           </view>
         </view>
 
+        <!-- 系统通知 -->
+        <view class="module-group">
+          <view class="group-header">
+            <text class="group-icon">🔔</text>
+            <text class="group-title">系统通知</text>
+            <view v-if="unreadCount > 0" class="notification-badge">{{ unreadCount }}</view>
+          </view>
+          <view class="group-items">
+            <view class="module-item" @click="goToPage('/pages/admin/notifications')">
+              <view class="item-icon">📢</view>
+              <text class="item-name">通知管理</text>
+            </view>
+          </view>
+        </view>
+
         <!-- 活动管理 -->
         <view class="module-group">
           <view class="group-header">
@@ -250,6 +265,10 @@
 </template>
 
 <script>
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+const notificationSystem = uniCloud.importObject('notification-system')
+
 export default {
   data() {
     return {
@@ -260,11 +279,13 @@ export default {
         todayOrders: 0
       },
       currentTime: '',
-      currentDate: ''
+      currentDate: '',
+      unreadCount: 0
     }
   },
   onLoad() {
     this.loadStats()
+    this.loadUnreadCount()
     this.updateTime()
     // 每分钟更新时间
     setInterval(this.updateTime, 60000)
@@ -290,12 +311,22 @@ export default {
     // 加载统计数据
     async loadStats() {
       try {
-        const result = await uniCloud.callFunction({
-          name: 'getAdminStats'
-        })
-        this.stats = result.result.data || {}
+        const result = await commonManagement.getAdminStats()
+        this.stats = result.success && result.data ? result.data : {}
       } catch (error) {
         console.error('加载统计数据失败:', error)
+      }
+    },
+
+    // 加载未读通知数量
+    async loadUnreadCount() {
+      try {
+        const result = await notificationSystem.getUnreadCount()
+        if (result.success) {
+          this.unreadCount = result.count || 0
+        }
+      } catch (error) {
+        console.error('加载未读通知数量失败:', error)
       }
     },
 
@@ -564,6 +595,7 @@ export default {
   align-items: center;
   gap: 15rpx;
   margin-bottom: 25rpx;
+  position: relative;
 }
 
 .group-icon {
@@ -582,6 +614,24 @@ export default {
   font-size: 28rpx;
   font-weight: bold;
   color: #333;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  background: #ff3b30;
+  color: white;
+  font-size: 20rpx;
+  font-weight: bold;
+  min-width: 32rpx;
+  height: 32rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(255, 59, 48, 0.3);
 }
 
 .group-items {

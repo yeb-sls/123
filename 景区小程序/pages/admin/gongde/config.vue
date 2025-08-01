@@ -172,6 +172,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -209,11 +212,11 @@ export default {
         this.loading = true
         console.log('开始加载功德布施数据...')
         
-        const result = await uniCloud.callFunction({ name: 'getGongdeItems' })
+        const result = await commonManagement.getGongdeConfig()
         console.log('功德布施数据加载结果:', result)
         
-        if (result.result && result.result.data) {
-          this.gongdeItems = result.result.data
+        if (result.success && result.data) {
+          this.gongdeItems = result.data
           console.log('功德布施数据加载成功，共', this.gongdeItems.length, '条')
         } else {
           this.gongdeItems = []
@@ -266,10 +269,10 @@ export default {
           if (res.confirm) {
             try {
               uni.showLoading({ title: '删除中...' })
-              await uniCloud.callFunction({
-                name: 'deleteGongdeItem',
-                data: { id: this.gongdeItems[index]._id }
-              })
+              const result = await commonManagement.deleteGongdeItem({ _id: this.gongdeItems[index]._id })
+              if (!result.success) {
+                throw new Error(result.message || '删除失败')
+              }
               this.gongdeItems.splice(index, 1)
               uni.hideLoading()
               uni.showToast({ 
@@ -302,23 +305,23 @@ export default {
         
         if (this.isEdit) {
           console.log('更新布施项目，ID:', this.gongdeItems[this.editIndex]._id)
-          const updateResult = await uniCloud.callFunction({
-            name: 'updateGongdeItem',
-            data: { id: this.gongdeItems[this.editIndex]._id, item: this.currentGongdeItem }
+          const updateResult = await commonManagement.updateGongdeConfig({
+            _id: this.gongdeItems[this.editIndex]._id,
+            ...this.currentGongdeItem
           })
           console.log('更新结果:', updateResult)
+          if (!updateResult.success) {
+            throw new Error(updateResult.message || '更新失败')
+          }
           this.gongdeItems[this.editIndex] = { ...this.currentGongdeItem }
         } else {
           console.log('添加新布施项目')
-          const result = await uniCloud.callFunction({
-            name: 'addGongdeItem',
-            data: { item: this.currentGongdeItem }
-          })
+          const result = await commonManagement.addGongdeItem({ item: this.currentGongdeItem })
           console.log('添加结果:', result)
-          if (result.result && result.result.data) {
-            this.gongdeItems.push(result.result.data)
+          if (result.success && result.data) {
+            this.gongdeItems.push(result.data)
           } else {
-            throw new Error('添加失败：返回数据格式错误')
+            throw new Error(result.message || '添加失败：返回数据格式错误')
           }
         }
         this.closePopup()
@@ -359,13 +362,13 @@ export default {
         
         item.status = newStatus
         
-        const result = await uniCloud.callFunction({ 
-          name: 'updateGongdeItem', 
-          data: { 
-            id: item._id, 
-            item: { status: newStatus } 
-          } 
+        const result = await commonManagement.updateGongdeConfig({ 
+          _id: item._id, 
+          status: newStatus 
         })
+        if (!result.success) {
+          throw new Error(result.message || '状态更新失败')
+        }
         
         console.log('状态更新结果:', result)
         

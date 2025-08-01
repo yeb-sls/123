@@ -1,4 +1,17 @@
 import App from './App'
+import { setupSimpleErrorHandler } from './utils/simpleErrorHandler.js'
+
+// 修复 __route__ 未定义问题
+if (typeof __route__ === 'undefined') {
+  global.__route__ = ''
+}
+
+// 设置简化的错误处理
+try {
+  setupSimpleErrorHandler()
+} catch (error) {
+  console.warn('简化错误处理器设置失败:', error)
+}
 
 // #ifndef VUE3
 import Vue from 'vue'

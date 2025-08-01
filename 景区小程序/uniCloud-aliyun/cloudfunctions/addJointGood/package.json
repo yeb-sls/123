@@ -1,0 +1,10 @@
+{
+  "name": "addJointGood",
+  "version": "1.0.0",
+  "description": "添加合坛法会代办物品",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

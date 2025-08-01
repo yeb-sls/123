@@ -3,37 +3,46 @@ const db = uniCloud.database()
 
 exports.main = async (event, context) => {
 	try {
-		const { intros } = event
+		const { docId, newOrder } = event
 		
-		if (!intros || !Array.isArray(intros)) {
+		if (!docId || typeof docId !== 'string') {
 			return {
-				code: -1,
-				message: '参数不完整'
+				success: false,
+				message: 'docId必须为字符串'
+			}
+		}
+		
+		if (typeof newOrder !== 'number' || newOrder < 1) {
+			return {
+				success: false,
+				message: 'newOrder必须为正整数'
 			}
 		}
 		
 		const collection = db.collection('home_intros')
 		
-		// 批量更新排序
-		const updatePromises = intros.map((intro, index) => {
-			return collection.doc(intro._id).update({
-				order: index + 1,
-				updateTime: new Date()
-			})
+		// 更新单个文档的排序
+		const result = await collection.doc(docId).update({
+			order: newOrder,
+			updateTime: new Date()
 		})
 		
-		await Promise.all(updatePromises)
-		
-		return {
-			code: 0,
-			message: '排序更新成功'
+		if (result.updated === 1) {
+			return {
+				success: true,
+				message: '排序更新成功'
+			}
+		} else {
+			return {
+				success: false,
+				message: '文档不存在或更新失败'
+			}
 		}
 	} catch (error) {
 		console.error('更新介绍排序失败:', error)
 		return {
-			code: -1,
-			message: '更新失败',
-			error: error.message
+			success: false,
+			message: '更新失败: ' + error.message
 		}
 	}
 } 

@@ -8,7 +8,7 @@
       <view class="quick-amount">
         <button 
           v-for="(item, index) in quickAmounts" 
-          :key="index"
+          :key="'money-' + index"
           class="amount-tag"
           @click="amount = item"
         >{{ item }}元</button>
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     submitDonation() {
-      if (!this.amount || isNaN(this.amount) {
+      if (!this.amount || isNaN(this.amount)) {
         return uni.showToast({ title: '请输入有效金额', icon: 'none' })
       }
       

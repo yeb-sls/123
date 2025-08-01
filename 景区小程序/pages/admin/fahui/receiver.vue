@@ -27,6 +27,10 @@
 
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -38,72 +42,110 @@ export default {
     }
   },
   onLoad(options) {
+    console.log('🔍 页面加载，接收到的参数:', options)
+    
     // 获取法会类型参数
     if (options.type) {
       this.fahuiType = options.type;
+    } else {
+      // 如果没有传递type参数，默认为专场法会
+      this.fahuiType = 'special';
     }
+    
+    console.log('🔍 设置法会类型为:', this.fahuiType)
+    
     this.getConfig()
     this.getList()
   },
   methods: {
     async getConfig() {
       try {
-        const res = await uniCloud.callFunction({ 
-          name: 'getFahuiReceiverConfig',
-          data: { type: this.fahuiType }
-        })
-        this.enabled = !!(res.result && res.result.enabled)
+        console.log('🔍 获取收件信息配置，法会类型:', this.fahuiType)
+        const result = await fahuiManagement.getReceiverConfig({ type: this.fahuiType })
+        console.log('🔍 获取配置结果:', result)
+        
+        if (result.success) {
+          this.enabled = !!result.data?.enabled
+          console.log('🔍 设置收件信息状态为:', this.enabled)
+        } else {
+          console.error('🔍 获取配置失败:', result.message)
+          this.enabled = false
+        }
       } catch (e) {
+        console.error('🔍 获取收件信息配置异常:', e)
         this.enabled = false
       }
     },
     async onSwitchChange(e) {
       const value = e.detail.value
+      console.log('🔍 收件信息开关变化，新值:', value, '法会类型:', this.fahuiType)
+      
       try {
-        await uniCloud.callFunction({ 
-          name: 'updateFahuiReceiverConfig', 
-          data: { 
-            type: this.fahuiType,
-            enabled: value 
-          } 
+        const result = await fahuiManagement.updateReceiverConfig({ 
+          type: this.fahuiType,
+          enabled: value 
         })
-        this.enabled = value
-        uni.showToast({ title: value ? '已启用' : '已关闭', icon: 'success' })
+        console.log('🔍 更新配置结果:', result)
+        
+        if (result.success) {
+          this.enabled = value
+          uni.showToast({ title: value ? '已启用' : '已关闭', icon: 'success' })
+          console.log('🔍 收件信息状态更新成功:', this.enabled)
+        } else {
+          console.error('🔍 更新配置失败:', result.message)
+          uni.showToast({ title: result.message || '设置失败', icon: 'none' })
+        }
       } catch (e) {
+        console.error('🔍 收件信息开关设置异常:', e)
         uni.showToast({ title: '设置失败', icon: 'none' })
       }
     },
     async getList() {
       this.loading = true
       try {
-        const res = await uniCloud.callFunction({
-          name: 'getFahuiReceivers',
-          data: { type: this.fahuiType }
-        })
-        this.receivers = res.result.data || []
+        console.log('🔍 获取收件人列表，法会类型:', this.fahuiType)
+        const result = await fahuiManagement.getReceivers({ type: this.fahuiType })
+        console.log('🔍 获取收件人列表结果:', result)
+        
+        if (result.success) {
+          this.receivers = result.data || []
+          console.log('🔍 收件人列表:', this.receivers)
+        } else {
+          console.error('🔍 获取收件人列表失败:', result.message)
+          this.receivers = []
+          uni.showToast({ title: result.message || '加载失败', icon: 'none' })
+        }
       } catch (e) {
+        console.error('🔍 获取收件人列表异常:', e)
+        this.receivers = []
         uni.showToast({ title: '加载失败', icon: 'none' })
       }
       this.loading = false
     },
     async del(id) {
+      console.log('🔍 删除收件人，ID:', id, '法会类型:', this.fahuiType)
+      
       uni.showModal({
         title: '确认删除',
         content: '确定要删除该收件人信息吗？',
         success: async (res) => {
           if (res.confirm) {
             try {
-              await uniCloud.callFunction({
-                name: 'updateFahuiReceiver',
-                data: { 
-                  _id: id, 
-                  action: 'delete',
-                  type: this.fahuiType
-                },
+              const result = await fahuiManagement.deleteReceiver({ 
+                _id: id,
+                type: this.fahuiType
               })
-              uni.showToast({ title: '删除成功', icon: 'success' })
-              this.getList()
+              console.log('🔍 删除收件人结果:', result)
+              
+              if (result.success) {
+                uni.showToast({ title: '删除成功', icon: 'success' })
+                this.getList()
+              } else {
+                console.error('🔍 删除收件人失败:', result.message)
+                uni.showToast({ title: result.message || '删除失败', icon: 'none' })
+              }
             } catch (e) {
+              console.error('🔍 删除收件人异常:', e)
               uni.showToast({ title: '删除失败', icon: 'none' })
             }
           }

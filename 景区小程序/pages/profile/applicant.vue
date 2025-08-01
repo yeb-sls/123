@@ -7,7 +7,7 @@
 
     <!-- 报名者列表 -->
     <view class="applicant-list">
-      <view v-for="(applicant, index) in applicants" :key="index" class="applicant-item">
+              <view v-for="(applicant, index) in applicants" :key="index" class="applicant-item">
         <view class="applicant-info">
           <view class="applicant-header">
             <text class="applicant-name">{{ applicant.name }}</text>
@@ -61,7 +61,7 @@
           
           <view class="form-group">
             <text class="form-label">联系电话 <text class="required">*</text></text>
-            <input v-model="editForm.phone" placeholder="请输入联系电话" class="form-input" type="number" maxlength="11" />
+            <input v-model="editForm.phone" placeholder="请输入联系电话" class="form-input" type="tel" maxlength="11" />
           </view>
           
           <view class="form-group">
@@ -100,7 +100,12 @@
 </template>
 
 <script>
+import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
 export default {
+  components: {
+    uniPopup
+  },
   data() {
     return {
       applicants: [

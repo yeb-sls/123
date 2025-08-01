@@ -1,0 +1,10 @@
+{
+  "name": "joint-management",
+  "version": "1.0.0",
+  "description": "合坛法会管理云对象",
+  "main": "index.obj.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

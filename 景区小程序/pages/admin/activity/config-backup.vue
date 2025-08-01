@@ -250,11 +250,11 @@ export default {
         this.loading = true
         console.log('开始加载活动数据...')
         
-        const result = await uniCloud.callFunction({ name: 'getActivityItems' })
+        const result = await commonManagement.getActivityItems()
         console.log('活动数据加载结果:', result)
         
-        if (result.result && result.result.data) {
-          this.activityItems = result.result.data
+        if (result.success && result.data && result.data.length > 0) {
+          this.activityItems = result.data
           console.log('活动数据加载成功，共', this.activityItems.length, '条')
         } else {
           this.activityItems = []
@@ -313,10 +313,7 @@ export default {
           if (res.confirm) {
             try {
               uni.showLoading({ title: '删除中...' })
-              await uniCloud.callFunction({
-                name: 'deleteActivityItem',
-                data: { id: this.activityItems[index]._id }
-              })
+              await commonManagement.deleteActivityItem({ _id: this.activityItems[index]._id })
               this.activityItems.splice(index, 1)
               uni.hideLoading()
               uni.showToast({ 
@@ -361,23 +358,26 @@ export default {
         
         if (this.isEdit) {
           console.log('更新活动，ID:', this.activityItems[this.editIndex]._id)
-          const updateResult = await uniCloud.callFunction({
-            name: 'updateActivityItem',
-            data: { id: this.activityItems[this.editIndex]._id, item: this.currentActivityItem }
+          const result = await commonManagement.updateActivityItem({
+            _id: this.activityItems[this.editIndex]._id,
+            ...this.currentActivityItem
           })
-          console.log('更新结果:', updateResult)
-          this.activityItems[this.editIndex] = { ...this.currentActivityItem }
+          if (result.success) {
+            console.log('更新完成')
+            this.activityItems[this.editIndex] = { ...this.currentActivityItem }
+          } else {
+            throw new Error(result.message || '更新失败')
+          }
         } else {
           console.log('添加新活动')
-          const result = await uniCloud.callFunction({
-            name: 'addActivityItem',
-            data: { item: this.currentActivityItem }
+          const result = await commonManagement.addActivityItem({
+            item: this.currentActivityItem
           })
           console.log('添加结果:', result)
-          if (result.result && result.result.data) {
-            this.activityItems.push(result.result.data)
+          if (result.success && result.data) {
+            this.activityItems.push({ ...this.currentActivityItem, _id: result.data.id })
           } else {
-            throw new Error('添加失败：返回数据格式错误')
+            throw new Error(result.message || '添加失败')
           }
         }
         this.closePopup()
@@ -420,13 +420,14 @@ export default {
         
         item.status = newStatus
         
-        const result = await uniCloud.callFunction({ 
-          name: 'updateActivityItem', 
-          data: { 
-            id: item._id, 
-            item: { status: newStatus } 
-          } 
+        const result = await commonManagement.updateActivityItem({
+          _id: item._id,
+          status: newStatus
         })
+        
+        if (!result.success) {
+          throw new Error(result.message || '更新失败')
+        }
         
         console.log('状态更新结果:', result)
         

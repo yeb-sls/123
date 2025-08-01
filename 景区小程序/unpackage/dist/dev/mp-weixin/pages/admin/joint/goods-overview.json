@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "代办物品总览",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

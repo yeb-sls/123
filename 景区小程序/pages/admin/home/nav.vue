@@ -248,6 +248,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+
 export default {
   components: {
     uniPopup
@@ -322,19 +325,17 @@ export default {
       try {
         this.loading = true
         console.log('开始加载导航数据...')
-        const result = await uniCloud.callFunction({
-          name: 'getHomeNavs'
-        })
+        const result = await commonManagement.getHomeNavs()
         console.log('导航数据加载结果:', result)
         
-        if (result.result && result.result.code === 0) {
-          this.navs = result.result.data || []
+        if (result.success) {
+          this.navs = result.data || []
           console.log('导航数据加载成功，共', this.navs.length, '条')
         } else {
-          console.error('导航数据加载失败:', result.result?.message)
+          console.error('导航数据加载失败:', result.message)
           this.navs = []
           uni.showToast({
-            title: '加载失败: ' + (result.result?.message || '未知错误'),
+            title: '加载失败: ' + (result.message || '未知错误'),
             icon: 'none'
           })
         }
@@ -410,13 +411,14 @@ export default {
       const newStatus = !nav.enabled
       
       try {
-        await uniCloud.callFunction({
-          name: 'updateHomeNav',
-          data: {
-            id: nav._id,
-            nav: { ...nav, enabled: newStatus }
-          }
+        const result = await commonManagement.updateHomeNav({
+          _id: nav._id,
+          ...nav,
+          enabled: newStatus
         })
+        if (!result.success) {
+          throw new Error(result.message || '状态更新失败')
+        }
         
         // 更新本地数据
         const originalIndex = this.navs.findIndex(n => n._id === nav._id)
@@ -448,10 +450,10 @@ export default {
     async confirmDelete() {
       try {
         this.loading = true
-        await uniCloud.callFunction({
-          name: 'deleteHomeNav',
-          data: { id: this.deleteNavData._id }
-        })
+        const result = await commonManagement.deleteHomeNav({ _id: this.deleteNavData._id })
+        if (!result.success) {
+          throw new Error(result.message || '删除失败')
+        }
         
         // 从本地数据中删除
         const index = this.navs.findIndex(n => n._id === this.deleteNavData._id)
@@ -520,10 +522,42 @@ export default {
       
       // 更新排序
       try {
-        await uniCloud.callFunction({
-          name: 'updateNavOrder',
-          data: { navs: this.filteredNavs }
+        // 检查数据完整性
+        console.log('准备更新排序，导航数据:', this.filteredNavs)
+        console.log('第一个导航项的_id:', this.filteredNavs[0]?._id)
+        console.log('第一个导航项的_id类型:', typeof this.filteredNavs[0]?._id)
+        
+        const navsToUpdate = this.filteredNavs.map((nav, index) => {
+          console.log(`导航${index}的_id:`, nav._id, '类型:', typeof nav._id)
+          // 创建纯JavaScript对象，避免Vue响应式系统的影响
+          return {
+            _id: nav._id,
+            text: nav.text,
+            icon: nav.icon,
+            url: nav.url,
+            color: nav.color,
+            bgColor: nav.bgColor,
+            enabled: nav.enabled,
+            order: index + 1,
+            create_time: nav.create_time,
+            update_time: nav.update_time
+          }
         })
+        console.log('处理后的导航数据:', navsToUpdate)
+        
+        // 逐个更新排序（避免批量更新的问题）
+        for (let i = 0; i < navsToUpdate.length; i++) {
+          const nav = navsToUpdate[i]
+          console.log(`正在更新第${i}个导航:`, nav._id, 'order:', nav.order)
+          const result = await commonManagement.updateNavOrder({
+            _id: nav._id,
+            order: nav.order
+          })
+          if (!result.success) {
+            throw new Error(`更新第${i}个导航失败: ${result.message}`)
+          }
+        }
+        
         uni.showToast({
           title: '排序更新成功',
           icon: 'success'
@@ -591,43 +625,43 @@ export default {
           console.log('编辑的导航数据:', this.currentNav)
           
           // 更新导航
-          const updateResult = await uniCloud.callFunction({
-            name: 'updateHomeNav',
-            data: {
-              id: this.filteredNavs[this.editIndex]._id,
-              nav: this.currentNav
-            }
+          const updateResult = await commonManagement.updateHomeNav({
+            _id: this.filteredNavs[this.editIndex]._id,
+            ...this.currentNav
           })
           console.log('更新导航结果:', updateResult)
           
-          if (updateResult.result && updateResult.result.code === 0) {
-            // 更新本地数据
+          if (updateResult.success) {
+            // 更新本地数据，保留原有的_id字段
             const originalIndex = this.navs.findIndex(n => n._id === this.filteredNavs[this.editIndex]._id)
             if (originalIndex !== -1) {
-              this.navs[originalIndex] = { ...this.currentNav }
+              this.navs[originalIndex] = { 
+                ...this.navs[originalIndex], 
+                ...this.currentNav 
+              }
             }
-            // 同时更新filteredNavs中的数据
-            this.filteredNavs[this.editIndex] = { ...this.currentNav }
+            // 同时更新filteredNavs中的数据，保留原有的_id字段
+            this.filteredNavs[this.editIndex] = { 
+              ...this.filteredNavs[this.editIndex], 
+              ...this.currentNav 
+            }
           } else {
-            throw new Error(updateResult.result?.message || '更新失败')
+            throw new Error(updateResult.message || '更新失败')
           }
         } else {
           console.log('执行添加操作...')
           console.log('调用addHomeNav云函数，参数:', { nav: this.currentNav })
           
           // 添加导航
-          const result = await uniCloud.callFunction({
-            name: 'addHomeNav',
-            data: { nav: this.currentNav }
-          })
+          const result = await commonManagement.addHomeNav({ nav: this.currentNav })
           console.log('添加导航结果:', result)
           
-          if (result.result && result.result.data) {
-            console.log('添加成功，新导航数据:', result.result.data)
-            this.navs.push(result.result.data)
+          if (result.success && result.data) {
+            console.log('添加成功，新导航数据:', result.data)
+            this.navs.push(result.data)
           } else {
             console.error('添加失败，返回结果异常:', result)
-            throw new Error('云函数返回结果异常')
+            throw new Error(result.message || '云对象返回结果异常')
           }
         }
 
@@ -739,13 +773,14 @@ export default {
           if (res.confirm && res.content.trim()) {
             try {
               const newText = res.content.trim()
-              await uniCloud.callFunction({
-                name: 'updateHomeNav',
-                data: {
-                  id: nav._id,
-                  nav: { ...nav, text: newText }
-                }
+              const result = await commonManagement.updateHomeNav({
+                _id: nav._id,
+                ...nav,
+                text: newText
               })
+              if (!result.success) {
+                throw new Error(result.message || '更新失败')
+              }
               
               // 更新本地数据
               const originalIndex = this.navs.findIndex(n => n._id === nav._id)

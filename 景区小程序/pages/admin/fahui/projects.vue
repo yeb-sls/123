@@ -97,6 +97,10 @@
 </template>
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   components: { uniPopup },
   data() {
@@ -125,11 +129,12 @@ export default {
   },
   methods: {
     async loadProjects() {
-      const res = await uniCloud.callFunction({ 
-        name: 'getFahuiProjects',
-        data: { type: 'special' }
-      })
-      this.projects = res.result && res.result.data ? res.result.data : []
+      const result = await fahuiManagement.getProjects({ type: 'special' })
+      if (result.success) {
+        this.projects = result.data || []
+      } else {
+        uni.showToast({ title: result.message, icon: 'none' })
+      }
     },
     showAddModal() {
       this.isEdit = false
@@ -203,9 +208,15 @@ export default {
       if (this.isEdit && data._id) {
         const updateData = { ...data }
         delete updateData._id
-        await uniCloud.callFunction({ name: 'updateFahuiProject', data: { id: data._id, project: updateData } })
+        const result = await fahuiManagement.updateProject({ _id: data._id, ...updateData })
+        if (!result.success) {
+          throw new Error(result.message || '更新失败')
+        }
       } else {
-        await uniCloud.callFunction({ name: 'addFahuiProject', data: { project: data } })
+        const result = await fahuiManagement.addProject({ project: data })
+        if (!result.success) {
+          throw new Error(result.message || '添加失败')
+        }
       }
       this.showPopup = false
       await this.loadProjects()
@@ -217,9 +228,13 @@ export default {
         content: '确定要删除该项目吗？',
         success: async (res) => {
           if (res.confirm) {
-            await uniCloud.callFunction({ name: 'deleteFahuiProject', data: { id } })
-            await this.loadProjects()
-            uni.showToast({ title: '删除成功', icon: 'success' })
+            const result = await fahuiManagement.deleteProject({ _id: id })
+            if (result.success) {
+              await this.loadProjects()
+              uni.showToast({ title: '删除成功', icon: 'success' })
+            } else {
+              uni.showToast({ title: result.message, icon: 'none' })
+            }
           }
         }
       })

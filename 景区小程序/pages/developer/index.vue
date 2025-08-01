@@ -200,7 +200,12 @@
 </template>
 
 <script>
+import uniPopup from '@/components/uni-popup/uni-popup.vue'
+
 export default {
+  components: {
+    uniPopup
+  },
   data() {
     return {
       loading: false,
@@ -230,10 +235,12 @@ export default {
     async checkSystemStatus() {
       try {
         // 检查数据库连接
-        const dbResult = await uniCloud.callFunction({
-          name: 'getAdminStats'
-        })
-        this.dbStatus = dbResult.result ? 'connected' : 'error'
+        const result = await commonManagement.getAdminStats()
+        if (result.success) {
+          this.dbStatus = 'connected'
+        } else {
+          this.dbStatus = 'error'
+        }
         
         // 检查云函数状态
         this.cloudStatus = 'ready'
@@ -281,18 +288,9 @@ export default {
 
     // 跳转到测试页面
     goToTest() {
-      uni.navigateTo({
-        url: '/pages/admin/test',
-        success: () => {
-          console.log('跳转到测试页面成功')
-        },
-        fail: (err) => {
-          console.error('跳转失败：', err)
-          uni.showToast({
-            title: '跳转失败',
-            icon: 'none'
-          })
-        }
+      uni.showToast({
+        title: '测试页面已移除',
+        icon: 'none'
       })
     },
 
@@ -322,18 +320,22 @@ export default {
       })
 
       try {
-        const result = await uniCloud.callFunction({
-          name: 'initDatabase'
-        })
+        // 使用云对象初始化数据库
+        const commonManagement = uniCloud.importObject('common-management')
+        const result = await commonManagement.initDatabase()
         
-        uni.hideLoading()
-        uni.showToast({
-          title: '初始化成功',
-          icon: 'success'
-        })
-        
-        console.log('数据库初始化结果:', result)
-        this.checkSystemStatus() // 重新检查状态
+        if (result.success) {
+          uni.hideLoading()
+          uni.showToast({
+            title: '初始化成功',
+            icon: 'success'
+          })
+          
+          console.log('数据库初始化完成')
+          this.checkSystemStatus() // 重新检查状态
+        } else {
+          throw new Error(result.message)
+        }
       } catch (error) {
         uni.hideLoading()
         uni.showToast({

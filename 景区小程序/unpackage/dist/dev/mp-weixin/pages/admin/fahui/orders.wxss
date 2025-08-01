@@ -251,6 +251,16 @@
   height: 120rpx;
   resize: none;
 }
+.form-textarea.data-v-6f9cf068 {
+  width: 100%;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  min-height: 120rpx;
+  resize: vertical;
+}
 .remark-item.data-v-6f9cf068 {
   background: #f8f9fa;
   border-radius: 8rpx;
@@ -307,5 +317,12 @@
   border-radius: 8rpx;
   padding: 16rpx;
   margin-bottom: 12rpx;
+}
+.inline-detail.data-v-6f9cf068, .inline-remark.data-v-6f9cf068 {
+  background: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  margin-top: 16rpx;
+  border: 1rpx solid #e0e0e0;
 }
 

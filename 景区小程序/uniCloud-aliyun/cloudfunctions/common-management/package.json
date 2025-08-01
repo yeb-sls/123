@@ -1,0 +1,10 @@
+{
+  "name": "common-management",
+  "version": "1.0.0",
+  "description": "通用管理云对象",
+  "main": "index.obj.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

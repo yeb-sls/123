@@ -2,13 +2,18 @@
   <view class="group-bg">
     <view class="group-container">
       <!-- 头图 -->
-      <image class="group-banner" src="https://th.bing.com/th/id/R.0be1795ff763e7b1c7fc5b8461bd71a4?rik=jCIjoK39WQVkDg&riu=http%3a%2f%2fi2.sinaimg.cn%2ffo%2f2013%2f1021%2fU9926P1443DT20131021102109.jpg&ehk=lTJykrYK1NPR0erOu3arFqWejphaUbYmTdOIdcndVQk%3d&risl=&pid=ImgRaw&r=0" mode="aspectFill" />
+      <image v-if="banners.length > 0" class="group-banner" :src="banners[0]" mode="aspectFill" :key="'group-banner-' + Date.now()" />
+      
+
 
       <!-- 图文介绍 -->
-      <view class="intro-section">
+      <view class="intro-section" v-if="intros.length > 0">
         <view class="intro-title">合坛法会介绍</view>
-        <view class="intro-content">
-          合坛法会为多人共同参与的法会活动，包括平安祈福、姻缘和合、超度法会等。参与者共同祈福，功德共享，是集体修行的殊胜法门。
+        <view v-for="(intro, index) in intros" :key="intro._id || index" class="intro-block">
+          <view class="intro-content" :style="{ color: intro.textColor }">
+            {{ intro.content }}
+          </view>
+          <image v-if="intro.bgImage" :src="intro.bgImage" class="intro-bg" mode="aspectFill" />
         </view>
       </view>
 
@@ -82,7 +87,7 @@
             
             <view class="form-group">
               <text class="form-label">联系电话 <text class="required">*</text></text>
-              <input v-model="applicant.phone" placeholder="请输入联系电话" class="form-input" type="number" maxlength="11" />
+              <input v-model="applicant.phone" placeholder="请输入联系电话" class="form-input" type="tel" maxlength="11" />
             </view>
             
             <view class="form-group">
@@ -124,7 +129,7 @@
       </view>
 
       <!-- 配偶信息（姻缘和合法会） -->
-      <view class="section" v-if="selectedProjectIndex === 1">
+      <view class="section" v-if="selectedProjectIndex >= 0 && fahuiProjects[selectedProjectIndex] && fahuiProjects[selectedProjectIndex].category === '姻缘和合'">
         <view class="section-title">
           <text class="icon">💕</text>配偶信息
           <text class="section-tip">（选填）</text>
@@ -147,7 +152,7 @@
           
           <view class="form-group">
             <text class="form-label">联系电话</text>
-            <input v-model="spouse.phone" placeholder="请输入联系电话" class="form-input" type="number" maxlength="11" />
+            <input v-model="spouse.phone" placeholder="请输入联系电话" class="form-input" type="tel" maxlength="11" />
           </view>
           
           <view class="form-group">
@@ -178,7 +183,7 @@
       </view>
 
       <!-- 超度信息（超度法会） -->
-      <view class="section" v-if="selectedProjectIndex === 2">
+      <view class="section" v-if="selectedProjectIndex >= 0 && fahuiProjects[selectedProjectIndex] && fahuiProjects[selectedProjectIndex].category === '超度法会'">
         <view class="section-title">
           <text class="icon">🕯️</text>超度信息
           <text class="section-tip">（必填）</text>
@@ -245,7 +250,7 @@
       </view>
 
       <!-- 代办物品 -->
-      <view class="section">
+      <view class="section" v-if="goods.length > 0">
         <view class="section-title">
           <text class="icon">🛍️</text>代办物品
           <text class="section-tip">（可选）</text>
@@ -286,7 +291,7 @@
       </view>
 
       <!-- 收件信息 -->
-      <view class="section">
+      <view class="section" v-if="showReceiver">
         <view class="section-title">
           <text class="icon">📦</text>收件信息
           <text class="section-tip">（可选）</text>
@@ -299,7 +304,7 @@
           
           <view class="form-group">
             <text class="form-label">联系电话</text>
-            <input v-model="receiver.phone" placeholder="请输入联系电话" class="form-input" type="number" maxlength="11" />
+            <input v-model="receiver.phone" placeholder="请输入联系电话" class="form-input" type="tel" maxlength="11" />
           </view>
           
           <view class="form-group">
@@ -343,14 +348,20 @@
         </button>
         <button class="reset-btn" @click="resetForm">重置表单</button>
       </view>
+      
+
     </view>
   </view>
 </template>
 
 <script>
+// 导入云对象
+const jointManagement = uniCloud.importObject('joint-management')
+
 export default {
   data() {
     return {
+      banners: [],
       fahuiProjects: [],
       selectedProjectIndex: -1,
       selectedDateIndex: -1,
@@ -365,7 +376,12 @@ export default {
       deceasedList: [this.getEmptyDeceased()],
       goods: [this.getEmptyGoods()],
       receiver: this.getEmptyReceiver(),
-      submitting: false
+      submitting: false,
+      intros: [], // 新增介绍数据
+      // 收件信息调试相关
+      showReceiver: false,
+      receiverConfig: null,
+      isLoadingReceiverConfig: false
     }
   },
   computed: {
@@ -382,78 +398,114 @@ export default {
     }
   },
   onLoad() {
+    this.loadBanners()
     this.loadProjects()
+    this.loadIntros() // 加载介绍
+    this.loadReceiverConfig() // 加载收件信息配置
   },
   onShow() {
-    // 每次页面显示时重新加载数据
+    // 只在页面显示时重新加载动态数据，不重复加载配置
+    this.loadBanners()
     this.loadProjects()
+    this.loadIntros() // 加载介绍
+    // 移除重复的 loadReceiverConfig() 调用，避免配置被重复加载
   },
+
   methods: {
+    async loadBanners() {
+      try {
+        const result = await jointManagement.getBanners()
+        
+        if (result.success && result.data && result.data.length > 0) {
+          const enabledBanner = result.data.find(banner => banner.enabled)
+          
+          if (enabledBanner) {
+            let imageUrl = enabledBanner.image
+            
+            // 如果是fileID格式，需要转换为临时URL
+            if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('https')) {
+              try {
+                const tempRes = await uniCloud.getTempFileURL({ fileList: [imageUrl] })
+                imageUrl = tempRes.fileList[0].tempFileURL
+              } catch (err) {
+                this.banners = []
+                return
+              }
+            }
+            
+            // 无论是否转换，都加时间戳强制刷新图片缓存
+            if (imageUrl && imageUrl.startsWith('http')) {
+              // 使用更精确的时间戳，确保每次都是唯一的
+              const timestamp = Date.now() + Math.random()
+              imageUrl = imageUrl + '?t=' + timestamp
+            }
+            
+            this.banners = [imageUrl]
+          } else {
+            this.banners = []
+          }
+        } else {
+          this.banners = []
+        }
+      } catch (error) {
+        this.banners = []
+      }
+    },
     async loadProjects() {
       try {
-        console.log('开始加载合坛法会项目数据...')
-        const result = await uniCloud.callFunction({ 
-          name: 'getFahuiProjects',
-          data: { type: 'joint' }
-        })
-        console.log('合坛法会项目数据加载结果:', result)
-        
-        if (result.result && result.result.data) {
-          this.fahuiProjects = result.result.data
-          console.log('合坛法会项目数据加载成功，共', this.fahuiProjects.length, '个')
+        const result = await jointManagement.getProjects()
+        if (result.success && result.data) {
+          this.fahuiProjects = result.data
         } else {
-          console.log('合坛法会项目数据为空，使用默认数据')
-          // 如果数据库为空，使用默认数据
           this.fahuiProjects = [
             { 
-              _id: 'he_pingan', 
+              _id: 'joint_pingan', 
               name: '平安合坛', 
               price: 200, 
               description: '祈求平安吉祥，消灾免难',
-              dates: ['2025-08-01', '2025-08-15', '2025-09-01'] 
+              category: '平安祈福',
+              deadline: '2025-12-31',
+              dates: ['2025-08-01', '2025-08-15', '2025-09-01'],
+              maxApplicants: 100
             },
             { 
-              _id: 'he_yinyuan', 
+              _id: 'joint_yinyuan', 
               name: '姻缘合坛', 
               price: 300, 
               description: '祈求姻缘美满，感情和睦',
-              dates: ['2025-08-10', '2025-09-10'] 
+              category: '姻缘和合',
+              deadline: '2025-12-31',
+              dates: ['2025-08-10', '2025-09-10'],
+              maxApplicants: 50
             },
             { 
-              _id: 'he_chaodu', 
+              _id: 'joint_chaodu', 
               name: '超度合坛', 
               price: 400, 
               description: '超度亡灵，祈求往生净土',
-              dates: ['2025-08-18', '2025-08-30', '2025-09-18'] 
+              category: '超度法会',
+              deadline: '2025-12-31',
+              dates: ['2025-08-18', '2025-08-30', '2025-09-18'],
+              maxApplicants: 80
             }
           ]
         }
       } catch (error) {
-        console.error('加载合坛法会项目失败:', error)
-        // 出错时使用默认数据
-        this.fahuiProjects = [
-          { 
-            _id: 'he_pingan', 
-            name: '平安合坛', 
-            price: 200, 
-            description: '祈求平安吉祥，消灾免难',
-            dates: ['2025-08-01', '2025-08-15', '2025-09-01'] 
-          },
-          { 
-            _id: 'he_yinyuan', 
-            name: '姻缘合坛', 
-            price: 300, 
-            description: '祈求姻缘美满，感情和睦',
-            dates: ['2025-08-10', '2025-09-10'] 
-          },
-          { 
-            _id: 'he_chaodu', 
-            name: '超度合坛', 
-            price: 400, 
-            description: '超度亡灵，祈求往生净土',
-            dates: ['2025-08-18', '2025-08-30', '2025-09-18'] 
-          }
-        ]
+        this.fahuiProjects = []
+      }
+    },
+    async loadIntros() {
+      try {
+        const result = await jointManagement.getIntros()
+        if (result.success && result.data && result.data.length > 0) {
+          this.intros = result.data
+            .filter(intro => intro.enabled)
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+        } else {
+          this.intros = []
+        }
+      } catch (error) {
+        this.intros = []
       }
     },
     getEmptyApplicant() {
@@ -493,6 +545,36 @@ export default {
         remark: ''
       }
     },
+    async loadReceiverConfig() {
+      try {
+        // 防止重复加载
+        if (this.isLoadingReceiverConfig) {
+          return
+        }
+        
+        this.isLoadingReceiverConfig = true
+        
+        const result = await jointManagement.getReceiverConfig()
+        
+        if (result.success && result.data) {
+          this.receiverConfig = result.data
+          this.showReceiver = result.data.enabled || false
+        } else {
+          this.receiverConfig = null
+          this.showReceiver = false
+        }
+        
+        // 重置加载标志
+        this.isLoadingReceiverConfig = false
+        
+      } catch (error) {
+        this.receiverConfig = null
+        this.showReceiver = false
+        
+        // 重置加载标志
+        this.isLoadingReceiverConfig = false
+      }
+    },
     getEmptyReceiver() {
       return {
         name: '',
@@ -505,6 +587,20 @@ export default {
       this.selectedProjectIndex = index;
       this.selectedDateIndex = -1;
       this.availableDates = this.fahuiProjects[index].dates;
+      // 新增：同步 goods
+      const project = this.fahuiProjects[index];
+      this.goods = Array.isArray(project.goods) && project.goods.length > 0
+        ? JSON.parse(JSON.stringify(project.goods))
+        : [];
+      
+      // 添加调试信息
+      console.log('【调试】选择项目:', {
+        index: index,
+        project: project,
+        category: project?.category,
+        shouldShowSpouse: project?.category === '姻缘和合',
+        shouldShowChaodu: project?.category === '超度法会'
+      });
     },
     selectDate(index) {
       this.selectedDateIndex = index;
@@ -644,6 +740,7 @@ export default {
       
       return true;
     },
+
     submitForm() {
       if (!this.validateForm()) {
         return;
@@ -703,7 +800,8 @@ export default {
           }
         }
       });
-    }
+    },
+
   }
 }
 </script>
@@ -736,11 +834,30 @@ export default {
   margin-bottom: 16rpx;
   text-align: center;
 }
+.intro-block {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
 .intro-content {
   font-size: 28rpx;
-  color: #666;
   line-height: 1.6;
-  text-align: center;
+  color: #333;
+  position: relative;
+  z-index: 2;
+}
+.intro-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 1;
 }
 .section {
   background: #fff;
@@ -992,4 +1109,5 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 </style>

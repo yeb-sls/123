@@ -5,14 +5,16 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": false,
+    "es6": true,
     "postcss": true,
     "minified": true,
     "newFeature": true,
-    "bigPackageSizeSupport": true
+    "bigPackageSizeSupport": true,
+    "enhance": true,
+    "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "",
+  "libVersion": "3.8.12",
   "appid": "wx4e6f935113bac52b",
   "projectname": "景区小程序",
   "condition": {

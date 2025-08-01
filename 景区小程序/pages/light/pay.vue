@@ -21,7 +21,7 @@
         <view class="payment-options">
           <view 
             v-for="(option, index) in paymentOptions" 
-            :key="index"
+            :key="'light-' + index"
             class="payment-option"
             :class="{ active: selectedPayment === index }"
             @click="selectPayment(index)"

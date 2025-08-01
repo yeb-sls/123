@@ -110,6 +110,9 @@
 <script>
 import uniPopup from '@/components/uni-popup/uni-popup.vue'
 
+// 导入云对象
+const commonManagement = uniCloud.importObject('common-management')
+
 export default {
   components: {
     uniPopup
@@ -139,10 +142,12 @@ export default {
     async loadItems() {
       try {
         this.loading = true
-        const result = await this.$cloud.callFunction({
-          name: 'getLightItems'
-        })
-        this.lightItems = result.result.data || []
+        const result = await commonManagement.getLightItems()
+        if (result.success) {
+          this.lightItems = result.data || []
+        } else {
+          uni.showToast({ title: result.message || '加载失败', icon: 'none' })
+        }
       } catch (error) {
         console.error('加载供灯项目失败:', error)
         uni.showToast({
@@ -186,10 +191,10 @@ export default {
         success: async (res) => {
           if (res.confirm) {
             try {
-              await this.$cloud.callFunction({
-                name: 'deleteLightItem',
-                data: { id: this.lightItems[index]._id }
-              })
+              const result = await commonManagement.deleteLightItem({ _id: this.lightItems[index]._id })
+              if (!result.success) {
+                throw new Error(result.message || '删除失败')
+              }
               this.lightItems.splice(index, 1)
               uni.showToast({
                 title: '删除成功',
@@ -258,21 +263,22 @@ export default {
         
         if (this.isEdit) {
           // 更新项目
-          await this.$cloud.callFunction({
-            name: 'updateLightItem',
-            data: {
-              id: this.lightItems[this.editIndex]._id,
-              item: this.currentItem
-            }
+          const updateResult = await commonManagement.updateLightItem({
+            _id: this.lightItems[this.editIndex]._id,
+            ...this.currentItem
           })
+          if (!updateResult.success) {
+            throw new Error(updateResult.message || '更新失败')
+          }
           this.lightItems[this.editIndex] = { ...this.currentItem }
         } else {
           // 添加项目
-          const result = await this.$cloud.callFunction({
-            name: 'addLightItem',
-            data: { item: this.currentItem }
-          })
-          this.lightItems.push(result.result.data)
+          const result = await commonManagement.addLightItem({ item: this.currentItem })
+          if (result.success && result.data) {
+            this.lightItems.push(result.data)
+          } else {
+            throw new Error(result.message || '添加失败')
+          }
         }
 
         this.closePopup()

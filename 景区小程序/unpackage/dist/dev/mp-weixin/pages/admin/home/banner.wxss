@@ -149,4 +149,71 @@
 }
 .loading-text.data-v-23175a73 { font-size: 28rpx; color: #333;
 }
+/* 调试区域样式 */
+.debug-section.data-v-23175a73 {
+  background: #f8f9fa;
+  border: 2rpx solid #e9ecef;
+  border-radius: 12rpx;
+  margin: 20rpx 0;
+  overflow: hidden;
+}
+.debug-header.data-v-23175a73 {
+  background: #343a40;
+  color: white;
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.debug-title.data-v-23175a73 {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.debug-close-btn.data-v-23175a73 {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 32rpx;
+  cursor: pointer;
+}
+.debug-content.data-v-23175a73 {
+  padding: 20rpx;
+}
+.debug-item.data-v-23175a73 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+  padding: 12rpx;
+  background: white;
+  border-radius: 8rpx;
+  border-left: 4rpx solid #007aff;
+}
+.debug-item.data-v-23175a73:last-child {
+  margin-bottom: 0;
+}
+.debug-label.data-v-23175a73 {
+  font-size: 26rpx;
+  color: #495057;
+  font-weight: bold;
+  min-width: 120rpx;
+}
+.debug-value.data-v-23175a73 {
+  font-size: 24rpx;
+  color: #6c757d;
+  flex: 1;
+  margin-left: 20rpx;
+  word-break: break-all;
+}
+.debug-btn.data-v-23175a73 {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 8rpx 16rpx;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
 

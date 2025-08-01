@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "活动配置管理备份",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

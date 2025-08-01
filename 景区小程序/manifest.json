@@ -46,7 +46,10 @@
         "setting" : {
             "urlCheck" : false,
             "minified" : true,
-            "postcss" : true
+            "postcss" : true,
+            "es6" : true,
+            "enhance" : true,
+            "useCompilerPlugins" : false
         },
         "usingComponents" : true,
         "lazyCodeLoading" : "requiredComponents",
@@ -57,7 +60,9 @@
             "scope.writePhotosAlbum" : {
                 "desc" : "用于保存轮播图到相册"
             }
-        }
+        },
+        "requiredBackgroundModes" : [],
+        "libVersion" : "3.8.12"
     },
     "mp-alipay" : {
         "usingComponents" : true

@@ -53,6 +53,9 @@
 </template>
 
 <script>
+// 导入云对象
+const fahuiManagement = uniCloud.importObject('fahui-management')
+
 export default {
   data() {
     return {
@@ -73,12 +76,9 @@ export default {
     // 加载统计数据
     async loadStats() {
       try {
-        const result = await uniCloud.callFunction({
-          name: 'getFahuiStats'
-        })
-        
-        if (result.result && result.result.data) {
-          this.stats = result.result.data
+        const result = await fahuiManagement.getStats()
+        if (result.success) {
+          this.stats = result.data
         }
       } catch (error) {
         console.error('加载统计数据失败:', error)
