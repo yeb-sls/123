@@ -1,0 +1,10 @@
+{
+  "name": "exportJointOrders",
+  "version": "1.0.0",
+  "description": "导出合坛法会订单数据",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

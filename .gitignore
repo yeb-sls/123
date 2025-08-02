@@ -1,0 +1,6 @@
+景区小程序/unpackage/
+景区小程序/.hbuilderx/
+node_modules/
+
+*.md
+*.zip

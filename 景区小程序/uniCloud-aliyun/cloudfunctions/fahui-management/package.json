@@ -1,0 +1,10 @@
+{
+  "name": "fahui-management",
+  "version": "1.0.0",
+  "description": "专场法会管理云对象",
+  "main": "index.obj.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

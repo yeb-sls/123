@@ -1,0 +1,10 @@
+{
+  "name": "notifyAdminOnPayment",
+  "version": "1.0.0",
+  "description": "支付成功后通知管理员",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

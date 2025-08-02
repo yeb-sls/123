@@ -1,0 +1,10 @@
+{
+  "name": "getJointProjects",
+  "version": "1.0.0",
+  "description": "获取合坛法会项目列表",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 

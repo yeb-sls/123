@@ -1,0 +1,10 @@
+{
+  "name": "updateJointReceiverConfig",
+  "version": "1.0.0",
+  "description": "更新合坛法会收件信息配置",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+} 
